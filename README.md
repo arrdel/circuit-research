@@ -2,8 +2,6 @@
 
 **CIRCUIT: Causal Interpretability and Reasoning Under Controlled Interventions in Diffusion Transformers**
 
-A personal research project. No advisor involvement, by Adele's decision.
-
 **Research question:** Do diffusion transformers develop temporally localized, causally identifiable computational mechanisms for object-attribute binding and spatial relationships?
 
 **Opening operations (decided Nov 24, 2026):** spatial relation left/right, and color attribute binding, on PixArt-Sigma (0.6B DiT, Hugging Face Diffusers).
