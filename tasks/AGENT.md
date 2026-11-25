@@ -599,3 +599,135 @@ first pass, not the final one.
     - `6_revelio_linear_probe_auc` (Diff-C linear probe): `rho = -0.056` (`p = 0.7599`), `0/5` overlap (spatial pooling erases left-right geometry).
 - Evidence: `experiments/e1/baseline_comparison.py`, `experiments/e1/baseline_comparison.json`, `interpretability/baseline_comparison.md`.
 - Next: ready to re-run `baseline_comparison.py` against `e1_full_results.json` (`test` split, including `L2-3`) or run E2/E3 upon Muse's Day 5 instructions.
+
+---
+
+## Day 5: Sat Nov 28, 2026
+
+Week 1 of 4 (Week 1 TickTick task due today). Day 3 and Day 4 both finished
+early on Nov 24 evening; run this section when you resume. Today: re-run
+the baseline comparison on the full sweep, pilot E3 color binding, and
+draft the first-milestone write-up.
+
+### Review of Day 3 and Day 4 (Muse, Nov 24 evening)
+
+Verified against the evidence, not the reports alone:
+
+- Day 3 Task 1 done. Full sweep (512-MS, held-out test split, 6 pairs x 3
+  seeds, 13 valid): peak L10-11 @ W1[4-7] tau 0.6903 (CI [0.464, 0.896]),
+  flip 0.6923, sigma 0.9349. L2-3 @ W1 replicated at 0.5522. Controls near
+  zero (random-head 0.0042, wrong-timestep 0.0005, no-op 0.0000). Numbers
+  match e1_full_results.json.
+- Day 3 Task 2 done. 1024-MS confirmation: L10-11 tau 0.4901, L2-3 tau
+  0.4991, controls near zero. The transfer holds on the E0 checkpoint at
+  reduced strength. Sublayer table matches the run log exactly: at L2-3
+  attn2_out (0.6795) and attn2_in_txt (0.6300) carry it; at L10-11
+  attn2_out (0.7912) and attn1_out (0.7191) dominate; at L6-7 @ W2[8-11]
+  attn1_out reaches 0.9424 (flip 0.8889) while attn2 fades. That handoff,
+  cross-attention early to self-attention later, is a headline finding.
+- Day 3 Task 3 done. head_analysis.md has the full 32-head table for
+  L10-11 and the L2-3 dissection. H2 is refined, not just confirmed: two
+  regimes. L3H2 alone reaches tau 0.5468, 99% of the L2-3 group. L10-11 is
+  a 6-head coalition (L10H15 0.3129, L10H06 0.2585, L11H11 0.1710, L10H08
+  0.1357, L11H01 0.1123, L11H13 0.0940) composing to 0.6903, with 20 of 32
+  heads below 0.02.
+- I viewed two full-sweep instances. test_0001 s42 did NOT flip (patched
+  image keeps the corrupt layout and adds a yellow mug). test_0011 s42 DID
+  flip (umbrella back on the left) but the right apple turned red instead
+  of green. Both are consistent with flip_rate 0.69, not 1.0. Transfer is
+  real and imperfect, with occasional artifacts. Per-instance outcomes and
+  artifacts go in the write-up (Task 3 below), not hidden.
+- Seed variation is in the main results, as asked. Full sweep: tau 0.7063,
+  essentially matching the peak 0.6903. The layout representation is
+  substantially seed-invariant (prompt-driven); color binding is what needs
+  matched geometry (color-preserve 0.80 on the sweep, 0.43 on 1024-MS).
+  Do not claim matched-seed specificity anywhere.
+- Day 4 Task 1 done. Wang attribution fixed (gradient score labeled
+  CIRCUIT's own diagnostic), paper 7 in the notes with the differentiators.
+- Day 4 Task 2 done. Four baselines implemented; pytest 8/8 green.
+- Day 4 Task 3 done, numbers match baseline_comparison.json. Headline:
+  Prompt-to-Prompt attention-map injection transfers BETTER than activation
+  patching on the pilot (tau 0.826, flip 0.833 vs patching 0.710). DAAM is
+  the only observational baseline that partly finds the circuit (rho 0.413,
+  3/5 overlap). Zarei (rho 0.022), Maliha (0.224), and the Revelio probe
+  (-0.056) essentially fail. Roy ablation rho 0.026, and L10H15 has ablation
+  impact 0.000 due to redundancy: ablating a head does nothing, patching it
+  transfers. That asymmetry is the paper's methodological point.
+
+### Decisions (Muse)
+
+1. Re-run the baseline comparison on the full sweep (Task 1). The pilot
+   comparison was N=6 valid; the question is whether P2P still beats
+   patching at N=13 on the test split, and whether any observational
+   baseline finds the L2-3 peak.
+2. E3 color-binding pilot next (Task 2). The second opening operation. Same
+   gate as E1: peak tau must beat the random-head control, else report and
+   stop.
+3. Draft the first-milestone write-up (Task 3). It is the input to the Week
+   4 go/no-go decision, so it states the honest limitations, not just the
+   wins: flip_rate 0.69, the two artifacts above, P2P beating patching on
+   the pilot, seed-invariance of layout vs fragility of color.
+4. Framing for the write-up: state plainly what patching adds beyond
+   attention injection. P2P shows attention maps carry the relation; what
+   patching adds is head-level localization (L3H2, the 6-head coalition),
+   the temporal map, and the causal test. Do not claim patching is the only
+   way to transfer the relation.
+
+### Task 1: Baseline comparison, full sweep
+
+- Re-run experiments/e1/baseline_comparison.py against
+  e1_full_results.json (test split, 13 valid, including L2-3 and the
+  L3H2 single head) instead of the pilot map.
+- Save the updated results as experiments/e1/baseline_comparison_full.json
+  (or update baseline_comparison.json with a version note) and update
+  interpretability/baseline_comparison.md with the full-sweep numbers.
+- Report per baseline: Spearman rho vs tau, top-k overlap, and whether the
+  pilot ranking holds (especially P2P vs patching).
+Done when the full-sweep comparison JSON and the updated write-up exist
+with the numbers.
+
+### Task 2: E3 color-binding pilot
+
+- Run experiments/e3_color_binding.py as a PILOT, not the full sweep: 2 to
+  4 color-binding counterfactual pairs, 3 seeds, patching at the peak cells
+  (L10-11 @ W1[4-7] and L2-3 @ W1[4-7]) with all four controls.
+- Save results as experiments/e3/e3_pilot_results.json (tau per (l,h,t),
+  sigma, flip rate, detection rate, controls) and a run log
+  experiments/e3/e3_pilot_run_log.md. Save patched images under
+  experiments/e3/images/.
+- Gate: the pilot passes only if the peak tau cell beats the random-head
+  control. If no cell beats it, report that plainly and stop; do not run
+  the full E3 sweep.
+Done when the pilot results JSON, run log, and images exist and the report
+states the gate outcome. Do NOT run the full E3 sweep today.
+
+### Task 3: First-milestone write-up (draft)
+
+- Draft experiments/e1/milestone_writeup.md (or paper/milestone-1.md):
+  the E1 findings with numbers. Cover: the two-regime circuit (L3H2
+  single head, 99% of L2-3; L10-11 6-head coalition); the
+  cross-attention-to-self-attention handoff (L6-7 attn1_out 0.9424);
+  1024-MS replication; seed-invariance of layout vs fragility of color;
+  the 7-baseline comparison (P2P, DAAM, Roy ablation asymmetry,
+  observational baselines failing); and the honest limitations
+  (flip_rate 0.69, test_0001 mug artifact, test_0011 red-apple artifact,
+  P2P beating patching on the pilot, small N on the 1024-MS check).
+- This is a draft for Muse and Adele to review, not a submission. No
+  claims beyond what the results JSONs support.
+Done when the draft exists with the numbers cited to their source files.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
