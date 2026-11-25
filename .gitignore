@@ -30,12 +30,14 @@ results/
 *.mp4
 *.pdf
 
-# Keep checked-in figures, E0 deliverables, or configs if explicitly added
+# Keep checked-in figures, E0/E1 pilot deliverables, or configs if explicitly added
 !paper/*.tex
 !paper/*.bib
 !experiments/configs/**
 !experiments/e0/**/*.png
 !experiments/e0/*.png
+!experiments/e1/**/*.png
+!experiments/e1/*.png
 
 # Secrets and local IDE
 .env
