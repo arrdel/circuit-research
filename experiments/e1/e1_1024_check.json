@@ -1,0 +1,283 @@
+{
+  "host": "ai-lab2",
+  "gpus": [
+    "NVIDIA GeForce RTX 4090"
+  ],
+  "confirmation_1024_ms": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
+    "checkpoint_label": "1024-MS",
+    "pairs": [
+      "spatial_lr_test_0000",
+      "spatial_lr_test_0001",
+      "spatial_lr_test_0003"
+    ],
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_instances": 9,
+    "random_head_desc": "L2H10@W1[4-7]",
+    "conditions": {
+      "L10-11_W1[4-7]": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.4901476668567017,
+        "tau_ci_low": 0.15731224530476945,
+        "tau_ci_high": 0.8509605328769185,
+        "flip_rate": 0.42857142857142855,
+        "sigma_mean": 0.8401810867445809,
+        "sigma_ci_low": 0.7070946528798058,
+        "sigma_ci_high": 0.9753513233292671,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.5714285714285714
+      },
+      "L2-3_W1[4-7]": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.49907837397315163,
+        "tau_ci_low": 0.18206021891023808,
+        "tau_ci_high": 0.8455557400091821,
+        "flip_rate": 0.42857142857142855,
+        "sigma_mean": 0.8412395758288247,
+        "sigma_ci_low": 0.7374419854155608,
+        "sigma_ci_high": 0.9447329697154816,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.5
+      },
+      "ctrl_random_head": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.00013667356401624815,
+        "tau_ci_low": 0.0,
+        "tau_ci_high": 0.00034083260598704554,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9983710916269394,
+        "sigma_ci_low": 0.9981252025990259,
+        "sigma_ci_high": 0.9986352466401601,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_wrong_timestep": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.00018358939243790702,
+        "tau_ci_low": 1.0363727894788129e-05,
+        "tau_ci_high": 0.0004070298880708533,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9989407587619054,
+        "sigma_ci_low": 0.9984339546589623,
+        "sigma_ci_high": 0.9993407953353154,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_same_prompt_noop": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.0,
+        "tau_ci_low": 0.0,
+        "tau_ci_high": 0.0,
+        "flip_rate": 0.0,
+        "sigma_mean": 1.0,
+        "sigma_ci_low": 1.0,
+        "sigma_ci_high": 1.0,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_seed_variation": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.3355838485423079,
+        "tau_ci_low": 0.06490185393372108,
+        "tau_ci_high": 0.6728409322308712,
+        "flip_rate": 0.2857142857142857,
+        "sigma_mean": 0.7905345190139045,
+        "sigma_ci_low": 0.6904136911744163,
+        "sigma_ci_high": 0.9332595212118966,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.42857142857142855
+      }
+    }
+  },
+  "sublayer_comparison_512_ms": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+    "checkpoint_label": "512-MS",
+    "pairs": [
+      "spatial_lr_test_0001",
+      "spatial_lr_test_0011",
+      "spatial_lr_test_0013",
+      "spatial_lr_test_0016"
+    ],
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_instances": 12,
+    "by_cell_and_hook_point": {
+      "L10-11_W1[4-7]": {
+        "attn2_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.7912470060394766,
+          "tau_ci_low": 0.5343687660700696,
+          "tau_ci_high": 0.9812233062077312,
+          "flip_rate": 0.7777777777777778,
+          "sigma_mean": 0.9750999720008287,
+          "sigma_ci_low": 0.9676031581781529,
+          "sigma_ci_high": 0.9823067514156855,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 1.0
+        },
+        "attn1_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.719135608044113,
+          "tau_ci_low": 0.48104822976352346,
+          "tau_ci_high": 0.9071352025391675,
+          "flip_rate": 0.6666666666666666,
+          "sigma_mean": 0.9062220454216003,
+          "sigma_ci_low": 0.8022136339986765,
+          "sigma_ci_high": 0.980964021826232,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.6666666666666666
+        },
+        "ff_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.14015169553666906,
+          "tau_ci_low": 0.0,
+          "tau_ci_high": 0.3623739177588913,
+          "flip_rate": 0.1111111111111111,
+          "sigma_mean": 0.9486484339943639,
+          "sigma_ci_low": 0.868561425694713,
+          "sigma_ci_high": 0.9924290835857392,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.8571428571428571
+        },
+        "attn2_in_txt": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.15028466113616357,
+          "tau_ci_low": 0.0011076772822436753,
+          "tau_ci_high": 0.37250356866712153,
+          "flip_rate": 0.1111111111111111,
+          "sigma_mean": 0.8825408120950063,
+          "sigma_ci_low": 0.7718603908463761,
+          "sigma_ci_high": 0.9613650006552538,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.5
+        }
+      },
+      "L2-3_W1[4-7]": {
+        "attn2_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.679514260917206,
+          "tau_ci_low": 0.40653546414740843,
+          "tau_ci_high": 0.9062323356046219,
+          "flip_rate": 0.6666666666666666,
+          "sigma_mean": 0.8749597492041411,
+          "sigma_ci_low": 0.766601628727383,
+          "sigma_ci_high": 0.9774364164582005,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.5714285714285714
+        },
+        "attn1_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.07227012165745507,
+          "tau_ci_low": 0.00024164880472540994,
+          "tau_ci_high": 0.1945835429033672,
+          "flip_rate": 0.1111111111111111,
+          "sigma_mean": 0.911584911523042,
+          "sigma_ci_low": 0.803486473582409,
+          "sigma_ci_high": 0.9870853634620155,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.6666666666666666
+        },
+        "ff_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.07527734735358017,
+          "tau_ci_low": 0.010891912603682916,
+          "tau_ci_high": 0.18690614951695983,
+          "flip_rate": 0.1111111111111111,
+          "sigma_mean": 0.8108573158582052,
+          "sigma_ci_low": 0.681184698227379,
+          "sigma_ci_high": 0.9190204197609865,
+          "both_detected_rate": 0.8888888888888888,
+          "color_preserve_rate": 0.6
+        },
+        "attn2_in_txt": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.6300417423903156,
+          "tau_ci_low": 0.3431191022751083,
+          "tau_ci_high": 0.8783085250007392,
+          "flip_rate": 0.5555555555555556,
+          "sigma_mean": 0.9121268888314565,
+          "sigma_ci_low": 0.8059009749580313,
+          "sigma_ci_high": 0.9877554334424162,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.7142857142857143
+        }
+      },
+      "L6-7_W2[8-11]": {
+        "attn2_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.2165510664617015,
+          "tau_ci_low": 0.018961119384663903,
+          "tau_ci_high": 0.4536208796887139,
+          "flip_rate": 0.2222222222222222,
+          "sigma_mean": 0.8829777218677379,
+          "sigma_ci_low": 0.7691260691594195,
+          "sigma_ci_high": 0.9975978823999563,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.5
+        },
+        "attn1_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.9424339273815961,
+          "tau_ci_low": 0.8360502777583347,
+          "tau_ci_high": 0.9983333443941665,
+          "flip_rate": 0.8888888888888888,
+          "sigma_mean": 0.8979070672282466,
+          "sigma_ci_low": 0.7966538404976881,
+          "sigma_ci_high": 0.9698072318401602,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.6
+        },
+        "ff_out": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.017430316049446587,
+          "tau_ci_low": 0.0010986296289437949,
+          "tau_ci_high": 0.03633916325267318,
+          "flip_rate": 0.0,
+          "sigma_mean": 0.9552096669320707,
+          "sigma_ci_low": 0.8815242300982827,
+          "sigma_ci_high": 0.9953658525314595,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.8571428571428571
+        },
+        "attn2_in_txt": {
+          "n_total": 12,
+          "n_valid": 9,
+          "tau_mean": 0.0007637989068899129,
+          "tau_ci_low": 5.824464799344213e-05,
+          "tau_ci_high": 0.0016535322857484686,
+          "flip_rate": 0.0,
+          "sigma_mean": 0.961708669309263,
+          "sigma_ci_low": 0.8874195029062254,
+          "sigma_ci_high": 0.9993119698707704,
+          "both_detected_rate": 1.0,
+          "color_preserve_rate": 0.8
+        }
+      }
+    }
+  },
+  "elapsed_sec": 1141.96
+}

@@ -423,8 +423,32 @@ come first.
 
 ### Report
 
-(Append below: status per task, what was done with evidence, blockers,
-open questions.)
+#### Task 1: Full E1 sweep (512-MS)
+- Status: done.
+- What was done:
+  - Ran `experiments/e1/e1_full_sweep.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=0`, `NVIDIA GeForce RTX 4090`, Python `3.10.12`, Torch `2.6.0+cu124`, Diffusers `0.41.0`, Transformers `5.20.2`) on `PixArt-alpha/PixArt-Sigma-XL-2-512-MS` (`512-MS`) using the held-out `test` split (explicit template `on_the_side_explicit`, disjoint objects from `dev`): 6 test pairs (`spatial_lr_test_0001`, `0011`, `0013`, `0016`, `0020`, `0026`) x 3 seeds (`[42, 123, 456]`) = 18 instances (13 valid counterfactuals).
+  - Swept 14 2-layer groups x 5 temporal windows (`attn2_out`, conditional CFG branch) plus 64 single-head `(l, h, t)` cells across `L2, L3, L10, L11` at `W1[4-7]` and all 4 controls:
+    - Peak `(L, T)` cell: `L10-11 @ W1[4-7]` (`tau = 0.6903`, 95% CI `[0.464, 0.896]`, `flip_rate = 0.6923`, `sigma = 0.9349`, `detection_rate = 0.9231`).
+    - Secondary peak replication: `L2-3 @ W1[4-7]` replicated cleanly at `tau = 0.5522` (95% CI `[0.312, 0.791]`, `flip_rate = 0.5385`, `sigma = 0.9099`, `detection_rate = 1.0000`). Zero transfer (`tau <= 0.082`) above `L14` or in `W4[16-19]`.
+    - Controls at `L10-11 @ W1[4-7]`: `random_head` (`L3H10`: `tau = 0.0042`, `flip_rate = 0.0000`, `sigma = 0.9722`, `color_preserve_rate = 0.8333`), `wrong_timestep` (`W4[16-19]`: `tau = 0.0005`, `flip_rate = 0.0000`, `sigma = 0.9986`, `color_preserve_rate = 1.0000`), `same_prompt_noop` (`tau = 0.0000`, `flip_rate = 0.0000`, `sigma = 1.0000`, `color_preserve_rate = 1.0000`), and `seed_variation` (`s+999`: `tau = 0.7063`, `flip_rate = 0.6923`, `sigma = 0.9100`, `color_preserve_rate = 0.8000`).
+- Evidence: `experiments/e1/e1_full_sweep.py`, `experiments/e1/e1_full_results.json`, `experiments/e1/e1_full_run_log.md`, `experiments/e1/e1_tau_map.png`, `experiments/e1/e1_full_grid.png`, `experiments/e1/images/full_head_tau.png`, `experiments/e1/images/full_*.png`.
+
+#### Task 2: 1024-MS confirmation and sublayer comparison
+- Status: done.
+- What was done:
+  - Ran `experiments/e1/e1_1024_and_sublayers.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=2`, `NVIDIA GeForce RTX 4090`).
+  - Part A (`PixArt-alpha/PixArt-Sigma-XL-2-1024-MS`, `1024-MS`, 3 test pairs `spatial_lr_test_0000`, `0001`, `0003` x 3 seeds = 9 instances): both `L10-11 @ W1[4-7]` (`tau = 0.4901`, `flip_rate = 0.4286`, `sigma = 0.8402`, `detection_rate = 1.0000`, `color_preserve_rate = 0.5714`) and `L2-3 @ W1[4-7]` (`tau = 0.4991`, `flip_rate = 0.4286`, `sigma = 0.8412`, `detection_rate = 1.0000`, `color_preserve_rate = 0.5000`) replicated cleanly against `ctrl_random_head` (`L2H10`: `tau = 0.0001`), `ctrl_wrong_timestep` (`tau = 0.0002`), and `ctrl_same_prompt_noop` (`tau = 0.0000`), while `ctrl_seed_variation` reached `tau = 0.3356` (`flip_rate = 0.2857`, `sigma = 0.7905`, `color_preserve_rate = 0.4286`).
+  - Part B (`512-MS`, 4 test pairs `0001, 0011, 0013, 0016` x 3 seeds = 12 instances): at `L2-3 @ W1[4-7]`, `attn2_out` (`0.6795`) and `attn2_in_txt` (`0.6300`) carry the signal while `attn1_out` (`0.0723`) and `ff_out` (`0.0753`) do not; at `L10-11 @ W1[4-7]`, `attn2_out` (`0.7912`) and `attn1_out` (`0.7191`) dominate while `attn2_in_txt` (`0.1503`) and `ff_out` (`0.1402`) drop sharply; at `L6-7 @ W2[8-11]`, downstream `attn1_out` reaches `0.9424` (`flip_rate = 0.8889`) as `attn2_out` (`0.2166`) and `attn2_in_txt` (`0.0008`) fade.
+- Evidence: `experiments/e1/e1_1024_and_sublayers.py`, `experiments/e1/e1_1024_check.json`, `experiments/e1/e1_1024_run_log.md`, `experiments/e1/images/1024_*.png`.
+
+#### Task 3: Head-level analysis at the peak cell
+- Status: done.
+- What was done:
+  - Documented the full 32-head `(l, h)` distribution for `L10-11 @ W1[4-7]` plus `L2-3 @ W1[4-7]` in `experiments/e1/head_analysis.md`.
+  - Key finding for H2: PixArt-Sigma exhibits a two-regime head structure. At `L2-3 @ W1[4-7]`, a single cross-attention head `L3H02` achieves `tau = 0.5468` (`flip_rate = 0.5385`, `sigma = 0.9113`), accounting for 99.0% of the entire `L2-3` layer group (`0.5522`). At `L10-11 @ W1[4-7]`, transfer is distributed across a compact ~6-head coalition (`L10H15: 0.3129`, `L10H06: 0.2585`, `L11H11: 0.1710`, `L10H08: 0.1357`, `L11H01: 0.1123`, `L11H13: 0.0940`) that composes to `0.6903`.
+  - Reported `seed_variation` (`tau = 0.4980` pilot with `color_preserve_rate = 0.4000`; `tau = 0.7063` full sweep with `color_preserve_rate = 0.8000`; `tau = 0.3356` `1024-MS` with `color_preserve_rate = 0.4286`) in the main results.
+  - E2 and E3 were NOT run.
+- Evidence: `experiments/e1/head_analysis.md`, `experiments/e1/e1_full_results.json`, `experiments/e1/images/full_head_tau.png`.
 
 ---
 
@@ -544,5 +568,34 @@ first pass, not the final one.
 
 ### Report
 
-(Append below: status per task, what was done with evidence, blockers,
-open questions.)
+#### Task 1: Fix the Wang attribution, add paper 7 to the notes
+- Status: done.
+- What was done:
+  - Relabeled `compute_spatial_gradient_score` in `interpretability/baselines.py` explicitly as CIRCUIT's own diagnostic heuristic inspired by Wang, Fan, & Pan (2026, `arXiv:2601.06338`, summarizing its two-stage circuit and two cross-attention heads in from-scratch DiTs).
+  - Added Wang, Fan, and Pan (2026), "Circuit Mechanisms for Spatial Relation Generation in Diffusion Transformers" ([arXiv:2601.06338](https://arxiv.org/abs/2601.06338)), as paper 7 in `research/reading-notes-2026-11-24.md`, explicitly noting the differentiators (from-scratch small DiTs vs. pretrained 0.6B PixArt-Sigma; circuit description and weight screening vs. counterfactual activation patching).
+- Evidence: `interpretability/baselines.py`, `research/reading-notes-2026-11-24.md`, commit `7097a3f`.
+
+#### Task 2: Implement baselines 4-7
+- Status: done.
+- What was done:
+  - Implemented all 4 additional baselines in `interpretability/baselines.py`, `instrumentation/hooks.py`, and `interventions/patching.py`:
+    4. DAAM (`arXiv:2210.04885`): `compute_daam_upscaled_map` and `compute_daam_head_box_scores` (bicubic upscaling + inside-target-box grounding mass per `(layer, head)`).
+    5. Roy (`arXiv:2506.17237`): `compute_roy_ablation_impact` (per-head mean-ablation drop in relation accuracy and `dx`).
+    6. Revelio (`arXiv:2411.16725`): `score_heads_revelio_probe` (Diff-C-style 5-fold CV L2 logistic linear probe on spatially pooled cached per-head activations; full k-SAE training was not run and is explicitly noted).
+    7. Prompt-to-Prompt (`arXiv:2208.01626`): `CrossAttentionMapInjectionProcessor` and `AttnMapInjectionController` injecting cached `A_clean` cross-attention maps without `V` patching.
+  - Added unit tests in `tests/test_baselines.py`; full `pytest -v` passes (`8/8` passed in `4.91s`).
+- Evidence: `interpretability/baselines.py`, `instrumentation/hooks.py`, `interventions/patching.py`, `tests/test_baselines.py`, commit `7097a3f`.
+
+#### Task 3: Baseline comparison against the E1 pilot tau map
+- Status: done.
+- What was done:
+  - Ran `experiments/e1/baseline_comparison.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=3`, `NVIDIA GeForce RTX 4090`, checkpoint `PixArt-alpha/PixArt-Sigma-XL-2-512-MS`, `512-MS`) across all 32 heads of `[10, 11]` at `W1[4-7]` on the E1 pilot pairs (`N=6` valid counterfactuals):
+    - `7_prompt_to_prompt_attn_map_tau`: `rho = 0.568` (`p = 0.0007`), `4/5` top-5 overlap (`L10H6, L10H15, L11H4, L11H11`), and layer-group `A_clean` injection at `L10-11 @ W1[4-7]` achieves `tau = 0.8261` (`flip_rate = 0.8333`) vs activation patching `tau = 0.7104`.
+    - `4_daam_box_mass`: `rho = 0.413` (`p = 0.0188`), `3/5` top-5 overlap (`L10H6, L10H15, L11H4`).
+    - `3_circuit_spatial_grad_wang_prior`: `rho = 0.314` (`p = 0.0799`), `2/5` overlap (`L10H15, L11H1`).
+    - `2_maliha_kl_spike`: `rho = 0.224` (`p = 0.2186`), `0/5` overlap.
+    - `5_roy_ablation_impact`: `rho = 0.026` (`p = 0.8867`), `2/5` overlap (`L11H4, L11H11`), demonstrating patching-vs-ablation asymmetry (`L10H15` has ablation impact `0.000` due to redundancy).
+    - `1_zarei_attn_contribution`: `rho = 0.022` (`p = 0.9033`), `0/5` overlap.
+    - `6_revelio_linear_probe_auc` (Diff-C linear probe): `rho = -0.056` (`p = 0.7599`), `0/5` overlap (spatial pooling erases left-right geometry).
+- Evidence: `experiments/e1/baseline_comparison.py`, `experiments/e1/baseline_comparison.json`, `interpretability/baseline_comparison.md`.
+- Next: ready to re-run `baseline_comparison.py` against `e1_full_results.json` (`test` split, including `L2-3`) or run E2/E3 upon Muse's Day 5 instructions.

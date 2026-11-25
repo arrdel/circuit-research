@@ -1,0 +1,650 @@
+{
+  "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+  "checkpoint_label": "512-MS",
+  "host": "ai-lab2",
+  "layers": [
+    10,
+    11
+  ],
+  "steps": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "n_instances": 9,
+  "n_valid_counterfactual": 6,
+  "revelio_note": "Implemented as Diff-C-style L2 logistic linear probe on spatially-pooled cached per-head activations rather than a full k-SAE.",
+  "layer_group_patching_tau": 0.7103949730293748,
+  "layer_group_prompt_to_prompt_tau": {
+    "n_total": 9,
+    "n_valid": 6,
+    "tau_mean": 0.8260714490035929,
+    "tau_ci_low": 0.49305120460003593,
+    "tau_ci_high": 0.996525602300018,
+    "flip_rate": 0.8333333333333334,
+    "sigma_mean": 0.9230830983983145,
+    "sigma_ci_low": 0.8090373509460025,
+    "sigma_ci_high": 0.9866718418068356,
+    "both_detected_rate": 1.0,
+    "color_preserve_rate": 0.75
+  },
+  "baseline_vs_causal_summary": {
+    "1_zarei_attn_contribution": {
+      "spearman_rho": 0.022360703812316713,
+      "p_value": 0.9033158809879338,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H4",
+          "L10H9",
+          "L10H11",
+          "L11H3",
+          "L11H10"
+        ],
+        "overlap_count": 0,
+        "overlap_fraction": 0.0,
+        "overlapping_heads": []
+      },
+      "max_score": 0.42184969120555454,
+      "mean_score": 0.034525607686242035
+    },
+    "2_maliha_kl_spike": {
+      "spearman_rho": 0.22360703812316712,
+      "p_value": 0.21860848865566862,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H3",
+          "L10H9",
+          "L10H13",
+          "L11H10",
+          "L11H13"
+        ],
+        "overlap_count": 0,
+        "overlap_fraction": 0.0,
+        "overlapping_heads": []
+      },
+      "max_score": 0.030636389571655955,
+      "mean_score": 0.012611220885497055
+    },
+    "3_circuit_spatial_grad_wang_prior": {
+      "spearman_rho": 0.314149560117302,
+      "p_value": 0.07994028968680068,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H1",
+          "L10H15",
+          "L11H0",
+          "L11H1",
+          "L11H13"
+        ],
+        "overlap_count": 2,
+        "overlap_fraction": 0.4,
+        "overlapping_heads": [
+          "L10H15",
+          "L11H1"
+        ]
+      },
+      "max_score": 0.25274338735552093,
+      "mean_score": 0.1303599136817613
+    },
+    "4_daam_box_mass": {
+      "spearman_rho": 0.4131231671554252,
+      "p_value": 0.018769954948653158,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H6",
+          "L10H15",
+          "L11H4",
+          "L11H10",
+          "L11H13"
+        ],
+        "overlap_count": 3,
+        "overlap_fraction": 0.6,
+        "overlapping_heads": [
+          "L10H6",
+          "L10H15",
+          "L11H4"
+        ]
+      },
+      "max_score": 0.537241119477484,
+      "mean_score": 0.37970412308479556
+    },
+    "5_roy_ablation_impact": {
+      "spearman_rho": 0.026234800144053747,
+      "p_value": 0.8866643368294542,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H2",
+          "L10H14",
+          "L11H4",
+          "L11H11",
+          "L11H14"
+        ],
+        "overlap_count": 2,
+        "overlap_fraction": 0.4,
+        "overlapping_heads": [
+          "L11H4",
+          "L11H11"
+        ]
+      },
+      "max_score": 0.22886408803363636,
+      "mean_score": 0.04216169810388236
+    },
+    "6_revelio_linear_probe_auc": {
+      "spearman_rho": -0.05622732834310777,
+      "p_value": 0.7598658385019565,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H0",
+          "L10H8",
+          "L10H11",
+          "L11H0",
+          "L11H14"
+        ],
+        "overlap_count": 0,
+        "overlap_fraction": 0.0,
+        "overlapping_heads": []
+      },
+      "max_score": 0.6419753086419753,
+      "mean_score": 0.3267746913580247
+    },
+    "7_prompt_to_prompt_attn_map_tau": {
+      "spearman_rho": 0.5676839910195489,
+      "p_value": 0.000702201918007123,
+      "top_5_overlap": {
+        "k": 5,
+        "top_causal": [
+          "L10H6",
+          "L10H15",
+          "L11H1",
+          "L11H4",
+          "L11H11"
+        ],
+        "top_baseline": [
+          "L10H6",
+          "L10H13",
+          "L10H15",
+          "L11H4",
+          "L11H11"
+        ],
+        "overlap_count": 4,
+        "overlap_fraction": 0.8,
+        "overlapping_heads": [
+          "L10H6",
+          "L10H15",
+          "L11H4",
+          "L11H11"
+        ]
+      },
+      "max_score": 0.25363614313829586,
+      "mean_score": 0.025405598364513098
+    }
+  },
+  "per_head_table": [
+    {
+      "layer": 10,
+      "head": 0,
+      "causal_patching_tau": 0.0009183558019915519,
+      "1_zarei_attn_contribution": 0.001765153032869825,
+      "2_maliha_kl_spike": 0.00729364655368651,
+      "3_circuit_spatial_grad_wang_prior": 0.09660142866535655,
+      "4_daam_box_mass": 0.271768684602446,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.3703703703703704,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 2.6891636742727135e-05
+    },
+    {
+      "layer": 10,
+      "head": 1,
+      "causal_patching_tau": 0.002094626551743624,
+      "1_zarei_attn_contribution": 0.007269705600467407,
+      "2_maliha_kl_spike": 0.010052474319107003,
+      "3_circuit_spatial_grad_wang_prior": 0.19596774940792885,
+      "4_daam_box_mass": 0.24489625025954512,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.2962962962962963,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.0049099068013888384
+    },
+    {
+      "layer": 10,
+      "head": 2,
+      "causal_patching_tau": 0.005860826612742019,
+      "1_zarei_attn_contribution": 0.028910396594761148,
+      "2_maliha_kl_spike": 0.014387289993464947,
+      "3_circuit_spatial_grad_wang_prior": 0.07860471829836671,
+      "4_daam_box_mass": 0.24352255774041018,
+      "5_roy_ablation_impact": 0.19713922093311942,
+      "6_revelio_linear_probe_auc": 0.2962962962962963,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0012356512134685603
+    },
+    {
+      "layer": 10,
+      "head": 3,
+      "causal_patching_tau": 0.008603559981547094,
+      "1_zarei_attn_contribution": 0.040606805200998984,
+      "2_maliha_kl_spike": 0.01787425039543046,
+      "3_circuit_spatial_grad_wang_prior": 0.16547529383872947,
+      "4_daam_box_mass": 0.4473448358476162,
+      "5_roy_ablation_impact": 0.028870131199558557,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.0007004278348420107
+    },
+    {
+      "layer": 10,
+      "head": 4,
+      "causal_patching_tau": 0.000817860131331507,
+      "1_zarei_attn_contribution": 0.07386911422428158,
+      "2_maliha_kl_spike": 0.00845482310331944,
+      "3_circuit_spatial_grad_wang_prior": 0.10809166854596697,
+      "4_daam_box_mass": 0.2581129568732447,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.30864197530864196,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.00042578999738626075
+    },
+    {
+      "layer": 10,
+      "head": 5,
+      "causal_patching_tau": 0.0009438601216064015,
+      "1_zarei_attn_contribution": 0.01291869324631989,
+      "2_maliha_kl_spike": 0.006715836824797507,
+      "3_circuit_spatial_grad_wang_prior": 0.12553549427765473,
+      "4_daam_box_mass": 0.4764636129968696,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.271604938271605,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.009299647055065354
+    },
+    {
+      "layer": 10,
+      "head": 6,
+      "causal_patching_tau": 0.08794683726101056,
+      "1_zarei_attn_contribution": 0.047606786609523825,
+      "2_maliha_kl_spike": 0.01042109206577556,
+      "3_circuit_spatial_grad_wang_prior": 0.10558664734708145,
+      "4_daam_box_mass": 0.537241119477484,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.271604938271605,
+      "revelio_probe_acc": 0.2777777777777778,
+      "7_prompt_to_prompt_attn_map_tau": 0.08541458380540956
+    },
+    {
+      "layer": 10,
+      "head": 7,
+      "causal_patching_tau": 0.005581679464625313,
+      "1_zarei_attn_contribution": 0.015057741043468317,
+      "2_maliha_kl_spike": 0.014225084412222108,
+      "3_circuit_spatial_grad_wang_prior": 0.06046277840545776,
+      "4_daam_box_mass": 0.31918616137570804,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.271604938271605,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.00016564759002353737
+    },
+    {
+      "layer": 10,
+      "head": 8,
+      "causal_patching_tau": 0.007468369935467293,
+      "1_zarei_attn_contribution": 0.024769056847112045,
+      "2_maliha_kl_spike": 0.013154293895543864,
+      "3_circuit_spatial_grad_wang_prior": 0.11576154696780981,
+      "4_daam_box_mass": 0.4942101186348332,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.34567901234567905,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0047156202716511384
+    },
+    {
+      "layer": 10,
+      "head": 9,
+      "causal_patching_tau": 0.0069678109700107085,
+      "1_zarei_attn_contribution": 0.065605567716476,
+      "2_maliha_kl_spike": 0.019033990619290207,
+      "3_circuit_spatial_grad_wang_prior": 0.0985141541750636,
+      "4_daam_box_mass": 0.37874432611796593,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.3209876543209877,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0
+    },
+    {
+      "layer": 10,
+      "head": 10,
+      "causal_patching_tau": 0.006981614015153142,
+      "1_zarei_attn_contribution": 0.005016776312711752,
+      "2_maliha_kl_spike": 0.017377878274095968,
+      "3_circuit_spatial_grad_wang_prior": 0.092102697424707,
+      "4_daam_box_mass": 0.3022761531174183,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.0
+    },
+    {
+      "layer": 10,
+      "head": 11,
+      "causal_patching_tau": 0.007941347833505011,
+      "1_zarei_attn_contribution": 0.42184969120555454,
+      "2_maliha_kl_spike": 0.016601972036167152,
+      "3_circuit_spatial_grad_wang_prior": 0.16469972706464533,
+      "4_daam_box_mass": 0.4323287391000324,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.6419753086419753,
+      "revelio_probe_acc": 0.7222222222222222,
+      "7_prompt_to_prompt_attn_map_tau": 0.0001502723543221867
+    },
+    {
+      "layer": 10,
+      "head": 12,
+      "causal_patching_tau": 0.008032865286073136,
+      "1_zarei_attn_contribution": 0.005141471037253116,
+      "2_maliha_kl_spike": 0.005763087939057086,
+      "3_circuit_spatial_grad_wang_prior": 0.056370049886431337,
+      "4_daam_box_mass": 0.3890516588257419,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.32098765432098764,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0008032024286523254
+    },
+    {
+      "layer": 10,
+      "head": 13,
+      "causal_patching_tau": 0.08209183517286493,
+      "1_zarei_attn_contribution": 0.0077825263142585754,
+      "2_maliha_kl_spike": 0.019934270906055138,
+      "3_circuit_spatial_grad_wang_prior": 0.14214048518462935,
+      "4_daam_box_mass": 0.35360947292711997,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.2839506172839506,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.08669298784568259
+    },
+    {
+      "layer": 10,
+      "head": 14,
+      "causal_patching_tau": 0.0006862979358622282,
+      "1_zarei_attn_contribution": 0.01640020978326599,
+      "2_maliha_kl_spike": 0.004529977081498752,
+      "3_circuit_spatial_grad_wang_prior": 0.14733379085535286,
+      "4_daam_box_mass": 0.3097586433092753,
+      "5_roy_ablation_impact": 0.19559574251373604,
+      "6_revelio_linear_probe_auc": 0.2962962962962963,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.000645138716823224
+    },
+    {
+      "layer": 10,
+      "head": 15,
+      "causal_patching_tau": 0.252052861723907,
+      "1_zarei_attn_contribution": 0.028992134094652202,
+      "2_maliha_kl_spike": 0.010615960917978859,
+      "3_circuit_spatial_grad_wang_prior": 0.18626082449918613,
+      "4_daam_box_mass": 0.5269894206689464,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.32098765432098764,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.25363614313829586
+    },
+    {
+      "layer": 11,
+      "head": 0,
+      "causal_patching_tau": 0.007860318177348563,
+      "1_zarei_attn_contribution": 0.015083697210583422,
+      "2_maliha_kl_spike": 0.011838930749541355,
+      "3_circuit_spatial_grad_wang_prior": 0.20764967881970936,
+      "4_daam_box_mass": 0.3146501375983159,
+      "5_roy_ablation_impact": 0.00014356958369413086,
+      "6_revelio_linear_probe_auc": 0.3703703703703704,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.0007269873165206029
+    },
+    {
+      "layer": 11,
+      "head": 1,
+      "causal_patching_tau": 0.08321462003039522,
+      "1_zarei_attn_contribution": 0.01281942856601543,
+      "2_maliha_kl_spike": 0.008560174481115408,
+      "3_circuit_spatial_grad_wang_prior": 0.25274338735552093,
+      "4_daam_box_mass": 0.3428767561498616,
+      "5_roy_ablation_impact": 0.1947712935507297,
+      "6_revelio_linear_probe_auc": 0.25925925925925924,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.08285027272891889
+    },
+    {
+      "layer": 11,
+      "head": 2,
+      "causal_patching_tau": 0.007457716757839037,
+      "1_zarei_attn_contribution": 0.0022785581273233723,
+      "2_maliha_kl_spike": 0.008513865963323042,
+      "3_circuit_spatial_grad_wang_prior": 0.14144329666871475,
+      "4_daam_box_mass": 0.3205885984417465,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.2962962962962963,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.007344912150589924
+    },
+    {
+      "layer": 11,
+      "head": 3,
+      "causal_patching_tau": 0.002219071473452313,
+      "1_zarei_attn_contribution": 0.055584776784396835,
+      "2_maliha_kl_spike": 0.01279979724333518,
+      "3_circuit_spatial_grad_wang_prior": 0.12913017627821924,
+      "4_daam_box_mass": 0.46995006915595794,
+      "5_roy_ablation_impact": 0.005161414543787629,
+      "6_revelio_linear_probe_auc": 0.3333333333333333,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.001117857797148317
+    },
+    {
+      "layer": 11,
+      "head": 4,
+      "causal_patching_tau": 0.08606606215896495,
+      "1_zarei_attn_contribution": 0.02057230604502062,
+      "2_maliha_kl_spike": 0.016394418800094474,
+      "3_circuit_spatial_grad_wang_prior": 0.10297200316886625,
+      "4_daam_box_mass": 0.4944067481491301,
+      "5_roy_ablation_impact": 0.22886408803363636,
+      "6_revelio_linear_probe_auc": 0.3333333333333333,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.09075288371700513
+    },
+    {
+      "layer": 11,
+      "head": 5,
+      "causal_patching_tau": 0.006454400281758057,
+      "1_zarei_attn_contribution": 0.010881352212486995,
+      "2_maliha_kl_spike": 0.01473481122391402,
+      "3_circuit_spatial_grad_wang_prior": 0.16295749457721184,
+      "4_daam_box_mass": 0.2671123213238186,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.32098765432098764,
+      "revelio_probe_acc": 0.2777777777777778,
+      "7_prompt_to_prompt_attn_map_tau": 0.0008314223404052722
+    },
+    {
+      "layer": 11,
+      "head": 6,
+      "causal_patching_tau": 0.006930463946653895,
+      "1_zarei_attn_contribution": 0.00595293078933739,
+      "2_maliha_kl_spike": 0.005703980704614271,
+      "3_circuit_spatial_grad_wang_prior": 0.12327254495620663,
+      "4_daam_box_mass": 0.2972129535757833,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.32098765432098764,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0006532890951225319
+    },
+    {
+      "layer": 11,
+      "head": 7,
+      "causal_patching_tau": 0.007751510508708258,
+      "1_zarei_attn_contribution": 0.013749567041587498,
+      "2_maliha_kl_spike": 0.007612761769754191,
+      "3_circuit_spatial_grad_wang_prior": 0.10530359326447877,
+      "4_daam_box_mass": 0.3158975661628776,
+      "5_roy_ablation_impact": 0.0,
+      "6_revelio_linear_probe_auc": 0.29629629629629634,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.00040454999387682104
+    },
+    {
+      "layer": 11,
+      "head": 8,
+      "causal_patching_tau": 0.00015628283746037792,
+      "1_zarei_attn_contribution": 0.029812759357608028,
+      "2_maliha_kl_spike": 0.01177053126351287,
+      "3_circuit_spatial_grad_wang_prior": 0.0885792863199539,
+      "4_daam_box_mass": 0.31653652112517094,
+      "5_roy_ablation_impact": 0.0011061361680428095,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.00027032226695674017
+    },
+    {
+      "layer": 11,
+      "head": 9,
+      "causal_patching_tau": 0.008291796237482668,
+      "1_zarei_attn_contribution": 0.009691071683644421,
+      "2_maliha_kl_spike": 0.012250880853066014,
+      "3_circuit_spatial_grad_wang_prior": 0.10377283953130245,
+      "4_daam_box_mass": 0.46894142652551335,
+      "5_roy_ablation_impact": 0.0316895203044017,
+      "6_revelio_linear_probe_auc": 0.34567901234567905,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.08115939303810431
+    },
+    {
+      "layer": 11,
+      "head": 10,
+      "causal_patching_tau": 0.007341180873440724,
+      "1_zarei_attn_contribution": 0.04886662421955003,
+      "2_maliha_kl_spike": 0.028702168518470392,
+      "3_circuit_spatial_grad_wang_prior": 0.12049731482208396,
+      "4_daam_box_mass": 0.5319608437518278,
+      "5_roy_ablation_impact": 0.005754287665088953,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.3888888888888889,
+      "7_prompt_to_prompt_attn_map_tau": 0.0007310527421734331
+    },
+    {
+      "layer": 11,
+      "head": 11,
+      "causal_patching_tau": 0.08981220688639652,
+      "1_zarei_attn_contribution": 0.009597995292602314,
+      "2_maliha_kl_spike": 0.007220447378737542,
+      "3_circuit_spatial_grad_wang_prior": 0.1697768207652391,
+      "4_daam_box_mass": 0.3313103715578715,
+      "5_roy_ablation_impact": 0.1993394258121649,
+      "6_revelio_linear_probe_auc": 0.308641975308642,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.08637413897154288
+    },
+    {
+      "layer": 11,
+      "head": 12,
+      "causal_patching_tau": 0.0013922300477189938,
+      "1_zarei_attn_contribution": 0.015179085364151332,
+      "2_maliha_kl_spike": 0.011094126332965162,
+      "3_circuit_spatial_grad_wang_prior": 0.09844746229484574,
+      "4_daam_box_mass": 0.37426500394940376,
+      "5_roy_ablation_impact": 0.0315244278560082,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.4444444444444444,
+      "7_prompt_to_prompt_attn_map_tau": 0.00020452606726656288
+    },
+    {
+      "layer": 11,
+      "head": 13,
+      "causal_patching_tau": 0.0034207753333993667,
+      "1_zarei_attn_contribution": 0.03665682554451956,
+      "2_maliha_kl_spike": 0.030636389571655955,
+      "3_circuit_spatial_grad_wang_prior": 0.2477054876605204,
+      "4_daam_box_mass": 0.5352587265272936,
+      "5_roy_ablation_impact": 0.0018171463161706924,
+      "6_revelio_linear_probe_auc": 0.29629629629629634,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.010289578526941274
+    },
+    {
+      "layer": 11,
+      "head": 14,
+      "causal_patching_tau": 0.002252919835961174,
+      "1_zarei_attn_contribution": 0.010939757300851246,
+      "2_maliha_kl_spike": 0.01275274416224824,
+      "3_circuit_spatial_grad_wang_prior": 0.09920082684968495,
+      "4_daam_box_mass": 0.339844296582871,
+      "5_roy_ablation_impact": 0.19697150650123751,
+      "6_revelio_linear_probe_auc": 0.3580246913580247,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.0003411806897702992
+    },
+    {
+      "layer": 11,
+      "head": 15,
+      "causal_patching_tau": 0.0013637359806476293,
+      "1_zarei_attn_contribution": 0.003590881556091416,
+      "2_maliha_kl_spike": 0.006537109982067098,
+      "3_circuit_spatial_grad_wang_prior": 0.07855596963943551,
+      "4_daam_box_mass": 0.4442148862613572,
+      "5_roy_ablation_impact": 0.03042642834285894,
+      "6_revelio_linear_probe_auc": 0.33333333333333337,
+      "revelio_probe_acc": 0.3333333333333333,
+      "7_prompt_to_prompt_attn_map_tau": 0.00010486953232198966
+    }
+  ],
+  "elapsed_sec": 744.39
+}

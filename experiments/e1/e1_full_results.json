@@ -1,0 +1,3064 @@
+{
+  "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+  "checkpoint_label": "512-MS",
+  "split": "test",
+  "host": "ai-lab2",
+  "gpus": [
+    "NVIDIA GeForce RTX 4090"
+  ],
+  "hook_point": "attn2_out",
+  "pairs": [
+    {
+      "pair_id": "spatial_lr_test_0001",
+      "clean_prompt": "A yellow dog on the left and a green book on the right, clean studio photo",
+      "corrupt_prompt": "A yellow dog on the right and a green book on the left, clean studio photo"
+    },
+    {
+      "pair_id": "spatial_lr_test_0011",
+      "clean_prompt": "A purple umbrella on the left and a green apple on the right, clean studio photo",
+      "corrupt_prompt": "A purple umbrella on the right and a green apple on the left, clean studio photo"
+    },
+    {
+      "pair_id": "spatial_lr_test_0013",
+      "clean_prompt": "A green cup on the left and a blue banana on the right, clean studio photo",
+      "corrupt_prompt": "A green cup on the right and a blue banana on the left, clean studio photo"
+    },
+    {
+      "pair_id": "spatial_lr_test_0016",
+      "clean_prompt": "A red car on the left and a yellow apple on the right, clean studio photo",
+      "corrupt_prompt": "A red car on the right and a yellow apple on the left, clean studio photo"
+    },
+    {
+      "pair_id": "spatial_lr_test_0020",
+      "clean_prompt": "A red cat on the left and a blue apple on the right, clean studio photo",
+      "corrupt_prompt": "A red cat on the right and a blue apple on the left, clean studio photo"
+    },
+    {
+      "pair_id": "spatial_lr_test_0026",
+      "clean_prompt": "A green banana on the left and a yellow bottle on the right, clean studio photo",
+      "corrupt_prompt": "A green banana on the right and a yellow bottle on the left, clean studio photo"
+    }
+  ],
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "n_instances": 18,
+  "n_valid_counterfactual": 13,
+  "peak_cell": {
+    "layer_group": "L10-11",
+    "layers": [
+      10,
+      11
+    ],
+    "window": "W1[4-7]",
+    "steps": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "tau": 0.6902734461114665,
+    "sigma": 0.9349056879679363,
+    "flip_rate": 0.6923076923076923,
+    "detection_rate": 0.9230769230769231
+  },
+  "l2_3_replication": {
+    "layer_group": "L2-3",
+    "layers": [
+      2,
+      3
+    ],
+    "head": "all",
+    "window": "W1[4-7]",
+    "steps": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "tau": 0.5521504880867892,
+    "tau_ci_low": 0.31230369262990065,
+    "tau_ci_high": 0.7907484156980817,
+    "sigma": 0.9099305447859641,
+    "sigma_ci_low": 0.8323922109718507,
+    "sigma_ci_high": 0.9833827038032885,
+    "flip_rate": 0.5384615384615384,
+    "detection_rate": 1.0,
+    "color_preserve_rate": 0.5714285714285714,
+    "n_valid": 13,
+    "n_total": 18
+  },
+  "layer_timestep_cells": [
+    {
+      "layer_group": "L0-1",
+      "layers": [
+        0,
+        1
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.019236145954382475,
+      "tau_ci_low": 0.00022967376091658528,
+      "tau_ci_high": 0.05674277666881783,
+      "sigma": 0.9714301266731359,
+      "sigma_ci_low": 0.9196366490079807,
+      "sigma_ci_high": 0.9986909568118743,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8571428571428571,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L0-1",
+      "layers": [
+        0,
+        1
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.07814165902198199,
+      "tau_ci_low": 0.00023294857786777245,
+      "tau_ci_high": 0.23259777672067833,
+      "sigma": 0.9712861302571418,
+      "sigma_ci_low": 0.9160151797609452,
+      "sigma_ci_high": 0.999213647746887,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L0-1",
+      "layers": [
+        0,
+        1
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.0004641139498133805,
+      "tau_ci_low": 0.00013063371894599278,
+      "tau_ci_high": 0.0009240331545603585,
+      "sigma": 0.9732336868078282,
+      "sigma_ci_low": 0.9217293361631724,
+      "sigma_ci_high": 0.9992860999818032,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L0-1",
+      "layers": [
+        0,
+        1
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.00012788691614942232,
+      "tau_ci_low": 3.500334296557398e-05,
+      "tau_ci_high": 0.00024168959061236905,
+      "sigma": 0.9994347408795968,
+      "sigma_ci_low": 0.9992454820718522,
+      "sigma_ci_high": 0.9996103351887985,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L0-1",
+      "layers": [
+        0,
+        1
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.00017673299244412796,
+      "tau_ci_low": 2.7016264714461485e-05,
+      "tau_ci_high": 0.00036771503902511367,
+      "sigma": 0.973820333297436,
+      "sigma_ci_low": 0.9224671874290858,
+      "sigma_ci_high": 0.9996153126924465,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L2-3",
+      "layers": [
+        2,
+        3
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.2337629592951827,
+      "tau_ci_low": 0.06191191047441715,
+      "tau_ci_high": 0.44629821076621057,
+      "sigma": 0.921229594028913,
+      "sigma_ci_low": 0.8248392757696983,
+      "sigma_ci_high": 0.9908033846471554,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 0.9230769230769231,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L2-3",
+      "layers": [
+        2,
+        3
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.5521504880867892,
+      "tau_ci_low": 0.31230369262990065,
+      "tau_ci_high": 0.7907484156980817,
+      "sigma": 0.9099305447859641,
+      "sigma_ci_low": 0.8323922109718507,
+      "sigma_ci_high": 0.9833827038032885,
+      "flip_rate": 0.5384615384615384,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.5714285714285714,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L2-3",
+      "layers": [
+        2,
+        3
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.1386225887908305,
+      "tau_ci_low": 0.0011260643596831268,
+      "tau_ci_high": 0.31755256164963164,
+      "sigma": 0.8942024020048288,
+      "sigma_ci_low": 0.8136622366996912,
+      "sigma_ci_high": 0.9729688957906688,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.2,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L2-3",
+      "layers": [
+        2,
+        3
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.05029595467430602,
+      "tau_ci_low": 0.00017781777600534845,
+      "tau_ci_high": 0.14400204143804932,
+      "sigma": 0.9480014244715372,
+      "sigma_ci_low": 0.8712004229426384,
+      "sigma_ci_high": 0.9993051311717583,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L2-3",
+      "layers": [
+        2,
+        3
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0001149694677071628,
+      "tau_ci_low": 2.0170540441232963e-05,
+      "tau_ci_high": 0.00022187714987518894,
+      "sigma": 0.9738191404403783,
+      "sigma_ci_low": 0.9224962156552533,
+      "sigma_ci_high": 0.9995744899679453,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L4-5",
+      "layers": [
+        4,
+        5
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.16191264145935585,
+      "tau_ci_low": 0.004717510626397691,
+      "tau_ci_high": 0.3745835663550744,
+      "sigma": 0.898689364011471,
+      "sigma_ci_low": 0.7844293591494745,
+      "sigma_ci_high": 0.9966390705070434,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 0.9230769230769231,
+      "color_preserve_rate": 0.6,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L4-5",
+      "layers": [
+        4,
+        5
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.26783808643097384,
+      "tau_ci_low": 0.07739344537834329,
+      "tau_ci_high": 0.4832718589461354,
+      "sigma": 0.9653928524408584,
+      "sigma_ci_low": 0.9114947188359038,
+      "sigma_ci_high": 0.9962642509012649,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8571428571428571,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L4-5",
+      "layers": [
+        4,
+        5
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.07769671805762712,
+      "tau_ci_low": 0.00039633283746125263,
+      "tau_ci_high": 0.2307824385583988,
+      "sigma": 0.9434367983769149,
+      "sigma_ci_low": 0.861771882000642,
+      "sigma_ci_high": 0.9989960975371873,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L4-5",
+      "layers": [
+        4,
+        5
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.006510628507771403,
+      "tau_ci_low": 5.320178279584491e-05,
+      "tau_ci_high": 0.019203327397338796,
+      "sigma": 0.9735699189014924,
+      "sigma_ci_low": 0.922190023977787,
+      "sigma_ci_high": 0.9994500232430605,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L4-5",
+      "layers": [
+        4,
+        5
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.00015341843020989066,
+      "tau_ci_low": 4.541854367387241e-05,
+      "tau_ci_high": 0.00029640704607061563,
+      "sigma": 0.9481035234072268,
+      "sigma_ci_low": 0.8712627963951,
+      "sigma_ci_high": 0.9993943903499689,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L6-7",
+      "layers": [
+        6,
+        7
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.22900098788305084,
+      "tau_ci_low": 0.056078394207430056,
+      "tau_ci_high": 0.4445209858416596,
+      "sigma": 0.9419291745393703,
+      "sigma_ci_low": 0.8641986815211101,
+      "sigma_ci_high": 0.994697405397892,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L6-7",
+      "layers": [
+        6,
+        7
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.35421170037663596,
+      "tau_ci_low": 0.1309576397423182,
+      "tau_ci_high": 0.604679440552637,
+      "sigma": 0.962324049992439,
+      "sigma_ci_low": 0.9084685961023354,
+      "sigma_ci_high": 0.9927255766705061,
+      "flip_rate": 0.3076923076923077,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8571428571428571,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L6-7",
+      "layers": [
+        6,
+        7
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.15069600869534133,
+      "tau_ci_low": 0.010533572773146278,
+      "tau_ci_high": 0.33040040945498694,
+      "sigma": 0.9184180757938287,
+      "sigma_ci_low": 0.8374807437260945,
+      "sigma_ci_high": 0.9977592669045314,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.5,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L6-7",
+      "layers": [
+        6,
+        7
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.006717060106173461,
+      "tau_ci_low": 0.00023332003555757858,
+      "tau_ci_high": 0.01922682073877786,
+      "sigma": 0.9732569326192906,
+      "sigma_ci_low": 0.9219182537152218,
+      "sigma_ci_high": 0.9991023352703988,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L6-7",
+      "layers": [
+        6,
+        7
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.00019077387609192943,
+      "tau_ci_low": 6.454960867618929e-05,
+      "tau_ci_high": 0.0003394930004963412,
+      "sigma": 0.9992606616937197,
+      "sigma_ci_low": 0.9990197414197983,
+      "sigma_ci_high": 0.9995019009480111,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L8-9",
+      "layers": [
+        8,
+        9
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.1516918109234913,
+      "tau_ci_low": 0.019685961865414818,
+      "tau_ci_high": 0.33012442689518146,
+      "sigma": 0.9649665111150496,
+      "sigma_ci_low": 0.9048729729384947,
+      "sigma_ci_high": 0.9975780431276711,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L8-9",
+      "layers": [
+        8,
+        9
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.4347590015029672,
+      "tau_ci_low": 0.215681220589725,
+      "tau_ci_high": 0.66408144877225,
+      "sigma": 0.9607897882278149,
+      "sigma_ci_low": 0.9061563998078689,
+      "sigma_ci_high": 0.9921673473448324,
+      "flip_rate": 0.38461538461538464,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.875,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L8-9",
+      "layers": [
+        8,
+        9
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.09469176892682371,
+      "tau_ci_low": 0.006209200359814305,
+      "tau_ci_high": 0.25325530189617235,
+      "sigma": 0.9685279803398328,
+      "sigma_ci_low": 0.9140344222577719,
+      "sigma_ci_high": 0.9968069374561309,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L8-9",
+      "layers": [
+        8,
+        9
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.008221112717558751,
+      "tau_ci_low": 0.0004151826401833012,
+      "tau_ci_high": 0.02202594356967998,
+      "sigma": 0.9728910349882566,
+      "sigma_ci_low": 0.9213517304032277,
+      "sigma_ci_high": 0.9989826104006706,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8571428571428571,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L8-9",
+      "layers": [
+        8,
+        9
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0002150827832556412,
+      "tau_ci_low": 5.7360652646467136e-05,
+      "tau_ci_high": 0.00039680809009854685,
+      "sigma": 0.9478916991979648,
+      "sigma_ci_low": 0.8710596250417904,
+      "sigma_ci_high": 0.999196890875315,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L10-11",
+      "layers": [
+        10,
+        11
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.2269618716901425,
+      "tau_ci_low": 0.02078443592621269,
+      "tau_ci_high": 0.45514729559305994,
+      "sigma": 0.8979411323865255,
+      "sigma_ci_low": 0.799627484400303,
+      "sigma_ci_high": 0.9898991296879756,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 0.9230769230769231,
+      "color_preserve_rate": 0.5,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L10-11",
+      "layers": [
+        10,
+        11
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.6902734461114665,
+      "tau_ci_low": 0.46427299931716254,
+      "tau_ci_high": 0.8955852890573527,
+      "sigma": 0.9349056879679363,
+      "sigma_ci_low": 0.8491780098623192,
+      "sigma_ci_high": 0.9814055725932123,
+      "flip_rate": 0.6923076923076923,
+      "detection_rate": 0.9230769230769231,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L10-11",
+      "layers": [
+        10,
+        11
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.24571918589222916,
+      "tau_ci_low": 0.07203767964933606,
+      "tau_ci_high": 0.4365237756362924,
+      "sigma": 0.9101674503240831,
+      "sigma_ci_low": 0.8309238841136296,
+      "sigma_ci_high": 0.9842614044745764,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.4,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L10-11",
+      "layers": [
+        10,
+        11
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.05314226687710444,
+      "tau_ci_low": 0.0014580903949383728,
+      "tau_ci_high": 0.1482478075770911,
+      "sigma": 0.9720353713402381,
+      "sigma_ci_low": 0.9202316344357455,
+      "sigma_ci_high": 0.9983662953743566,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L10-11",
+      "layers": [
+        10,
+        11
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0005168436269580418,
+      "tau_ci_low": 0.00015901198471127197,
+      "tau_ci_high": 0.0009448825565864345,
+      "sigma": 0.9985753504129556,
+      "sigma_ci_low": 0.9982809882706556,
+      "sigma_ci_high": 0.9988937880748355,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L12-13",
+      "layers": [
+        12,
+        13
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.17610535320548312,
+      "tau_ci_low": 0.025360066158709397,
+      "tau_ci_high": 0.3566316153806908,
+      "sigma": 0.915208657582601,
+      "sigma_ci_low": 0.83686356607538,
+      "sigma_ci_high": 0.9905515757508765,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.4,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L12-13",
+      "layers": [
+        12,
+        13
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.3179289463671331,
+      "tau_ci_low": 0.11325220620638918,
+      "tau_ci_high": 0.5453600595516017,
+      "sigma": 0.9090112883311051,
+      "sigma_ci_low": 0.8290842463381781,
+      "sigma_ci_high": 0.9823691219473496,
+      "flip_rate": 0.3076923076923077,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.5714285714285714,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L12-13",
+      "layers": [
+        12,
+        13
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.015115224370484199,
+      "tau_ci_low": 0.003988981740094279,
+      "tau_ci_high": 0.03134558888604037,
+      "sigma": 0.9697092435298822,
+      "sigma_ci_low": 0.9171762986060901,
+      "sigma_ci_high": 0.9972065315223657,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L12-13",
+      "layers": [
+        12,
+        13
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.0008807648205868319,
+      "tau_ci_low": 0.0001791358723152609,
+      "tau_ci_high": 0.0017265290772089585,
+      "sigma": 0.9714940862777905,
+      "sigma_ci_low": 0.9197609052062032,
+      "sigma_ci_high": 0.9978415034902401,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L12-13",
+      "layers": [
+        12,
+        13
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0007572677229000555,
+      "tau_ci_low": 0.00032924221840967754,
+      "tau_ci_high": 0.001214187823158889,
+      "sigma": 0.9725426038106283,
+      "sigma_ci_low": 0.9207204850629356,
+      "sigma_ci_high": 0.9988716027484491,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L14-15",
+      "layers": [
+        14,
+        15
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.020689266404405087,
+      "tau_ci_low": 0.00027072504778674004,
+      "tau_ci_high": 0.05982549397823717,
+      "sigma": 0.925658982533675,
+      "sigma_ci_low": 0.8162588808972103,
+      "sigma_ci_high": 0.9986156050211344,
+      "flip_rate": 0.0,
+      "detection_rate": 0.9230769230769231,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L14-15",
+      "layers": [
+        14,
+        15
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.15791516095011834,
+      "tau_ci_low": 0.0016910757863973502,
+      "tau_ci_high": 0.3705614705961737,
+      "sigma": 0.9162725668687087,
+      "sigma_ci_low": 0.8361435010074041,
+      "sigma_ci_high": 0.989711812119453,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.5714285714285714,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L14-15",
+      "layers": [
+        14,
+        15
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.017721234593419906,
+      "tau_ci_low": 0.004566587995027042,
+      "tau_ci_high": 0.034197072320739146,
+      "sigma": 0.9686430073701419,
+      "sigma_ci_low": 0.9160892457343064,
+      "sigma_ci_high": 0.9966789497778966,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L14-15",
+      "layers": [
+        14,
+        15
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.0449031943746239,
+      "tau_ci_low": 0.00044741427828313475,
+      "tau_ci_high": 0.13250692355174484,
+      "sigma": 0.9462157892875183,
+      "sigma_ci_low": 0.869737285643052,
+      "sigma_ci_high": 0.9974679050155174,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L14-15",
+      "layers": [
+        14,
+        15
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0006883759606220385,
+      "tau_ci_low": 4.006309223165996e-05,
+      "tau_ci_high": 0.0014188215591983526,
+      "sigma": 0.997785882307933,
+      "sigma_ci_low": 0.9969579525674,
+      "sigma_ci_high": 0.9984907370920364,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L16-17",
+      "layers": [
+        16,
+        17
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.0774569061014126,
+      "tau_ci_low": 0.00017475673081085804,
+      "tau_ci_high": 0.2314653402167909,
+      "sigma": 0.9712264499603175,
+      "sigma_ci_low": 0.9162040573091079,
+      "sigma_ci_high": 0.9989304699958901,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L16-17",
+      "layers": [
+        16,
+        17
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0013730625170383546,
+      "tau_ci_low": 1.958554437552059e-05,
+      "tau_ci_high": 0.0032519089635054048,
+      "sigma": 0.94717781436749,
+      "sigma_ci_low": 0.8703390221374158,
+      "sigma_ci_high": 0.9986461335840898,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L16-17",
+      "layers": [
+        16,
+        17
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.003110784706099961,
+      "tau_ci_low": 0.0002229669993079665,
+      "tau_ci_high": 0.006587247624435177,
+      "sigma": 0.9983422771478311,
+      "sigma_ci_low": 0.997360028613072,
+      "sigma_ci_high": 0.999044215086943,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L16-17",
+      "layers": [
+        16,
+        17
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.007046035293960503,
+      "tau_ci_low": 0.0001271787656428317,
+      "tau_ci_high": 0.019951152691423918,
+      "sigma": 0.9732049734164506,
+      "sigma_ci_low": 0.921845200848885,
+      "sigma_ci_high": 0.9990483667414921,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L16-17",
+      "layers": [
+        16,
+        17
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.00041536851352898377,
+      "tau_ci_low": 0.00011045819451654418,
+      "tau_ci_high": 0.0007552531162671741,
+      "sigma": 0.9474194875130286,
+      "sigma_ci_low": 0.8706460635058391,
+      "sigma_ci_high": 0.9987808073751439,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L18-19",
+      "layers": [
+        18,
+        19
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.08212735031934575,
+      "tau_ci_low": 0.0005138957999042593,
+      "tau_ci_high": 0.24027224930475907,
+      "sigma": 0.9706086340623025,
+      "sigma_ci_low": 0.91465355887627,
+      "sigma_ci_high": 0.998779802941359,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L18-19",
+      "layers": [
+        18,
+        19
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.00143624356657046,
+      "tau_ci_low": 0.0002527531886542203,
+      "tau_ci_high": 0.003027136932025901,
+      "sigma": 0.947024168112339,
+      "sigma_ci_low": 0.8700984180737765,
+      "sigma_ci_high": 0.9987086947147663,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L18-19",
+      "layers": [
+        18,
+        19
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.013953564234915089,
+      "tau_ci_low": 7.230973034275263e-05,
+      "tau_ci_high": 0.03363061467445431,
+      "sigma": 0.9727714978731595,
+      "sigma_ci_low": 0.921068986830039,
+      "sigma_ci_high": 0.9990942185887923,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L18-19",
+      "layers": [
+        18,
+        19
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.0017747611657693825,
+      "tau_ci_low": 0.00011032871114395448,
+      "tau_ci_high": 0.004895118584603097,
+      "sigma": 0.9735209521574851,
+      "sigma_ci_low": 0.9221903122197359,
+      "sigma_ci_high": 0.9993010979241286,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L18-19",
+      "layers": [
+        18,
+        19
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.006623836512818176,
+      "tau_ci_low": 9.51665194232144e-05,
+      "tau_ci_high": 0.0194290299001917,
+      "sigma": 0.9735236221399062,
+      "sigma_ci_low": 0.9221180699956721,
+      "sigma_ci_high": 0.9993825252812643,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L20-21",
+      "layers": [
+        20,
+        21
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.04479671039933632,
+      "tau_ci_low": 0.00030990561023403623,
+      "tau_ci_high": 0.1307188303388032,
+      "sigma": 0.9708645022832431,
+      "sigma_ci_low": 0.9185360385439334,
+      "sigma_ci_high": 0.9984809435904026,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L20-21",
+      "layers": [
+        20,
+        21
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.06520643183830689,
+      "tau_ci_low": 0.001108145870155702,
+      "tau_ci_high": 0.17857044279144793,
+      "sigma": 0.9718459026935773,
+      "sigma_ci_low": 0.9196867514879276,
+      "sigma_ci_high": 0.9987787195696278,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L20-21",
+      "layers": [
+        20,
+        21
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.006089959057904233,
+      "tau_ci_low": 0.0001454578709434359,
+      "tau_ci_high": 0.017042238571622174,
+      "sigma": 0.9989679860763061,
+      "sigma_ci_low": 0.998502736634169,
+      "sigma_ci_high": 0.9993358425987071,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L20-21",
+      "layers": [
+        20,
+        21
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.00016785588986581042,
+      "tau_ci_low": 3.0186197839727482e-05,
+      "tau_ci_high": 0.0003339332196167964,
+      "sigma": 0.9735800623893738,
+      "sigma_ci_low": 0.9222517534899406,
+      "sigma_ci_high": 0.9993977117423827,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L20-21",
+      "layers": [
+        20,
+        21
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.006678537807640552,
+      "tau_ci_low": 0.00016289129084969925,
+      "tau_ci_high": 0.01937080903512913,
+      "sigma": 0.9991731597827032,
+      "sigma_ci_low": 0.9988605180420936,
+      "sigma_ci_high": 0.9994427780501353,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L22-23",
+      "layers": [
+        22,
+        23
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.012482658170757036,
+      "tau_ci_low": 0.0002503678080819478,
+      "tau_ci_high": 0.036448668851734485,
+      "sigma": 0.9965306581595006,
+      "sigma_ci_low": 0.9931085456449253,
+      "sigma_ci_high": 0.9986438704797855,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L22-23",
+      "layers": [
+        22,
+        23
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.009251532248613518,
+      "tau_ci_low": 0.0005589155891824552,
+      "tau_ci_high": 0.022843849884450162,
+      "sigma": 0.9711258105742626,
+      "sigma_ci_low": 0.9189501837469065,
+      "sigma_ci_high": 0.9982837905677465,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L22-23",
+      "layers": [
+        22,
+        23
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.0003398117028225199,
+      "tau_ci_low": 0.0001172413910716639,
+      "tau_ci_high": 0.0006536362077080163,
+      "sigma": 0.9730662405490875,
+      "sigma_ci_low": 0.9214579401107935,
+      "sigma_ci_high": 0.9992560327817233,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L22-23",
+      "layers": [
+        22,
+        23
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.006829924157017422,
+      "tau_ci_low": 0.00026327038465814666,
+      "tau_ci_high": 0.0195560012420616,
+      "sigma": 0.9736991799794711,
+      "sigma_ci_low": 0.9223188437903539,
+      "sigma_ci_high": 0.9994912436375253,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L22-23",
+      "layers": [
+        22,
+        23
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.006583906962808181,
+      "tau_ci_low": 7.294935391720661e-05,
+      "tau_ci_high": 0.019407559741993145,
+      "sigma": 0.9738061787226262,
+      "sigma_ci_low": 0.9224875264442884,
+      "sigma_ci_high": 0.9995693077452672,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L24-25",
+      "layers": [
+        24,
+        25
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.017298478550294847,
+      "tau_ci_low": 0.0015665466992381008,
+      "tau_ci_high": 0.03631253434755906,
+      "sigma": 0.9712468614945045,
+      "sigma_ci_low": 0.9193738175890384,
+      "sigma_ci_high": 0.9981826543999023,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L24-25",
+      "layers": [
+        24,
+        25
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0058428402274594,
+      "tau_ci_low": 0.0002291757790595304,
+      "tau_ci_high": 0.016149281929918685,
+      "sigma": 0.9981985382544689,
+      "sigma_ci_low": 0.996470566533315,
+      "sigma_ci_high": 0.9992108824734505,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L24-25",
+      "layers": [
+        24,
+        25
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.005157208718026455,
+      "tau_ci_low": 6.701591393336079e-05,
+      "tau_ci_high": 0.015233062777775495,
+      "sigma": 0.9731184121889945,
+      "sigma_ci_low": 0.9214428619123421,
+      "sigma_ci_high": 0.999324206301035,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L24-25",
+      "layers": [
+        24,
+        25
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.00673839405817269,
+      "tau_ci_low": 0.00013568859651632347,
+      "tau_ci_high": 0.01952178716395851,
+      "sigma": 0.9481071149691558,
+      "sigma_ci_low": 0.8712808420642829,
+      "sigma_ci_high": 0.9993818836525465,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L24-25",
+      "layers": [
+        24,
+        25
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 0.0001240895757076626,
+      "tau_ci_low": 5.4756716215404315e-05,
+      "tau_ci_high": 0.00020233207536751534,
+      "sigma": 0.9738781597369756,
+      "sigma_ci_low": 0.9225567983893246,
+      "sigma_ci_high": 0.9996184192024743,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L26-27",
+      "layers": [
+        26,
+        27
+      ],
+      "head": "all",
+      "window": "W0[0-3]",
+      "steps": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tau": 0.019949875806557858,
+      "tau_ci_low": 0.00022800765077168173,
+      "tau_ci_high": 0.05824312823057667,
+      "sigma": 0.9707193435766757,
+      "sigma_ci_low": 0.9177407158873019,
+      "sigma_ci_high": 0.998305045125576,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L26-27",
+      "layers": [
+        26,
+        27
+      ],
+      "head": "all",
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0004518486210973749,
+      "tau_ci_low": 0.00017543161656208674,
+      "tau_ci_high": 0.0007729477091545444,
+      "sigma": 0.9983534423204569,
+      "sigma_ci_low": 0.9967623093762458,
+      "sigma_ci_high": 0.9992531783687764,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L26-27",
+      "layers": [
+        26,
+        27
+      ],
+      "head": "all",
+      "window": "W2[8-11]",
+      "steps": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "tau": 0.00018218249670653083,
+      "tau_ci_low": 5.7244944444785944e-05,
+      "tau_ci_high": 0.00035820543666179424,
+      "sigma": 0.999255101650189,
+      "sigma_ci_low": 0.9990353440818114,
+      "sigma_ci_high": 0.9994734959915663,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 1.0,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L26-27",
+      "layers": [
+        26,
+        27
+      ],
+      "head": "all",
+      "window": "W3[12-15]",
+      "steps": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "tau": 0.00023043916065341834,
+      "tau_ci_low": 0.00011787827529137978,
+      "tau_ci_high": 0.00035323063603025966,
+      "sigma": 0.9479670960169572,
+      "sigma_ci_low": 0.8711825512349608,
+      "sigma_ci_high": 0.9992595431323235,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.6666666666666666,
+      "n_valid": 13,
+      "n_total": 18
+    },
+    {
+      "layer_group": "L26-27",
+      "layers": [
+        26,
+        27
+      ],
+      "head": "all",
+      "window": "W4[16-19]",
+      "steps": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "tau": 6.040518112229405e-05,
+      "tau_ci_low": 0.0,
+      "tau_ci_high": 0.0001399329563130236,
+      "sigma": 0.9738145852700257,
+      "sigma_ci_low": 0.9225186273073537,
+      "sigma_ci_high": 0.9995774608774063,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334,
+      "n_valid": 13,
+      "n_total": 18
+    }
+  ],
+  "per_l_h_t": [
+    {
+      "layer": 2,
+      "head": 0,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.058051957505917365,
+      "tau_ci_low": 0.00030930010610447876,
+      "tau_ci_high": 0.16661713977818088,
+      "sigma": 0.9471050202846527,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 1,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0039550630879514655,
+      "tau_ci_low": 0.0001210227060300109,
+      "tau_ci_high": 0.011173932233473904,
+      "sigma": 0.972429253351994,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 2,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.057101068435896615,
+      "tau_ci_low": 9.67112087506799e-05,
+      "tau_ci_high": 0.1651575736321019,
+      "sigma": 0.9469276529092056,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 3,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0012144653128503256,
+      "tau_ci_low": 8.554468536807305e-05,
+      "tau_ci_high": 0.003148031576954642,
+      "sigma": 0.9728963772455852,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 4,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.005518938262059427,
+      "tau_ci_low": 0.00014548223431765496,
+      "tau_ci_high": 0.015914241786403598,
+      "sigma": 0.9727765894853152,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 5,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.01230243696375467,
+      "tau_ci_low": 9.820800156836144e-05,
+      "tau_ci_high": 0.0365164204132394,
+      "sigma": 0.9974780281384786,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 6,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.008869753533710157,
+      "tau_ci_low": 8.063458944046542e-05,
+      "tau_ci_high": 0.0247830954453575,
+      "sigma": 0.9472136902503477,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 7,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0075306497162094446,
+      "tau_ci_low": 5.2259048929083335e-05,
+      "tau_ci_high": 0.022189975649723376,
+      "sigma": 0.9724974792737228,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 8,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.000490792221048001,
+      "tau_ci_low": 4.663259320268827e-05,
+      "tau_ci_high": 0.0011769143388407582,
+      "sigma": 0.9981028735637665,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 9,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0014390198706317491,
+      "tau_ci_low": 0.00014216029858719003,
+      "tau_ci_high": 0.0037569269304240367,
+      "sigma": 0.9726065114522591,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 10,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0011101850085537134,
+      "tau_ci_low": 0.000291887170689378,
+      "tau_ci_high": 0.002373846186769232,
+      "sigma": 0.9728574554125468,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 11,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.04420887853523636,
+      "tau_ci_low": 0.0002536306434563312,
+      "tau_ci_high": 0.13183203665094886,
+      "sigma": 0.9470470555317707,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 12,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.006315092606711879,
+      "tau_ci_low": 0.0002166409319100885,
+      "tau_ci_high": 0.018250340589838356,
+      "sigma": 0.9723483026027679,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 13,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.007130746360353469,
+      "tau_ci_low": 0.00019359027243243856,
+      "tau_ci_high": 0.0194525631491657,
+      "sigma": 0.9975912930109563,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 14,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0022804545142287693,
+      "tau_ci_low": 0.0004233725445744686,
+      "tau_ci_high": 0.0050253741302004025,
+      "sigma": 0.9469121213142688,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 2,
+      "head": 15,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0073774987501502125,
+      "tau_ci_low": 0.000293309989775139,
+      "tau_ci_high": 0.020879426529525194,
+      "sigma": 0.9727650666848208,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.006721947836570607,
+      "tau_ci_low": 0.00015581766349727398,
+      "tau_ci_high": 0.019359309905027874,
+      "sigma": 0.9729957955005841,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 1,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.08551849338662584,
+      "tau_ci_low": 0.0009105256565850585,
+      "tau_ci_high": 0.23949138603619224,
+      "sigma": 0.9458328722379148,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 2,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.5468086645241829,
+      "tau_ci_low": 0.30470336281327914,
+      "tau_ci_high": 0.7864547488641302,
+      "sigma": 0.9113112565798638,
+      "flip_rate": 0.5384615384615384,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 3,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.051777890786076745,
+      "tau_ci_low": 0.00020548720004533364,
+      "tau_ci_high": 0.15420435415823644,
+      "sigma": 0.9469061150000646,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 4,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.00175643646961045,
+      "tau_ci_low": 0.0004639161920147886,
+      "tau_ci_high": 0.003632388518742697,
+      "sigma": 0.9728649090497921,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 5,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.008226372260986377,
+      "tau_ci_low": 0.0004007886915223358,
+      "tau_ci_high": 0.022382637240915867,
+      "sigma": 0.9729606738457313,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 6,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0210442458997697,
+      "tau_ci_low": 0.0004674726422924975,
+      "tau_ci_high": 0.047947279111000815,
+      "sigma": 0.972097111818118,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 7,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.09427861518366092,
+      "tau_ci_low": 6.278349381433323e-05,
+      "tau_ci_high": 0.2311283524252934,
+      "sigma": 0.921540196125324,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 8,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0955007930301343,
+      "tau_ci_low": 0.0008584379809459716,
+      "tau_ci_high": 0.2495738623681576,
+      "sigma": 0.9455804595580468,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 9,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0019563006852899817,
+      "tau_ci_low": 0.0003733126049344117,
+      "tau_ci_high": 0.004287829994432719,
+      "sigma": 0.9723583406362779,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 10,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.004153729638220121,
+      "tau_ci_low": 0.00014951658603143538,
+      "tau_ci_high": 0.011771936154799397,
+      "sigma": 0.9722324525698637,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 11,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.00080629717061186,
+      "tau_ci_low": 0.0002655563752465718,
+      "tau_ci_high": 0.001494337879965668,
+      "sigma": 0.9726305565772912,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 12,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.013425019477818972,
+      "tau_ci_low": 6.753886980156906e-05,
+      "tau_ci_high": 0.03264642951283059,
+      "sigma": 0.9976898408853091,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 13,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.019209833816604786,
+      "tau_ci_low": 0.0004899977142853324,
+      "tau_ci_high": 0.0558138657279846,
+      "sigma": 0.9455749308451628,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 14,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.007073914543463198,
+      "tau_ci_low": 0.0008971861972005351,
+      "tau_ci_high": 0.016812166065246558,
+      "sigma": 0.9720054543935336,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 3,
+      "head": 15,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.007649814177102314,
+      "tau_ci_low": 0.00020366888693905126,
+      "tau_ci_high": 0.022034265117554838,
+      "sigma": 0.9727983054442284,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 0,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.005965913447881461,
+      "tau_ci_low": 0.00025499303493854085,
+      "tau_ci_high": 0.016144166604988616,
+      "sigma": 0.9728547235329945,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 1,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.053209108179439496,
+      "tau_ci_low": 0.000389657955710984,
+      "tau_ci_high": 0.15600984619180563,
+      "sigma": 0.9473000612014378,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 2,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.05858131010536731,
+      "tau_ci_low": 0.0013837354606993266,
+      "tau_ci_high": 0.16548282823735835,
+      "sigma": 0.9720263190758534,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 3,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.015376579105813831,
+      "tau_ci_low": 0.00017839389939504173,
+      "tau_ci_high": 0.04214793023698458,
+      "sigma": 0.9720578950185043,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 4,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.001427761207844897,
+      "tau_ci_low": 0.00013894421623590305,
+      "tau_ci_high": 0.003607492773224879,
+      "sigma": 0.97263776186185,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 5,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.052143316547469946,
+      "tau_ci_low": 0.0003133807886836523,
+      "tau_ci_high": 0.1549047841472475,
+      "sigma": 0.9462638650185023,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 6,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.2585073069711263,
+      "tau_ci_low": 0.07269674400723491,
+      "tau_ci_high": 0.4926657155462941,
+      "sigma": 0.9423274757006228,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 7,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.07771987604713648,
+      "tau_ci_low": 0.00044024136396952646,
+      "tau_ci_high": 0.2317062895121371,
+      "sigma": 0.9455497967891204,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 8,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.1356918760777512,
+      "tau_ci_low": 0.00030022270670717764,
+      "tau_ci_high": 0.3287402155483463,
+      "sigma": 0.893830962670155,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 9,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0066878552505475215,
+      "tau_ci_low": 0.00012786647522063183,
+      "tau_ci_high": 0.019534764818781004,
+      "sigma": 0.9729112142171614,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 10,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.014371199081385622,
+      "tau_ci_low": 8.178406710844791e-05,
+      "tau_ci_high": 0.035037113652887454,
+      "sigma": 0.972749092640021,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 11,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.030520729724686484,
+      "tau_ci_low": 0.0013162454582564416,
+      "tau_ci_high": 0.06545368447103687,
+      "sigma": 0.9715582995842664,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 12,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.053876021994870564,
+      "tau_ci_low": 0.0005306309537257643,
+      "tau_ci_high": 0.15917813986024568,
+      "sigma": 0.9727508609111493,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 13,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.07834445444812392,
+      "tau_ci_low": 0.00016417649955714677,
+      "tau_ci_high": 0.2330476156112592,
+      "sigma": 0.9457416480932481,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 14,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.008733413139602094,
+      "tau_ci_low": 0.00010894688534753953,
+      "tau_ci_high": 0.02433236821745353,
+      "sigma": 0.9472658389653916,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 10,
+      "head": 15,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.3129308550140661,
+      "tau_ci_low": 0.11432506305508594,
+      "tau_ci_high": 0.536391327758577,
+      "sigma": 0.9883708938574179,
+      "flip_rate": 0.23076923076923078,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 0,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.005831950804997257,
+      "tau_ci_low": 0.00016931623344169642,
+      "tau_ci_high": 0.01672331007670933,
+      "sigma": 0.972572452746905,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 1,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.11225023376145594,
+      "tau_ci_low": 0.0030567661812426154,
+      "tau_ci_high": 0.27148514224001524,
+      "sigma": 0.8969607032262362,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 0.9230769230769231
+    },
+    {
+      "layer": 11,
+      "head": 2,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.007392735399394339,
+      "tau_ci_low": 0.000184991900946989,
+      "tau_ci_high": 0.02076868686339757,
+      "sigma": 0.9727271871689038,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 3,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.007476551349271646,
+      "tau_ci_low": 0.0003418802517654577,
+      "tau_ci_high": 0.0210969107041357,
+      "sigma": 0.9453230202198029,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 4,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0060981130027616525,
+      "tau_ci_low": 0.0003655758467299288,
+      "tau_ci_high": 0.01652145375212032,
+      "sigma": 0.9521149824827145,
+      "flip_rate": 0.0,
+      "detection_rate": 0.9230769230769231
+    },
+    {
+      "layer": 11,
+      "head": 5,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0025333938202234552,
+      "tau_ci_low": 0.00031236107316107853,
+      "tau_ci_high": 0.005824539229208484,
+      "sigma": 0.9722739878373269,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 6,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.00030369572653676997,
+      "tau_ci_low": 0.00012033769650664249,
+      "tau_ci_high": 0.0005034950627325168,
+      "sigma": 0.9980266965352572,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 7,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.003321504482532655,
+      "tau_ci_low": 0.0006216711233275718,
+      "tau_ci_high": 0.0067607561461044356,
+      "sigma": 0.9725404618642268,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 8,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.05788661177201903,
+      "tau_ci_low": 0.00040159103625821114,
+      "tau_ci_high": 0.16630725502455138,
+      "sigma": 0.9469110514873115,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 9,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.009460547102017193,
+      "tau_ci_low": 0.0005982195420988536,
+      "tau_ci_high": 0.02521306575140189,
+      "sigma": 0.9727690899983431,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 10,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.054272951469974136,
+      "tau_ci_low": 9.170064005672606e-05,
+      "tau_ci_high": 0.15969390065876274,
+      "sigma": 0.946911592514087,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 11,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.17100258324287637,
+      "tau_ci_low": 0.010808234599058553,
+      "tau_ci_high": 0.38594270970325073,
+      "sigma": 0.9681973648376954,
+      "flip_rate": 0.15384615384615385,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 12,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0035038415730762424,
+      "tau_ci_low": 0.0001719723734949901,
+      "tau_ci_high": 0.009712041247908278,
+      "sigma": 0.9468540984850663,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 13,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.09404217433598797,
+      "tau_ci_low": 0.0006853656466021285,
+      "tau_ci_high": 0.24788260011941676,
+      "sigma": 0.8989363381495843,
+      "flip_rate": 0.07692307692307693,
+      "detection_rate": 0.9230769230769231
+    },
+    {
+      "layer": 11,
+      "head": 14,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.012867269715656542,
+      "tau_ci_low": 0.00042287889903829657,
+      "tau_ci_high": 0.03668352501905375,
+      "sigma": 0.9719451329646966,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    },
+    {
+      "layer": 11,
+      "head": 15,
+      "window": "W1[4-7]",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "tau": 0.0014512932716184716,
+      "tau_ci_low": 0.0002261283474911663,
+      "tau_ci_high": 0.0032524619113822274,
+      "sigma": 0.9728571589176471,
+      "flip_rate": 0.0,
+      "detection_rate": 1.0
+    }
+  ],
+  "controls": {
+    "random_head": {
+      "description": "Patch single random head L3H10 at W1[4-7]",
+      "n_total": 18,
+      "n_valid": 13,
+      "tau_mean": 0.004153729638220121,
+      "tau_ci_low": 0.00014951658603143538,
+      "tau_ci_high": 0.011771936154799397,
+      "flip_rate": 0.0,
+      "sigma_mean": 0.9722324525698637,
+      "sigma_ci_low": 0.9200973319319579,
+      "sigma_ci_high": 0.9989642498966974,
+      "both_detected_rate": 1.0,
+      "color_preserve_rate": 0.8333333333333334
+    },
+    "wrong_timestep": {
+      "description": "Patch L10-11 at late window W4[16-19]",
+      "n_total": 18,
+      "n_valid": 13,
+      "tau_mean": 0.0005168436269580418,
+      "tau_ci_low": 0.00015901198471127197,
+      "tau_ci_high": 0.0009448825565864345,
+      "flip_rate": 0.0,
+      "sigma_mean": 0.9985753504129556,
+      "sigma_ci_low": 0.9982809882706556,
+      "sigma_ci_high": 0.9988937880748355,
+      "both_detected_rate": 1.0,
+      "color_preserve_rate": 1.0
+    },
+    "same_prompt_noop": {
+      "description": "Patch corrupt cache back into corrupt at L10-11@W1[4-7]",
+      "n_total": 18,
+      "n_valid": 13,
+      "tau_mean": 0.0,
+      "tau_ci_low": 0.0,
+      "tau_ci_high": 0.0,
+      "flip_rate": 0.0,
+      "sigma_mean": 1.0,
+      "sigma_ci_low": 1.0,
+      "sigma_ci_high": 1.0,
+      "both_detected_rate": 1.0,
+      "color_preserve_rate": 1.0
+    },
+    "seed_variation": {
+      "description": "Patch clean cache from shifted seed (s+999) into corrupt at L10-11@W1[4-7]",
+      "n_total": 18,
+      "n_valid": 13,
+      "tau_mean": 0.7063359064135208,
+      "tau_ci_low": 0.47416609673290094,
+      "tau_ci_high": 0.9002781274465212,
+      "flip_rate": 0.6923076923076923,
+      "sigma_mean": 0.9099826369530116,
+      "sigma_ci_low": 0.8034098363839663,
+      "sigma_ci_high": 0.9798645444214344,
+      "both_detected_rate": 0.9230769230769231,
+      "color_preserve_rate": 0.8
+    }
+  },
+  "elapsed_sec": 2004.22
+}
