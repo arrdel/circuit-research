@@ -731,3 +731,107 @@ Done when the draft exists with the numbers cited to their source files.
 
 (Append below: status per task, what was done with evidence, blockers,
 open questions.)
+
+## Day 6: runs after Day 5 reports (written Wed Nov 25, 2026)
+
+Day numbers are sequential work blocks, not calendar dates: Days 1-4 all
+ran on Nov 24, Day 5 is dated Sat Nov 28 in its header but runs when the
+agents resume. Do not let the header dates confuse the order.
+
+### Review of Day 5 (Muse, Nov 25 morning)
+
+Day 5 has NOT started. Verified, not assumed:
+
+- Remote head of `arrdel/circuit-research` is still `5d9f43d5` (the Day 5
+  section append, Nov 25, 03:12 UTC). No agent commits since.
+- The Day 5 Report section above is still empty.
+- None of the Day 5 deliverables exist: no `experiments/e3/` directory,
+  no `experiments/e1/baseline_comparison_full.json`, no milestone
+  write-up draft.
+
+That is not a failure: Day 5 says "run this section when you resume",
+and the agents resume when Adele opens Cursor. Nothing is late. The
+review task for today is therefore: run Day 5, then Day 6.
+
+### Gating rule (read first)
+
+Do Day 5 first, in full, and fill in its Report. Do NOT start Day 6
+until the Day 5 Report is filled in. Day 6 depends on Day 5's results
+(the E3 pilot gate outcome and the full-sweep baseline ranking), so
+running ahead would mean working from numbers that do not exist yet.
+
+### Task 1: E3 full sweep (only if the E3 pilot gate passed)
+
+- If the Day 5 E3 pilot gate PASSED (peak tau beats the random-head
+  control): run the full E3 sweep on fresh color-binding items from the
+  same combinations, patching at the peak cells (L10-11 @ W1[4-7] and
+  L2-3 @ W1[4-7]) with all four controls, 3 seeds.
+- Save results as `experiments/e3/e3_full_results.json` (tau per (l,h,t),
+  sigma, flip rate, detection rate, controls) and a run log
+  `experiments/e3/e3_full_run_log.md`. Save patched images under
+  `experiments/e3/images/`.
+- State plainly whether the full sweep confirms the pilot (same peak
+  cells, same direction) or not, and report the color-preserve rate
+  alongside tau: color is the fragile part, layout is seed-invariant.
+- If the pilot gate FAILED: do NOT run the full sweep. Report the
+  negative result with the same rigor and move to Task 2; the write-up
+  carries the negative result, it is not hidden.
+Done when the full-sweep results JSON and run log exist (or the pilot
+failure is documented) and the report states the gate outcome.
+
+### Task 2: Finalize the first-milestone write-up
+
+- Revise the Day 5 draft (`experiments/e1/milestone_writeup.md`) with
+  the Day 5 + Day 6 numbers: the full-sweep baseline comparison
+  (especially whether P2P still beats patching at N=13), the E3 pilot
+  and full-sweep results, and the per-instance outcomes and artifacts.
+- Add the Week 4 go/no-go decision note (blueprint Week 4): expand to
+  E4 (held-out-combination generalization) and E5, or not, decided on
+  the evidence in the write-up, not on sunk effort. State the decision
+  and the evidence for it.
+- This is still a draft for Muse and Adele to review, not a submission.
+  No claims beyond what the results JSONs support. Keep the limitations
+  stated plainly (flip_rate 0.69, the two artifacts, P2P beating
+  patching on the pilot, small N on the 1024-MS check).
+Done when the revised draft exists with every number cited to its
+source file and the go/no-go note is in it.
+
+### Task 3: Read the activation-steering paper (research)
+
+- Read "RL Post-Training in Diffusion Transformers Is Activation
+  Steering" (Meral et al., arXiv:2611.26627, submitted Nov 19, 2026;
+  authors include Duen Horng Chau and Pinar Yanardag). Verified live
+  Nov 25: fixed steering vectors (0.29M params, 65x fewer than the
+  RL-tuned LoRA) recover 90.0-96.3% of the reward gains of six RL-tuned
+  image models, and trained with online RL from zero they exceed
+  weight-based RL on text rendering (OCR) and human preference
+  (PickScore) on SD3.5-M.
+- Also check Chau's ConceptAttention (ICML 2025 oral) as it bears on
+  attention-based concept localization in diffusion transformers; cite
+  it only if you verify it live.
+- Add the steering paper to `research/reading-notes-2026-11-24.md` as
+  paper 8 (and ConceptAttention as paper 9 if verified): one paragraph
+  each on what it means for CIRCUIT's framing. The distinction to draw:
+  steering is a fixed, input-independent shift; patching is
+  input-dependent, causal, and localized (L3H2, the 6-head coalition,
+  the temporal map). Do not claim patching is the only way to transfer
+  a relation; state what patching adds beyond steering and beyond P2P
+  injection.
+Done when the notes carry paper 8 (and 9 if verified) with the framing
+paragraph, and nothing is claimed beyond the papers as read.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
