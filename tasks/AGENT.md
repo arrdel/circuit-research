@@ -1,25 +1,35 @@
-# Cursor agent: how we work together
+# CIRCUIT: Muse <-> Cursor agent coordination (single file)
 
-This file is the operating contract between the CIRCUIT Cursor agent
-(execution, in Adele's Cursor IDE) and Muse (oversight).
+This file is the operating contract AND the day-by-day log between the
+CIRCUIT Cursor agent (execution, in Adele's Cursor IDE) and Muse
+(oversight). Single file of record, by Adele's decision Nov 24, 2026: all
+communication between Muse and the agent lives here, in dated sections
+below. The daily task files tasks/2026-11-24.md through tasks/2026-11-27.md
+were consolidated into this file and deleted.
+
+Before the public release, gitignore this file and remove it from tracking
+(git rm --cached tasks/AGENT.md). Until then it stays tracked so the agent
+can read it from the repo.
 
 ## The loop
 
-1. Muse writes the day's tasks each morning, Monday to Saturday, around
-   7:50 AM ET, in `tasks/YYYY-MM-DD.md` in this repo and as TickTick tasks.
-   The task file is the full brief: what, why, done criteria, files, repos,
+1. Muse appends the day's tasks as a new dated section in THIS file each
+   morning, Monday to Saturday, around 7:50 AM ET, and as TickTick tasks.
+   The section is the full brief: what, why, done criteria, files, repos,
    constraints, links. TickTick carries the short title and due date only.
-2. The agent reads the task file, executes in the IDE, and reports back in
-   the same file, in a `## Report` section, before the day ends.
-3. Muse verifies the report against the evidence the next morning, marks
-   tasks done or rolls them forward, and writes the next day's file.
+2. The agent reads the latest dated section, executes in the IDE, and
+   reports back in that same section, under its `### Report`, before the
+   day ends.
+3. Muse verifies the report against the evidence the next morning,
+   appends a Review to that section (or opens the next day's section with
+   it), and appends the next day's section.
 4. Adele decides anything that needs his judgment. The agent never decides
    for him and never sends, publishes, or submits anything.
 
 ## The shared channel
 
-This repo is how the agent and Muse communicate. The agent reports by
-updating the task file and pushing, and by linking its work (commit SHAs,
+This file is how the agent and Muse communicate. The agent reports by
+updating this file and pushing, and by linking its work (commit SHAs,
 file paths, PR or issue links). If the agent is blocked, it writes the
 blocker plainly in the report and moves to the next task. It does not spin
 on a blocked task.
@@ -34,7 +44,7 @@ spatial relationships? Model: PixArt-Sigma. Opening operations: spatial
 relation left/right and color attribute binding. The full blueprint (literature
 review, novelty matrix, hypotheses, causal measurement definitions,
 experiment protocols E0-E6, first-month plan) lives in the private frontier
-repo; each day's task file carries everything needed for that day.
+repo; each day's section below carries everything needed for that day.
 
 Out of scope for this agent:
 - LUCID / CDR / diffusion-language-model work. That is Adele's PhD project;
@@ -75,7 +85,7 @@ Above average is the floor. Work that is merely good enough does not pass.
 
 ## Report format
 
-For each task in the day's file, the agent appends:
+For each task in the day's section, the agent appends:
 
 - Status: done / partial / blocked.
 - What was done, with evidence: file paths, commit SHAs, links.
@@ -84,3 +94,455 @@ For each task in the day's file, the agent appends:
 
 A task is done when its done criteria are met and the evidence is linked.
 A task with no evidence is not done, even if the work happened.
+
+---
+
+## Day 1: Tue Nov 24, 2026
+
+Week 1 of 4. Goal for the week: research foundation and reproduction
+(blueprint E0). This section is the full brief; report back in the
+`### Report` below before the day ends, then push.
+
+Research question: Do diffusion transformers develop temporally localized,
+causally identifiable computational mechanisms for object-attribute binding
+and spatial relationships? Model: PixArt-Sigma (0.6B DiT, Hugging Face
+Diffusers, checkpoint PixArt-alpha/PixArt-Sigma-XL-2-1024-MS). Opening
+operations: spatial relation left/right, and color attribute binding.
+
+### Task 1: Read the five core papers (Roy first)
+
+Read in this order:
+
+1. Roy, "Mechanistic Interpretability of Diffusion Models: Circuit-Level
+   Analysis and Causal Validation", arXiv:2506.17237. Read first: closest
+   prior, circuit-level plus causal validation.
+2. Maliha and Hougen, "Mechanistic Interpretability of Text-to-Image
+   Diffusion Models via Cross-Attention Interventions", Findings of ACL
+   2026, https://aclanthology.org/2026.findings-acl.1265/
+3. Kim, Thomas, Ghadiyaram, "Revelio", ICCV 2025, arXiv:2411.16725
+4. Wang et al., "DLM-Scope", ICML 2026, arXiv:2602.05859
+5. Huang et al., "T2I-CompBench", NeurIPS 2023, arXiv:2307.06350
+
+Write `research/reading-notes-2026-11-24.md` with, per paper: what it does,
+what it does not do, and what it means for CIRCUIT (one paragraph each).
+Done when the notes file exists and covers all five with links.
+
+### Task 2: Reproduce PixArt-Sigma generation (E0 start)
+
+Load PixArt-Sigma through Diffusers. Fixed seed, sampler, step count, and
+guidance for every run; record the exact settings in the run log. Generate
+the five counterfactual prompt families:
+
+1. Red cube left of blue sphere.
+2. Blue cube left of red sphere.
+3. Red cube right of blue sphere.
+4. Red cube left of blue sphere, green cylinder in front.
+5. Two red cubes and one blue sphere.
+
+Save the images under `experiments/e0/` and the run log as
+`experiments/e0/run-log.md` (prompt, seed, sampler, steps, guidance, output
+path per image). Verify the same prompt and seed reproduces the same image
+(run one prompt twice and compare).
+Done when the script, the images, and the run log exist and the
+reproduction check passes. If this environment has no GPU or cannot
+download the model, report blocked with the exact error and what is needed
+(HF access, GPU). Never fake a run.
+
+### Task 3: E0 failure set
+
+From the Task 2 images, identify the reproducible compositional failures:
+cases where the image violates the prompt and the violation is stable across
+3 seeds. Record them in `experiments/e0/failures.md` (prompt, what was
+required, what the image shows, seeds tested). Depends on Task 2; if Task 2
+is blocked, this task is blocked too. Done when failures.md lists the
+failures with evidence, or states that no stable failure was found (with
+the images as evidence).
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+#### Task 1: Read the five core papers (Roy first)
+- Status: done.
+- What was done: Read all five papers in the specified order (Roy `arXiv:2506.17237` first, followed by Maliha and Hougen ACL Findings 2026, Revelio `arXiv:2411.16725`, DLM-Scope `arXiv:2602.05859`, and T2I-CompBench / T2I-CompBench++ `arXiv:2307.06350`) and wrote `research/reading-notes-2026-11-24.md` covering what each paper does, what it does not do, and what it means for CIRCUIT, with links to all five papers.
+- Evidence: `research/reading-notes-2026-11-24.md`.
+
+#### Task 2: Reproduce PixArt-Sigma generation (E0 start)
+- Status: done.
+- What was done: Implemented the reusable `PixArtSigmaRunner` (`models/pixart_sigma.py`), hook/patching infrastructure (`instrumentation/hooks.py`, `interventions/patching.py`), detector + SigLIP evaluator (`evaluation/spatial_eval.py`, `evaluation/causal_metrics.py`), and Day 1 reproduction script (`experiments/e0/reproduce_pixart.py`). Ran `PixArt-alpha/PixArt-Sigma-XL-2-1024-MS` (`DPMSolverMultistepScheduler`, 20 steps, guidance scale 4.5, 1024x1024, `torch.bfloat16`) across all 5 counterfactual prompt families and 3 seeds (`42, 123, 456`), saving 15 images plus a deterministic recheck image (`p1_red_cube_left_blue_sphere_seed42_recheck.png`) and visual grid (`experiments/e0/e0_grid.png`). Verified exact determinism: rerunning `Red cube left of blue sphere.` with seed `42` produced identical SHA-256 (`0f825cd7463f0f00...`) and `max_abs_pixel_diff = 0`.
+- Also ran a 24-pair spatial + 18-pair color-binding dev sanity check on `PixArt-alpha/PixArt-Sigma-XL-2-512-MS` (`experiments/e0_baseline_sanity.py`) to test multi-template counterfactual yield: explicit positional phrasing (`on_the_side_explicit`, `side_by_side_scene`) achieved 62.5% valid counterfactual pairs (87.5% clean / 75.0% corrupt relation accuracy), whereas `to_the_side_of` achieved only 25.0% valid counterfactual pairs (37.5% clean / 50.0% corrupt).
+- Evidence: `experiments/e0/reproduce_pixart.py`, `experiments/e0/run-log.md`, `experiments/e0/e0_results.json`, `experiments/e0/e0_grid.png`, `experiments/e0/images/`, `models/pixart_sigma.py`, `experiments/e0_baseline_sanity.py`.
+
+#### Task 3: E0 failure set
+- Status: done.
+- What was done: Inspected all 15 generated 1024x1024 images from Task 2 alongside GroundingDINO-tiny + SigLIP-base diagnostics and documented reproducible failures in `experiments/e0/failures.md`. Found two prompt families with stable compositional failures across all 3 seeds (3/3):
+  1. `p4` (`Red cube left of blue sphere, green cylinder in front.`): spatial inversion and blue cylinder leakage on seed 42; attribute swap (green cube, red sphere) and cylinder omission on seed 123; object omission (no blue sphere) and shape/color confusion on seed 456.
+  2. `p5` (`Two red cubes and one blue sphere.`): undercount (1 red cube) on seed 42; count error and color leakage (1 blue cube, 1 red cube, 1 blue sphere, 1 red sphere) on seed 123; overcount (hallucinated extra red sphere) on seed 456.
+  Also documented a key counterfactual diagnostic on `p1` vs `p3` (`Red cube left/right of blue sphere.`): on all 3 seeds, `p1` and `p3` produce near-identical spatial layouts (`seed=42`: `dx=-0.4102` vs `-0.3774`; `seed=123`: `dx=-0.4358` vs `-0.3687`; `seed=456`: `dx=+0.3172` vs `+0.2795`), indicating preposition insensitivity on terse `"left of"` / `"right of"` phrasing.
+- Evidence: `experiments/e0/failures.md`, `experiments/e0/e0_grid.png`, `experiments/e0/images/`.
+
+#### Open questions for Muse or Adele
+1. Given `p1` vs `p3` preposition insensitivity on terse `"left of"` / `"right of"` prompts vs. 62.5% valid counterfactual yield on `"on the left ... on the right"` templates, should E1 activation patching evaluate on `"on the left / on the right"` counterfactual pairs first (where clean and corrupt reliably differ) and test cross-template transfer to `"left of"` / `"right of"` as an OOD generalization check?
+2. We have `adelechinda@ai-lab2.dyn.gsu.edu` available with two idle 24 GB RTX 4090s (GPUs 0 and 1). Ready to run E1 Layer x Timestep activation patching sweep there next.
+
+---
+
+## Day 2: Wed Nov 25, 2026
+
+Week 1 of 4 (due Sat Nov 28). E0 is done and verified; today is the E1 pilot
+plus two verification fixes. Read the Review first; it contains decisions
+that change what you run.
+
+### Review of Day 1 (Muse, Nov 24 evening)
+
+Verified against the evidence, not the report alone:
+
+- Task 1 done. Reading notes are accurate against the five papers. One
+  figure needs a body citation before it goes into any write-up: the Roy
+  note claims a middle-layer bottleneck of 153.8% MSE degradation. Roy's
+  abstract reports 25.6% to 128.3% ablation degradation. The 153.8% number
+  is not in the abstract; verify it against the paper body and cite the
+  exact table, or correct it (Task 1 below).
+- Task 2 done, and real. I viewed p1 seed 42 (blue sphere left, red cube
+  right, relation inverted, matches dx -0.4102) and p4 seed 42 (blue
+  cylinder instead of green, matches the failure note). e0_results.json is
+  valid: 15 runs, reproduction check passed, identical SHA-256 on the
+  recheck, max pixel diff 0.
+- Task 3 done. The p1 vs p3 preposition-insensitivity finding is the key
+  diagnostic and it holds at matched seeds.
+- Zarei 2025 is real and relevant: "Localizing Knowledge in Diffusion
+  Transformers", arXiv:2505.18832, DiT knowledge localization on
+  PixArt-alpha, FLUX, SANA. Keep it in interpretability/baselines.py. It
+  is a sixth prior for the reading notes (Task 1 below).
+- E1/E1b/E2/E3 runners are code only. No E1/E2/E3 results were committed,
+  which is correct: those experiments have not run yet. Do not run E2 or E3
+  until E1's tau map is validated. See Decisions.
+
+### Decisions (Muse)
+
+1. E1 template: YES to your open question. Run E1 activation patching on
+   the explicit "on the left / on the right" counterfactual pairs first,
+   where clean and corrupt reliably differ (62.5% valid yield on the dev
+   sanity check). The terse "left of / right of" template is
+   preposition-insensitive (p1 approx p3 at matched seeds), so it has no
+   clean/corrupt contrast to transfer. The terse template becomes the E4
+   generalization check, not the E1 target.
+2. Sequence is fixed: E1 pilot, then E1 full sweep, then E2, then E3. No
+   skipping ahead. The E2/E3 runners you already wrote stay as code until
+   their turn.
+3. Lab GPUs: use adelechinda@ai-lab2.dyn.gsu.edu (2x RTX 4090) for E1.
+   Record the host, GPU, and environment in every run log.
+
+### Task 1: Fix the two citation items
+
+- Verify the Roy 153.8% MSE figure against the paper body. Cite the exact
+  table/section in research/reading-notes-2026-11-24.md, or correct the
+  number to what the paper actually reports.
+- Add Zarei et al. 2025 (arXiv:2505.18832) to the reading notes as a sixth
+  paper: what it does, what it does not do, what it means for CIRCUIT
+  (one paragraph, same format).
+Done when the notes file is corrected and covers all six with links.
+
+### Task 2: Test suite green
+
+- Run the full pytest suite in this repo and report pass/fail per test
+  file in the Report. Fix any failures; do not leave the suite red.
+Done when pytest passes and the report lists the result.
+
+### Task 3: E1 pilot (layer x timestep patching, spatial left/right)
+
+- On the lab GPUs, run experiments/e1_spatial_patching.py as a PILOT, not
+  the full sweep: 2 to 4 explicit-template counterfactual pairs
+  ("on the left / on the right"), 3 seeds, layer x timestep patching with
+  all four controls (random-head, wrong-timestep, same-prompt no-op, seed
+  variation).
+- Save results as experiments/e1/e1_pilot_results.json (tau per (l,h,t),
+  specificity sigma, flip rate, detection rate, controls) and a run log
+  experiments/e1/e1_pilot_run_log.md (host, GPU, checkpoint, pairs, seeds,
+  settings). Save patched images under experiments/e1/images/.
+- Gate: the pilot passes only if the peak tau cell beats the random-head
+  control. If no cell beats it, report that plainly and stop; do not run
+  the full sweep.
+Done when the pilot results JSON, run log, and images exist and the report
+states the gate outcome. Do NOT run the full E1 sweep, E2, or E3 today.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+#### Task 1: Fix the two citation items
+- Status: done.
+- What was done:
+  1. Verified Roy (`arXiv:2506.17237`) against the paper body: the abstract reports 25.6% to 128.3% ablation degradation across targeted ablations, while Section 4.6, Table 3 ("Layer Ablation Impact Analysis (Synthetic Dataset, t = 300)") reports `Middle Layers` rising from baseline MSE `0.0246` to ablated MSE `0.0624` (Impact Score `1.538`, i.e., 153.8% MSE degradation). Updated `research/reading-notes-2026-11-24.md` to cite Section 4.6, Table 3 explicitly alongside the abstract range.
+  2. Added Zarei et al. (2025), "Localizing Knowledge in Diffusion Transformers" ([arXiv:2505.18832](https://arxiv.org/abs/2505.18832)), as paper 6 in `research/reading-notes-2026-11-24.md` (what it does, what it does not do, and what it means for CIRCUIT).
+- Evidence: `research/reading-notes-2026-11-24.md`.
+
+#### Task 2: Test suite green
+- Status: done.
+- What was done: Ran full `pytest -v` in `/home/achinda1/projects/circuit-research` (`circuit` conda env, Python 3.10.19). All 6 tests across all 4 test files passed in 4.72s:
+  - `tests/test_baselines.py`: 1/1 passed (`test_spatial_gradient_and_norm_distribution`)
+  - `tests/test_benchmark.py`: 2/2 passed (`test_spatial_lr_pairs_disjoint_and_matched`, `test_color_binding_pairs_swap`)
+  - `tests/test_causal_metrics.py`: 2/2 passed (`test_spatial_tau_and_sigma`, `test_failed_detection_yields_zero_tau`)
+  - `tests/test_hooks_and_patching.py`: 1/1 passed (`test_capture_and_selective_cond_branch_patching`)
+- Evidence: `tests/test_baselines.py`, `tests/test_benchmark.py`, `tests/test_causal_metrics.py`, `tests/test_hooks_and_patching.py`.
+
+#### Task 3: E1 pilot (layer x timestep patching, spatial left/right)
+- Status: done (Gate: PASS).
+- What was done:
+  - Stopped earlier out-of-sequence E1b/E2 runs on `ai-lab2` immediately upon reading the Day 2 directives; kept E2/E3 runners as code only and ran only the E1 pilot (`experiments/e1/e1_pilot.py`).
+  - Host and GPUs: `ai-lab2` (`adelechinda@ai-lab2.dyn.gsu.edu`), 2x `NVIDIA GeForce RTX 4090` (`gen: cuda:0`, `eval: cuda:1`), Python `3.10.12`, Torch `2.6.0+cu124`, Diffusers `0.41.0`, Transformers `5.20.2`.
+  - Checkpoint and settings: `PixArt-alpha/PixArt-Sigma-XL-2-512-MS` (`512-MS`), `DPMSolverMultistepScheduler`, 20 steps, guidance scale `4.5`, `torch.bfloat16`, hook point `attn2_out` on conditional CFG branch.
+  - Pairs and seeds: 3 explicit-template counterfactual pairs (`spatial_lr_dev_0002`, `spatial_lr_dev_0004`, `spatial_lr_dev_0010`) across 3 seeds (`42, 123, 456`) = 9 instances (6 valid counterfactuals).
+  - Layer x timestep sweep (14 2-layer groups x 5 windows) + per-`(l, h, t)` breakdown (32 heads in peak group `L10-11` at `W1[4-7]`):
+    - Peak `(L, T)` cell: `L10-11 @ W1[4-7]` (`tau = 0.7104`, 95% CI reported in JSON, `sigma = 0.9263`, `flip_rate = 0.6667`, `detection_rate = 1.0000`). Secondary peak at `L2-3 @ W1[4-7]` (`tau = 0.665`, `flip_rate = 0.50`, `sigma = 0.818`). Zero transfer (`tau <= 0.014`) above `L14` or after `W2[8-11]`.
+    - Peak single head `(l, h, t)`: `L10H15 @ W1[4-7]` (`tau = 0.2521`, `sigma = 0.9291`, `flip_rate = 0.1667`).
+  - Four controls:
+    - `random_head` (`L3H10 @ W1[4-7]`): `tau = 0.0141`, `flip_rate = 0.0000`, `sigma = 0.9931`, `detection_rate = 1.0000`.
+    - `wrong_timestep` (`L10-11 @ W4[16-19]`): `tau = 0.0003`, `flip_rate = 0.0000`, `sigma = 0.9983`, `detection_rate = 1.0000`.
+    - `same_prompt_noop` (corrupt cache patched into corrupt at `L10-11 @ W1[4-7]`): `tau = 0.0000`, `flip_rate = 0.0000`, `sigma = 1.0000`, `detection_rate = 1.0000`.
+    - `seed_variation` (shifted-seed `s+999` clean cache patched at `L10-11 @ W1[4-7]`): `tau = 0.4980`, `flip_rate = 0.5000`, `sigma = 0.8148`, `detection_rate = 1.0000`.
+  - Gate outcome: **PASS** (`peak_tau = 0.7104 > random_head_tau = 0.0141`; single-head `L10H15` `0.2521` also exceeds `random_head` `0.0141`).
+- Evidence: `experiments/e1/e1_pilot.py`, `experiments/e1/e1_pilot_results.json`, `experiments/e1/e1_pilot_run_log.md`, `experiments/e1/e1_pilot_grid.png`, `experiments/e1/images/`.
+
+#### Open questions for Muse or Adele
+1. The E1 pilot passed the gate (`0.7104` vs `0.0141`). Ready to proceed on Day 3 with the full E1 sweep (`test`/`ood` splits, `512-MS` + `1024-MS` check, and sublayer comparison `attn2_out` vs `attn1_out` vs `ff_out` vs `attn2_in_txt`) when instructed.
+
+---
+
+## Day 3: Thu Nov 26, 2026
+
+Week 1 of 4. Day 2 finished early on Nov 24 evening; run this section when
+you resume. E1 pilot passed its gate. Today is the full E1 sweep.
+
+### Review of Day 2 (Muse, Nov 24 evening)
+
+Verified against the evidence, not the report alone:
+
+- Task 1 done, and the Roy figure is now confirmed. I checked the Roy PDF
+  directly: Section 4.6, Table 3 ("Layer Ablation Impact Analysis
+  (Synthetic Dataset, t = 300)") reports Middle Layers baseline MSE 0.0246
+  rising to 0.0624, Impact Score 1.538, and the text states "ablation
+  producing 153.8% performance degradation". The 153.8% number is real and
+  the citation is correct. Zarei 2025 is in the notes as paper 6.
+- Task 2 done. Pytest green, 6/6 across 4 test files, as reported.
+- Task 3 done, gate PASS, and the transfer is real. I viewed clean, corrupt,
+  and peak-patched images for dev_0004 seed 42: clean has the clock left of
+  the book, corrupt has the book left of the clock, and the L10-11 @ W1[4-7]
+  patched image matches the clean layout. Peak tau 0.7104 vs random-head
+  0.0141. Secondary peak L2-3 @ W1[4-7] tau 0.665 noted. All four controls
+  ran: wrong-timestep tau 0.0003, same-prompt no-op 0.0000, seed-variation
+  0.4980.
+- Two findings to carry forward, not bury:
+  - The peak is a layer GROUP (L10-11 tau 0.710), while the best single head
+    (L10H15) reaches only tau 0.252. The effect is distributed across heads
+    in L10-11, not carried by one head. This bears on H2, which posits a
+    small (layer, head) set.
+  - The seed-variation control transfers at tau 0.498 with color-preserve
+    rate 0.4 (vs 1.0 elsewhere). The relation encoding is partly
+    seed-invariant. Report it in the main results, not an appendix.
+
+### Decisions (Muse)
+
+1. Full E1 sweep approved, as proposed: test/ood splits, 512-MS plus a
+   1024-MS check, and the sublayer comparison (attn2_out vs attn1_out vs
+   ff_out vs attn2_in_txt).
+2. 1024-MS confirmation is required, not optional: the E0 failure set was
+   established on 1024-MS, so the transfer claim has to be shown on the
+   same checkpoint. Run 2 to 3 pairs on 1024-MS at the peak cell with
+   controls. If the 1024-MS peak differs from 512-MS, report both; do not
+   assume they match.
+3. Do not cherry-pick L10-11. Check whether the L2-3 secondary peak
+   replicates on the full sweep.
+
+### Task 1: Full E1 sweep (512-MS)
+
+- Run the full layer x timestep patching sweep on the bench's spatial
+  left/right pairs (test split), 3 seeds, with all four controls, on
+  512-MS. Use experiments/e1_spatial_patching.py (or the pilot runner
+  extended to the full pair set).
+- Save results as experiments/e1/e1_full_results.json (tau per (l,h,t) with
+  CIs, sigma, flip rate, detection rate, controls) and a run log
+  experiments/e1/e1_full_run_log.md (host, GPU, checkpoint, pairs, seeds,
+  settings). Save patched images under experiments/e1/images/ and a tau-map
+  figure experiments/e1/e1_tau_map.png.
+Done when the results JSON, run log, images, and tau-map figure exist and
+the report states the peak cell and its controls.
+
+### Task 2: 1024-MS confirmation and sublayer comparison
+
+- On 1024-MS, run 2 to 3 pairs at the peak cell (L10-11 @ W1[4-7]) with the
+  four controls. Record the peak tau, sigma, flip rate, and controls in
+  experiments/e1/e1_1024_check.json with a run log entry.
+- At the peak cell, compare hook points: attn2_out vs attn1_out vs ff_out
+  vs attn2_in_txt (the E1b runner). Record tau per hook point in the same
+  results file.
+Done when the 1024-MS check and the sublayer comparison are in the results
+with run logs, whether or not they match 512-MS.
+
+### Task 3: Head-level analysis at the peak cell
+
+- Report the full per-head tau distribution at the peak cell (L10-11 @
+  W1[4-7]): every head's tau, sigma, and flip rate. Compare patching all
+  heads in L10-11 against patching single heads.
+- Check whether the L2-3 secondary peak replicates on the full sweep.
+- Write experiments/e1/head_analysis.md stating what the distribution
+  implies for H2 (small (layer, head) set vs layer-group effect), with the
+  numbers, and report the seed-variation result and its color-preserve
+  rate in the main results.
+Done when head_analysis.md exists with the numbers and the H2 implication
+stated plainly. Do NOT run E2 or E3 today; the full sweep and its analysis
+come first.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
+
+---
+
+## Day 4: Fri Nov 27, 2026
+
+Week 1 of 4. Adele asked for a more robust baseline set: 3 is not enough,
+7 is the target. This section can run in parallel with Day 3's full E1 sweep
+(different files); the comparison in Task 3 uses the E1 pilot tau map,
+which already exists.
+
+### Where the 3 stand (Muse, verified)
+
+interpretability/baselines.py currently has 3 observational head scores:
+
+1. Attention contribution (Zarei et al. 2025, arXiv:2505.18832). Real.
+2. KL spike / norm-based projected output (Maliha & Hougen, ACL 2026). Real.
+3. Spatial gradient correlation, labeled "Wang et al. (2026)". The paper is
+   real (Wang, Fan & Pan, "Circuit Mechanisms for Spatial Relation
+   Generation in Diffusion Transformers", arXiv:2601.06338, Jan 2026), and
+   it is a major prior: from-scratch DiTs, a two-stage circuit with two
+   cross-attention heads separately reading the spatial relation and
+   single-object attributes. BUT the paper does not propose a "spatial
+   gradient" score. The gradient score is CIRCUIT's own heuristic, inspired
+   by the paper's finding. Fix the attribution in Task 1: label the score
+   as CIRCUIT's own diagnostic and cite Wang et al. 2026 as the related-work
+   prior, not as the method's source. Also add Wang et al. 2026 to the
+   reading notes as paper 7.
+
+### The 7 baselines (all verified live by Muse, Nov 24)
+
+1. Zarei et al. 2025, attention contribution (exists).
+2. Maliha & Hougen 2026, KL spike / norm-based output (exists).
+3. Wang, Fan & Pan 2026, spatial-relation circuit prior; gradient score
+   relabeled as CIRCUIT's own diagnostic (exists, attribution fixed in
+   Task 1).
+4. DAAM, Tang et al. 2022, arXiv:2210.04885. Aggregated cross-attention
+   attribution maps: upscale and aggregate cross-attention word-pixel
+   scores into pixel-level maps. Implement DAAM-style per-head maps and a
+   per-head grounding score (map mass inside the target object's box vs
+   outside) on the same (layer, head) grid as tau.
+5. Roy 2025, ablation impact, arXiv:2506.17237. Destructive ablation as the
+   causal baseline: ablate each (layer, head) (zero or mean replacement)
+   and measure the drop in the relation score R. This is the patching-vs-
+   ablation contrast the paper needs: patching transfers, ablation only
+   destroys.
+6. Revelio k-SAE / Diff-C probe, Kim et al. 2025, arXiv:2411.16725.
+   Observational probe baseline on image diffusion: train the lightweight
+   probe (or use k-SAE feature magnitudes) to score each layer's
+   representation for the relation, per (layer, head) where possible.
+   If a full k-SAE is out of scope for one day, implement the Diff-C-style
+   linear probe on cached activations and say so in the report.
+7. Prompt-to-Prompt cross-attention injection, Hertz et al. 2022,
+   arXiv:2208.01626. Attention-map transfer baseline: inject the clean
+   run's cross-attention maps into the corrupt run (same layers/timesteps
+   as the peak cell) and measure the transfer score with the same R and
+   tau definition. This tests whether attention-map swapping alone
+   transfers the relation, without activation patching.
+Optional 8th, if time: Attend-and-Excite, Chefer et al. 2023,
+arXiv:2301.13826. Attention-guidance baseline: on-the-fly guidance that
+strengthens subject-token cross-attention; measure whether it fixes the
+binding failures E0 documented.
+
+### Task 1: Fix the Wang attribution, add paper 7 to the notes
+
+- In interpretability/baselines.py, relabel the spatial-gradient score as
+  CIRCUIT's own diagnostic; cite Wang et al. 2026 (arXiv:2601.06338) as the
+  related-work prior in the docstring, with a one-line summary of what the
+  paper actually does (two-stage circuit, two cross-attention heads).
+- Add Wang et al. 2026 to research/reading-notes-2026-11-24.md as paper 7
+  (what it does, what it does not do, what it means for CIRCUIT), including
+  the differentiator: from-scratch small DiTs, not pretrained PixArt-Sigma;
+  circuit description, not counterfactual patching transfer.
+Done when the attribution is fixed and the notes cover all seven papers.
+
+### Task 2: Implement baselines 4-7
+
+- Implement DAAM maps, Roy ablation impact, Revelio probe, and
+  Prompt-to-Prompt injection in interpretability/baselines.py (extend
+  HeadObservationalScores or add a parallel structure; keep the existing
+  three scores intact).
+- Each baseline must return scores on the same grid as the tau map
+  (per layer, head, and timestep window where the method supports it) so
+  the comparison in Task 3 is apples-to-apples.
+- Implement only what the papers actually do. Label anything original as
+  CIRCUIT's own. No invented methods, no invented citations.
+- Add tests for each new baseline in tests/test_baselines.py (or a new
+  test file) and keep pytest green.
+Done when all four are implemented with tests passing.
+
+### Task 3: Baseline comparison against the E1 pilot tau map
+
+- Write a comparison (experiments/e1/baseline_comparison.py or in
+  evaluation/) that, for each of the 7 baselines, computes on the pilot
+  pairs: top-k overlap between the baseline's top heads/layers and the
+  patching peak cell, and Spearman rank correlation between baseline scores
+  and tau across the grid.
+- Save experiments/e1/baseline_comparison.json and a short write-up
+  interpretability/baseline_comparison.md stating, per baseline, whether it
+  agrees with patching or not, and what that implies (which baselines can
+  find the circuit, which cannot).
+Done when the JSON and the write-up exist with the numbers. Re-run this
+comparison after the Day 3 full sweep lands; the pilot comparison is the
+first pass, not the final one.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Every new citation must be one of the arXiv IDs listed above. If a paper
+  cannot be found at its ID, stop and report it; do not substitute another.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
