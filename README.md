@@ -24,5 +24,3 @@
 - `experiments/` reproducible experiment configurations and results
 - `demo/` Gradio application
 - `paper/` technical report, figures, supplementary experiments
-
-**Standing rules:** no credentials in any repo. No em dashes in anything public-facing. DIAL and ATAT are under review at ICLR 2027, never presented as published. No invented numbers: every figure traces to a measured run or a cited source. One track at a time until it ships something public.
