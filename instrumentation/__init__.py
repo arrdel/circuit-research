@@ -1,6 +1,7 @@
 from instrumentation.hooks import (
     ActivationCache,
     CrossAttentionCaptureProcessor,
+    CrossAttentionMapInjectionProcessor,
     DiTHookManager,
     HookPoint,
     extract_branch_slice,
@@ -9,6 +10,7 @@ from instrumentation.hooks import (
 __all__ = [
     "ActivationCache",
     "CrossAttentionCaptureProcessor",
+    "CrossAttentionMapInjectionProcessor",
     "DiTHookManager",
     "HookPoint",
     "extract_branch_slice",

@@ -9,7 +9,12 @@ from typing import Iterator, Literal
 import torch
 from diffusers import PixArtTransformer2DModel
 
-from instrumentation.hooks import ActivationCache, BranchMode, HookPoint
+from instrumentation.hooks import (
+    ActivationCache,
+    BranchMode,
+    CrossAttentionMapInjectionProcessor,
+    HookPoint,
+)
 
 
 InterventionKind = Literal[
@@ -305,6 +310,64 @@ class InterventionController:
 
     @contextmanager
     def active(self) -> Iterator[InterventionController]:
+        self._attach()
+        try:
+            yield self
+        finally:
+            self._detach()
+
+
+class AttnMapInjectionController:
+    """Prompt-to-Prompt (Hertz et al., 2022) cross-attention map injection controller."""
+
+    def __init__(
+        self,
+        transformer: PixArtTransformer2DModel,
+        layers: list[int],
+        steps: list[int],
+        source_cache: ActivationCache,
+        heads: list[int] | None = None,
+        branch: BranchMode = "cond",
+    ) -> None:
+        self.transformer = transformer
+        self.layers = layers
+        self.steps = set(steps)
+        self.source_cache = source_cache
+        self.heads = heads
+        self.branch = branch
+        self._current_step: int | None = None
+        self._orig_procs: dict | None = None
+
+    def on_step_start(self, step_idx: int, timestep: torch.Tensor) -> None:
+        self._current_step = step_idx
+
+    def on_step_end(self, step_idx: int, timestep: torch.Tensor, latents: torch.Tensor) -> None:
+        self._current_step = None
+
+    def _attach(self) -> None:
+        self._orig_procs = dict(self.transformer.attn_processors)
+        new_procs = dict(self._orig_procs)
+        for layer_idx in self.layers:
+            key = f"transformer_blocks.{layer_idx}.attn2.processor"
+            if key in new_procs:
+                new_procs[key] = CrossAttentionMapInjectionProcessor(
+                    layer_idx=layer_idx,
+                    source_cache=self.source_cache,
+                    step_getter=lambda: self._current_step,
+                    inject_steps=self.steps,
+                    heads=self.heads,
+                    branch=self.branch,
+                )
+        self.transformer.set_attn_processor(new_procs)
+
+    def _detach(self) -> None:
+        if self._orig_procs is not None:
+            self.transformer.set_attn_processor(self._orig_procs)
+            self._orig_procs = None
+        self._current_step = None
+
+    @contextmanager
+    def active(self) -> Iterator[AttnMapInjectionController]:
         self._attach()
         try:
             yield self

@@ -1,4 +1,4 @@
-# Reading Notes: Six Core Papers (2026-11-24, updated 2026-11-25)
+# Reading Notes: Seven Core Papers (2026-11-24, updated 2026-11-25)
 
 ## 1. Roy (2025): Mechanistic Interpretability of Diffusion Models: Circuit-Level Analysis and Causal Validation
 
@@ -69,4 +69,17 @@ Link: [arXiv:2505.18832](https://arxiv.org/abs/2505.18832)
 **What it does not do.** Zarei et al. localize static entity and style concepts rather than compositional operations such as non-commutative spatial relations (left vs. right) or multi-object attribute binding, and they intervene purely at the block-input level (`encoder_hidden_states` / cross-attention K-V replacement) aggregated across all denoising timesteps rather than mapping 2D layer-by-timestep causal windows, dissecting self-attention vs. cross-attention vs. MLP sublayers, or isolating individual attention heads. They also do not measure continuous counterfactual transfer `tau` alongside non-target attribute specificity `sigma` or compare against matched temporal, wrong-layer, and norm-matched controls.
 
 **What it means for CIRCUIT.** Zarei et al. establishes the primary DiT localization baseline (`attn2_in_txt` input swapping and attention-contribution block/head ranking) against which CIRCUIT should benchmark, demonstrating that knowledge distribution varies strongly across DiT architectures and concept types. For CIRCUIT, this motivates testing whether relational spatial mechanisms in PixArt-Sigma follow the same block-level cross-attention text-conditioning pattern or instead depend on temporally localized cross-attention injection followed by downstream self-attention routing, verified with counterfactual patching and specificity controls.
+
+---
+
+## 7. Wang, Fan, and Pan (2026): Circuit Mechanisms for Spatial Relation Generation in Diffusion Transformers
+
+Link: [arXiv:2601.06338](https://arxiv.org/abs/2601.06338)
+
+**What it does.** Wang, Fan, and Pan reverse-engineer spatial relation generation by training small PixArt-style DiTs (DiT-B, mini, micro, nano) from scratch on a controlled 2D synthetic dataset (colored circles, triangles, and squares across eight spatial relations) with three text encoders (T5-XXL, random token embeddings with positional encoding, and random token embeddings without positional encoding). Using Attention Synopsis (category-aggregated cross-attention maps), weight-space head screening (QK interaction between image positional embeddings and relation factor vectors), variance partitioning, and targeted head ablations plus text-embedding vector arithmetic, they identify a modular two-stage circuit in RTE-DiT (an early spatial relation head such as L2H8 writing spatial gradient tags, followed by a later object generation head such as L4H3 placing object shapes) versus integrated contextual relational encoding in `shape2` and EOS tokens in T5-DiT, plus sparse preliminary screening in pretrained PixArt-Sigma.
+
+**What it does not do.** Wang et al. primarily study small DiTs trained from scratch on synthetic 2D geometric shapes rather than full-scale pretrained text-to-image Diffusion Transformers (0.6B PixArt-Sigma), and their pretrained PixArt-Sigma check uses token masking and weight-space screening rather than systematic layer-by-timestep counterfactual activation patching across the denoising trajectory. They do not measure continuous counterfactual transfer `tau` alongside non-target attribute specificity `sigma`, do not test whether spatial relations transfer across prompts or seeds via internal activation patching, and do not propose a per-head horizontal spatial-gradient correlation metric (the `spatial_gradient_abs` score in CIRCUIT is CIRCUIT's own diagnostic heuristic inspired by their QK positional-tag finding).
+
+**What it means for CIRCUIT.** Wang et al. provides the closest mechanistic prior for relational DiT circuits, predicting a two-stage spatial-to-object mechanism and explaining why T5-conditioned DiTs encode relational information both in relational words and contextualized object tokens. For CIRCUIT, this sharpens our core empirical test: determining how a pretrained 0.6B PixArt-Sigma implements spatial left/right transfer across layers and timesteps under counterfactual activation patching, whether the mechanism is concentrated in a single head pair (H2) or distributed across layer groups, and how strongly observational head diagnostics correlate with true causal transfer.
+
 

@@ -184,6 +184,124 @@ class CrossAttentionCaptureProcessor:
         return hidden_states
 
 
+class CrossAttentionMapInjectionProcessor:
+    """Prompt-to-Prompt style processor injecting cached clean cross-attention maps A_clean."""
+
+    def __init__(
+        self,
+        layer_idx: int,
+        source_cache: ActivationCache,
+        step_getter,
+        inject_steps: set[int],
+        heads: list[int] | None = None,
+        branch: BranchMode = "cond",
+    ) -> None:
+        self.layer_idx = layer_idx
+        self.source_cache = source_cache
+        self.step_getter = step_getter
+        self.inject_steps = inject_steps
+        self.heads = heads
+        self.branch = branch
+
+    def __call__(
+        self,
+        attn: Attention,
+        hidden_states: torch.Tensor,
+        encoder_hidden_states: torch.Tensor | None = None,
+        attention_mask: torch.Tensor | None = None,
+        temb: torch.Tensor | None = None,
+        *args,
+        **kwargs,
+    ) -> torch.Tensor:
+        residual = hidden_states
+        if attn.spatial_norm is not None:
+            hidden_states = attn.spatial_norm(hidden_states, temb)
+
+        input_ndim = hidden_states.ndim
+        if input_ndim == 4:
+            batch_size, channel, height, width = hidden_states.shape
+            hidden_states = hidden_states.view(batch_size, channel, height * width).transpose(1, 2)
+
+        batch_size, sequence_length, _ = (
+            hidden_states.shape if encoder_hidden_states is None else encoder_hidden_states.shape
+        )
+
+        if attention_mask is not None:
+            attention_mask = attn.prepare_attention_mask(attention_mask, sequence_length, batch_size)
+            attention_mask = attention_mask.view(batch_size, attn.heads, -1, attention_mask.shape[-1])
+
+        if attn.group_norm is not None:
+            hidden_states = attn.group_norm(hidden_states.transpose(1, 2)).transpose(1, 2)
+
+        query = attn.to_q(hidden_states)
+
+        if encoder_hidden_states is None:
+            encoder_hidden_states = hidden_states
+        elif attn.norm_cross:
+            encoder_hidden_states = attn.norm_encoder_hidden_states(encoder_hidden_states)
+
+        key = attn.to_k(encoder_hidden_states)
+        value = attn.to_v(encoder_hidden_states)
+
+        inner_dim = key.shape[-1]
+        head_dim = inner_dim // attn.heads
+
+        query = query.view(batch_size, -1, attn.heads, head_dim).transpose(1, 2)
+        key = key.view(batch_size, -1, attn.heads, head_dim).transpose(1, 2)
+        value = value.view(batch_size, -1, attn.heads, head_dim).transpose(1, 2)
+
+        step_idx = self.step_getter()
+        should_inject = (
+            step_idx is not None
+            and step_idx in self.inject_steps
+            and (step_idx, self.layer_idx) in self.source_cache.attn_probs
+        )
+
+        if should_inject:
+            scale = head_dim**-0.5
+            attn_scores = torch.matmul(query.float(), key.float().transpose(-2, -1)) * scale
+            if attention_mask is not None:
+                attn_scores = attn_scores + attention_mask.float()
+            attn_probs = torch.softmax(attn_scores, dim=-1)
+
+            src_probs = self.source_cache.attn_probs[(step_idx, self.layer_idx)].to(
+                device=attn_probs.device, dtype=attn_probs.dtype
+            )
+            if self.branch == "both" or batch_size < 2 or batch_size % 2 != 0:
+                b_slice = slice(None)
+            elif self.branch == "cond":
+                b_slice = slice(batch_size // 2, batch_size)
+            else:
+                b_slice = slice(0, batch_size // 2)
+
+            if self.heads is None:
+                attn_probs[b_slice] = src_probs
+            else:
+                head_idx = torch.tensor(self.heads, device=attn_probs.device, dtype=torch.long)
+                attn_probs[b_slice, head_idx] = src_probs[:, head_idx]
+
+            hidden_states = torch.matmul(attn_probs.to(value.dtype), value)
+        else:
+            hidden_states = F.scaled_dot_product_attention(
+                query, key, value, attn_mask=attention_mask, dropout_p=0.0, is_causal=False
+            )
+
+        hidden_states = hidden_states.transpose(1, 2).reshape(batch_size, -1, attn.heads * head_dim)
+        hidden_states = hidden_states.to(query.dtype)
+
+        hidden_states = attn.to_out[0](hidden_states)
+        hidden_states = attn.to_out[1](hidden_states)
+
+        if input_ndim == 4:
+            hidden_states = hidden_states.transpose(-1, -2).reshape(batch_size, channel, height, width)
+
+        if attn.residual_connection:
+            hidden_states = hidden_states + residual
+
+        hidden_states = hidden_states / attn.rescale_output_factor
+        return hidden_states
+
+
 class DiTHookManager:
     """Step-aware activation capture for PixArtTransformer2DModel."""
 
