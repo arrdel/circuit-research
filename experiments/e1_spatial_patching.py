@@ -245,8 +245,9 @@ def run_e1(
                 f"flip={flip_val:.2f} sigma={sig_val:.3f} det={summ.both_detected_rate:.2f}"
             )
 
-            # Combined selection objective favoring selective transfer (high tau * sigma)
-            sel_score = tau_val * (0.5 + 0.5 * sig_val)
+            # Combined selection objective favoring selective, non-destructive transfer
+            det_ok = summ.both_detected_rate >= 0.80
+            sel_score = (tau_val * sig_val * summ.both_detected_rate) if det_ok else -1.0
             if sel_score > best_score:
                 best_score = sel_score
                 best_cell = (li, wi)

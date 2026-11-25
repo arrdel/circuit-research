@@ -56,3 +56,30 @@ def test_spatial_tau_and_sigma() -> None:
     assert summary.n_valid == 2
     assert summary.tau_mean == 1.0
     assert summary.flip_rate == 1.0
+
+
+def test_failed_detection_yields_zero_tau() -> None:
+    clean = _make_eval(0.5, "left", True, [1.0, 0.0])
+    corrupt = _make_eval(-0.5, "right", True, [0.0, 1.0])
+    garbled = ImageEvalResult(
+        box_a=None,
+        box_b=None,
+        both_detected=False,
+        dx=None,
+        relation_pred="unknown",
+        relation_correct=False,
+        color_a_margin=None,
+        color_b_margin=None,
+        color_binding_correct=None,
+        siglip_embedding=np.asarray([0.2, 0.2], dtype=np.float32),
+    )
+    outcome = compute_pair_causal_outcome(
+        pair_id="p_garbled",
+        task="spatial_lr",
+        clean=clean,
+        corrupt=corrupt,
+        patched=garbled,
+    )
+    assert outcome.valid_counterfactual is True
+    assert outcome.tau == 0.0
+    assert outcome.flipped_to_clean is False

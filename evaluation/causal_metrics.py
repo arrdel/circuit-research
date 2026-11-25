@@ -76,11 +76,15 @@ def compute_pair_causal_outcome(
         )
         tau: float | None = None
         flipped: bool | None = None
-        if clean.dx is not None and corrupt.dx is not None and patched.dx is not None:
+        if clean.dx is not None and corrupt.dx is not None:
             denom = clean.dx - corrupt.dx
             if abs(denom) > 0.04:
-                raw_tau = (patched.dx - corrupt.dx) / denom
-                tau = float(np.clip(raw_tau, 0.0, 1.0))
+                if patched.dx is not None:
+                    raw_tau = (patched.dx - corrupt.dx) / denom
+                    tau = float(np.clip(raw_tau, 0.0, 1.0))
+                else:
+                    # Failed object detection under destructive intervention counts as zero transfer
+                    tau = 0.0
             flipped = patched.relation_pred == clean_relation
 
         # Non-target preservation: both objects detected AND color binding preserved
@@ -123,10 +127,13 @@ def compute_pair_causal_outcome(
         )
         tau = None
         flipped = None
-        if m_clean is not None and m_corrupt is not None and m_patched is not None:
+        if m_clean is not None and m_corrupt is not None:
             denom = m_clean - m_corrupt
             if abs(denom) > 0.02:
-                tau = float(np.clip((m_patched - m_corrupt) / denom, 0.0, 1.0))
+                if m_patched is not None:
+                    tau = float(np.clip((m_patched - m_corrupt) / denom, 0.0, 1.0))
+                else:
+                    tau = 0.0
             flipped = bool(patched.color_binding_correct)
 
         color_preserved = None
