@@ -729,8 +729,35 @@ Done when the draft exists with the numbers cited to their source files.
 
 ### Report
 
-(Append below: status per task, what was done with evidence, blockers,
-open questions.)
+#### Task 1: Baseline comparison, full sweep
+- Status: done.
+- What was done:
+  - Updated `experiments/e1/baseline_comparison.py` to support the full `e1_full_results.json` grid (64 heads across `L2, L3, L10, L11` at `W1[4-7]` on the `test` split, `N=12` valid counterfactuals from 18 instances) and ran it across `ai-lab2` GPUs 0 and 1 (`CUDA_VISIBLE_DEVICES=0,1`, `NVIDIA GeForce RTX 4090`, checkpoint `PixArt-alpha/PixArt-Sigma-XL-2-512-MS`, `512-MS`), merging into `experiments/e1/baseline_comparison_full.json` and updating `interpretability/baseline_comparison.md`.
+  - Across all 64 heads (`L2, L3, L10, L11`):
+    - `7_prompt_to_prompt_attn_map_tau`: `rho = 0.483` (`p = 0.0001`), `4/5` top-5 overlap (`L3H2, L10H6, L10H15, L11H11`), and `rho = 0.637` (`p = 0.0001`) inside `L10-11`. At the layer-group level on `test` (`N=12`), P2P (`tau = 0.6702`, `flip = 0.6667`) and activation patching (`tau = 0.6903`) are closely matched at `L10-11`, while at `L2-3` P2P (`tau = 0.5956`, `flip = 0.5833`) slightly exceeds patching (`0.5522`).
+    - `4_daam_box_mass`: `rho = 0.370` (`p = 0.0026`), `2/5` overlap (`L10H8, L10H15`); `rho = 0.352` in `L2-3`, `rho = 0.424` in `L10-11`.
+    - `5_roy_ablation_impact`: `rho = 0.383` (`p = 0.0018`), `2/5` overlap (`L3H2, L10H15`; recovers `L10H15` at `N=12` unlike the `N=6` pilot).
+    - `1_zarei_attn_contribution`: `rho = 0.232` (`p = 0.0651`), `1/5` overlap (`L3H2` appears in top-5 of `L2-3`, `rho = 0.125` inside `L2-3`).
+    - `3_circuit_spatial_grad_wang_prior`: `rho = 0.187` (`p = 0.1386`), `1/5` overlap (`L3H2`).
+    - `2_maliha_kl_spike`: `rho = -0.159` (`p = 0.2089`), `0/5` overlap (anti-correlated in `L2-3`: `rho = -0.553`, `p = 0.0010`).
+    - `6_revelio_linear_probe_auc` (Diff-C linear probe): `rho = -0.087` (`p = 0.4939`), `1/5` overlap (`L3H2`).
+- Evidence: `experiments/e1/baseline_comparison.py`, `experiments/e1/baseline_comparison_full.json`, `interpretability/baseline_comparison.md`.
+
+#### Task 2: E3 color-binding pilot
+- Status: done (Gate: PASS).
+- What was done:
+  - Implemented and ran `experiments/e3/e3_pilot.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=2`, `NVIDIA GeForce RTX 4090`, checkpoint `512-MS`) on 3 color-binding counterfactual pairs (`color_binding_dev_0001`, `0027`, `0030`) x 3 seeds (`[42, 123, 456]`) = 9 instances (`N=7` valid counterfactuals), testing `L10-11 @ W1[4-7]` and `L2-3 @ W1[4-7]` (`attn2_out`), per-`(l, h, t)` across all 64 heads in `L2, L3, L10, L11`, and all 4 controls:
+    - `L10-11 @ W1[4-7]`: `tau_color = 0.4027` (`95% CI [0.226, 0.586]`), `flip_rate = 0.1429`, `sigma = 0.9872`, `detection_rate = 1.0000`.
+    - `L2-3 @ W1[4-7]`: `tau_color = 0.0768`, `flip_rate = 0.0000`, `sigma = 0.9943`, `detection_rate = 1.0000` (spatial head `L3H2` has `tau_color = 0.009`).
+    - Peak single head: `L11H1 @ W1[4-7]` (`tau_color = 0.2457`, `flip_rate = 0.1429`, `sigma = 0.9917`).
+    - Controls: `random_head` (`L3H10`: `tau_color = 0.0080`), `wrong_timestep` (`W4[16-19]`: `0.0049`), `same_prompt_noop` (`0.0000`), `seed_variation` (`0.3114`, `sigma = 0.9375`).
+  - Gate outcome: **PASS** (`0.4027 > 0.0080`; best single head `L11H1` `0.2457 > 0.0080`). Full E3 sweep was NOT run on Day 5 (reserved for Day 6).
+- Evidence: `experiments/e3/e3_pilot.py`, `experiments/e3/e3_pilot_results.json`, `experiments/e3/e3_pilot_run_log.md`, `experiments/e3/e3_pilot_grid.png`, `experiments/e3/images/`.
+
+#### Task 3: First-milestone write-up (draft)
+- Status: done.
+- What was done: Drafted `experiments/e1/milestone_writeup.md` synthesizing all E0/E1/E3-pilot/7-baseline findings with exact source JSON citations, honest limitations (flip rate `0.6923`, `test_0001` yellow mug artifact, `test_0011` red-apple artifact, P2P vs patching comparison, small `1024-MS` N, partial E3 binary flip rate `0.1429`), and what activation patching adds beyond P2P attention-map injection.
+- Evidence: `experiments/e1/milestone_writeup.md`.
 
 ## Day 6: runs after Day 5 reports (written Wed Nov 25, 2026)
 
