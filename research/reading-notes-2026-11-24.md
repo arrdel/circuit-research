@@ -1,4 +1,4 @@
-# Reading Notes: Seven Core Papers (2026-11-24, updated 2026-11-25)
+# Reading Notes: Nine Core Papers (2026-11-24, updated 2026-11-25)
 
 ## 1. Roy (2025): Mechanistic Interpretability of Diffusion Models: Circuit-Level Analysis and Causal Validation
 
@@ -81,5 +81,30 @@ Link: [arXiv:2601.06338](https://arxiv.org/abs/2601.06338)
 **What it does not do.** Wang et al. primarily study small DiTs trained from scratch on synthetic 2D geometric shapes rather than full-scale pretrained text-to-image Diffusion Transformers (0.6B PixArt-Sigma), and their pretrained PixArt-Sigma check uses token masking and weight-space screening rather than systematic layer-by-timestep counterfactual activation patching across the denoising trajectory. They do not measure continuous counterfactual transfer `tau` alongside non-target attribute specificity `sigma`, do not test whether spatial relations transfer across prompts or seeds via internal activation patching, and do not propose a per-head horizontal spatial-gradient correlation metric (the `spatial_gradient_abs` score in CIRCUIT is CIRCUIT's own diagnostic heuristic inspired by their QK positional-tag finding).
 
 **What it means for CIRCUIT.** Wang et al. provides the closest mechanistic prior for relational DiT circuits, predicting a two-stage spatial-to-object mechanism and explaining why T5-conditioned DiTs encode relational information both in relational words and contextualized object tokens. For CIRCUIT, this sharpens our core empirical test: determining how a pretrained 0.6B PixArt-Sigma implements spatial left/right transfer across layers and timesteps under counterfactual activation patching, whether the mechanism is concentrated in a single head pair (H2) or distributed across layer groups, and how strongly observational head diagnostics correlate with true causal transfer.
+
+---
+
+## 8. Meral et al. (2026): RL Post-Training in Diffusion Transformers Is Activation Steering
+
+Link: [arXiv:2611.26627](https://arxiv.org/abs/2611.26627)
+
+**What it does.** Meral, Oktay, Helbling, Kara, Chau, and Yanardag probe RL-tuned image and video Diffusion Transformers (including SD3.5-M, FLUX.1-dev, and video models across PickScore, HPSv2.1, OCR, and GenEval) by adding a small set of fixed, input-independent steering vectors (0.29M parameters on SD3.5-M, 65x fewer than a rank-32 LoRA) to frozen block outputs, fitted to match the RL-tuned velocity predictions with no reward in the objective. Across six RL-tuned image models and two video models, these prompt- and seed-independent shifts recover 90.0-96.3% of the RL reward gains on image models (89.8% and 111.9% on video models), and when trained directly with online Flow-GRPO from zero they reach 104.6% (OCR) and 103.6% (PickScore) of weight-based RL gains; tracing on SD3.5-M shows the shift acts predominantly through early-step text-stream interactions read by image tokens in joint attention.
+
+**What it does not do.** Meral et al. do not perform counterfactual prompt-to-prompt activation patching or dissect individual attention heads (`L3H2` vs. multi-head coalitions) or sublayers (`attn2_in_txt` vs. `attn2_out` vs. `attn1_out`) for compositional operations such as left/right spatial swaps or object-attribute binding. Their intervention is an input-independent constant shift added identically across all prompts, tokens, and seeds, rather than an input-dependent causal transfer test between matched counterfactual prompts.
+
+**What it means for CIRCUIT.** This paper sharpens CIRCUIT's conceptual framing alongside Prompt-to-Prompt (`arXiv:2208.01626`). Fixed activation steering is an input-independent global bias that steers a frozen generator toward capabilities it already computes (e.g., global text legibility or aesthetic preference), whereas Prompt-to-Prompt swaps cross-attention probability maps between prompts. Counterfactual activation patching in CIRCUIT is distinct from both: it is input-dependent, causally tests necessity and sufficiency under matched controls, and localizes the exact internal routing components (`L3H2` single-head text reading, the 6-head `L10-11` coalition, the `attn2`-to-`attn1` handoff, and the temporal window `W1[4-7]`). CIRCUIT does not claim patching is the only way to transfer a spatial relation; rather, patching reveals where and when the frozen DiT executes relational composition.
+
+---
+
+## 9. Helbling et al. (ICML 2025): ConceptAttention: Diffusion Transformers Learn Highly Interpretable Features
+
+Link: [arXiv:2502.04320](https://arxiv.org/abs/2502.04320)
+
+**What it does.** Helbling, Meral, Hoover, Yanardag, and Chau introduce ConceptAttention, a training-free method for producing concept saliency maps in multimodal Diffusion Transformers (FLUX, SD3.5-Turbo, CogVideoX). By passing separate concept embeddings through repurposed text-stream attention projections with one-directional attention (concepts attend to image patches and other concepts without altering generation) and computing dot-product similarities in the attention output space (`o_x o_c^T`) across deeper layers at mid-to-late timesteps, ConceptAttention achieves state-of-the-art zero-shot segmentation on ImageNet-Segmentation (83.07% accuracy, 71.04% mIoU) and PascalVOC, outperforming raw cross-attention maps and DAAM.
+
+**What it does not do.** ConceptAttention is an observational localization method for single-concept and multi-class pixel grounding in MM-DiTs (FLUX/SD3.5) rather than a causal intervention framework. It does not perform counterfactual activation patching across prompt pairs, does not test non-commutative spatial relation switching or attribute-object swap transfer, and does not isolate per-head causal sufficiency or ablation necessity.
+
+**What it means for CIRCUIT.** ConceptAttention reinforces two empirical lessons observed in CIRCUIT: first, attention output representations carry richer spatial-semantic structure than raw attention probabilities alone (consistent with CIRCUIT's sublayer finding that `attn2_out` and `attn1_out` carry the spatial handoff beyond `attn2_in_txt`); second, observational concept grounding must be distinguished from causal relational control, since locating where an object appears (`DAAM` / `ConceptAttention`) does not establish which heads causally swap non-commutative relations between objects.
+
 
 
