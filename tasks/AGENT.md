@@ -881,3 +881,123 @@ paragraph, and nothing is claimed beyond the papers as read.
 - Status: done.
 - What was done: Verified and read Meral et al. (2026), "RL Post-Training in Diffusion Transformers Is Activation Steering" ([arXiv:2611.26627](https://arxiv.org/abs/2611.26627)), and Helbling et al. (ICML 2025), "ConceptAttention: Diffusion Transformers Learn Highly Interpretable Features" ([arXiv:2502.04320](https://arxiv.org/abs/2502.04320)). Added both as Papers 8 and 9 in `research/reading-notes-2026-11-24.md`, explicitly distinguishing input-independent constant steering (`2611.26627`) and Prompt-to-Prompt map injection (`2208.01626`) from CIRCUIT's input-dependent, causal, head- and timestep-localized patching (`L3H2`, `L10-11` coalition, `L11H1`, `attn2`-to-`attn1` handoff).
 - Evidence: `research/reading-notes-2026-11-24.md`, commit `d05bfae`.
+
+---
+
+## Day 7: runs after Day 6 reports (written Wed Nov 25, 2026)
+
+Day numbers are sequential work blocks, not calendar dates: Days 1-4 ran
+Nov 24, Days 5-6 ran Nov 25. Do not let the header dates confuse the
+order. Today: E4 generalization (the GO decision from the milestone
+write-up), the E3 color scan outside L10-11, and two reporting fixes.
+
+### Review of Day 5 and Day 6 (Muse, Nov 25 evening)
+
+Verified against the evidence, not the reports alone. Day 6's directives
+were written by Muse in the morning review (commit 4f658aa); the agents
+then ran Day 5 and Day 6 back-to-back this evening, following the gating
+rule.
+
+- Day 5 Task 1 verified. Full-sweep 7-baseline comparison
+  (baseline_comparison_full.json, N=12 valid of 18, 64 heads): P2P rho
+  0.483 (p 0.0001), 4/5 top-5 overlap, and at the layer-group level P2P
+  (0.6702) now closely matches patching (0.6903) at L10-11, unlike the
+  pilot where P2P beat patching 0.826 to 0.710. At L2-3 P2P (0.5956)
+  slightly exceeds patching (0.5522). Roy ablation recovers at N=12
+  (rho 0.383); DAAM 0.370; Zarei 0.232; Wang gradient 0.187; Maliha
+  -0.159 overall and anti-correlated in L2-3 (rho -0.553, p 0.0010);
+  Revelio probe -0.087. All numbers match the JSON.
+- Day 5 Task 2 verified. E3 color-binding pilot gate PASS: L10-11 @
+  W1[4-7] tau_color 0.4027 (CI [0.226, 0.586]) vs random-head 0.0080.
+  L2-3 tau_color 0.0768, flip 0.0000. Peak single head L11H1 0.2457.
+  Spatial head L3H2 has tau_color 0.009: it does not carry color.
+- Day 5 Task 3 verified. Milestone draft written with the limitations
+  stated.
+- Day 6 Task 1 verified. E3 full sweep (5 fresh test pairs x 3 seeds,
+  N=15 valid) confirms the pilot: L10-11 tau_color 0.3535 (CI [0.168,
+  0.568]), flip 0.3333, spatial_preserve 1.0000; L2-3 0.0275. Single head
+  L11H01 reaches 0.3820, slightly exceeding the whole L10-11 group
+  (0.3535). L3H02 tau_color 0.0093. Head-level double dissociation:
+  spatial (L3H2) vs color (L11H1). Seed variation 0.3658. I viewed
+  test_0001 s42: clean is a yellow clock + red bottle, corrupt swaps
+  the colors, and the patched image restores the clean colors exactly.
+  One correction (Task 3 below): the report says all other 63 heads are
+  <= 0.043, but the JSON shows 62 heads <= 0.043 plus L11H13 at 0.0511.
+- Day 6 Task 2 verified. Milestone write-up finalized with the GO
+  decision (advance to E4 + E5) and the E4/E5 priorities written out.
+- Day 6 Task 3 verified. Papers 8 and 9 are both real; I checked both
+  arXiv IDs live tonight. Meral et al. (arXiv:2611.26627, Nov 19, 2026):
+  fixed steering vectors (0.29M params, 65x fewer than the RL-tuned
+  LoRA) recover 90.0-96.3% of the reward gains of six RL-tuned image
+  models. Helbling et al., ConceptAttention (arXiv:2502.04320, ICML
+  2025): DiT attention layers repurposed for concept saliency maps.
+
+### Decisions (Muse)
+
+1. The GO decision stands. E4 is next (Task 1), E5 after. Week 1's
+   decision is made; the Week 4 TickTick task (E3 transfer + decision,
+   due Dec 15) is satisfied early once Adele confirms the GO.
+2. The P2P-vs-patching comparison needs a same-instance re-report
+   (Task 3): in baseline_comparison_full.json, P2P's L10-11 tau (0.6702)
+   is computed over n_valid 15 while patching's (0.6903) is over n_valid
+   12. Either recompute both on the shared valid set or state the Ns
+   plainly in the write-up.
+3. The E3 head-count correction (62, not 63, heads <= 0.043; L11H13 at
+   0.0511) goes into the report and the write-up (Task 3).
+
+### Task 1: E4 generalization (terse rescue + held-out combinations)
+
+- (a) Terse-template rescue: patch the identified circuit (L3H02 single
+  head, the L10-11 coalition, L6-7 attn1_out) into the E0 terse pairs
+  (p1 vs p3 preposition-insensitive; p4/p5 multi-object failures) and
+  measure tau against the base model's failure. This is the core E4
+  question: does the circuit generalize to the template the model fails
+  on, or is it bound to the explicit template?
+- (b) Held-out combinations: run E1 spatial and E3 color on fresh
+  object combinations (ood split), same peak cells, all four controls,
+  3 seeds.
+- Save results as experiments/e4/e4_results.json and a run log
+  experiments/e4/e4_run_log.md, with patched images under
+  experiments/e4/images/. State plainly whether the circuit generalizes
+  or is template/combination-bound; a negative result is a result.
+Done when the E4 results JSON and run log exist and the report states
+the generalization outcome for both (a) and (b).
+
+### Task 2: E3 color scan outside L10-11
+
+- The milestone write-up flags this as open: E3 tested L10-11 and L2-3
+  at W1[4-7] only. Run a full L0-27 x W0-4 scan for color binding (or,
+  if that is too large for one day, L12-27 plus W2[8-11] plus attn1_out
+  and ff_out at the peak cells) to test whether additional color-binding
+  capacity sits outside L10-11 @ W1[4-7].
+- Save results as experiments/e3/e3_color_scan.json and a run log.
+  Report the top cells and whether anything beats L11H01 (0.3820).
+Done when the scan JSON and run log exist and the report states whether
+color capacity exists outside L10-11.
+
+### Task 3: Reporting fixes (small)
+
+- (a) Correct the E3 head count in the Day 6 report above and in
+  experiments/e1/milestone_writeup.md: 62 heads <= 0.043, plus L11H13
+  at tau 0.0511 (flip 0.000). Do not leave the "63 heads" figure in
+  either place.
+- (b) Same-instance P2P-vs-patching re-report (see Decision 2), and
+  state in the write-up why the comparison has N=12 while the full
+  sweep has N=13.
+Done when both corrections are in the files and the report says so.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
