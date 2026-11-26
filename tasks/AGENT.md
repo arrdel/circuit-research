@@ -1031,3 +1031,136 @@ Done when both corrections are in the files and the report says so.
   - **(a)** Corrected the E3 head count in both the Day 6 Report in `tasks/AGENT.md` and `experiments/e1/milestone_writeup.md` to state accurately that 62 other heads remain `<= 0.043` and `L11H13` reaches `tau_color = 0.0511` (`flip_rate = 0.0000`).
   - **(b)** Ran `experiments/e1/p2p_vs_patching_paired.py` (`512-MS`, shared unmodified SDPA baseline masks, `N=13` shared valid) and updated `experiments/e1/milestone_writeup.md` and `interpretability/baseline_comparison.md`: at `L10-11 @ W1[4-7]`, patching `tau = 0.6845` vs. P2P `0.6857` (both `flip = 0.6923`); at `L2-3 @ W1[4-7]`, patching `0.5540` (`flip = 0.4615`) vs. P2P `0.5494` (`flip = 0.5385`). Documented why `baseline_comparison_full.json` previously had `N=12` (`L2-3`) / `N=15` (`L10-11` P2P) vs. `e1_full_results.json` (`N=13`): `CrossAttentionCaptureProcessor` (`float32` matmul) shifted 1-2 borderline baseline detections relative to default `bfloat16` SDPA.
 - Evidence: `experiments/e1/p2p_vs_patching_paired.py`, `experiments/e1/p2p_vs_patching_paired.json`, `experiments/e1/milestone_writeup.md`, `interpretability/baseline_comparison.md`, `tasks/AGENT.md`.
+
+---
+
+## Day 8: runs after Day 7 reports (written Thu Nov 26, 2026)
+
+Day numbers are sequential work blocks, not calendar dates: Days 1-4 ran
+Nov 24, Days 5-6 ran Nov 25, Day 7 ran Nov 26. Do not let the header
+dates confuse the order. Today: E5 repair (the H5 test), the OOD color
+failure probe, and the milestone write-up update.
+
+### Review of Day 7 (Muse, Nov 26 morning)
+
+Verified against the evidence, not the reports alone.
+
+- Task 1 verified. E4 generalization (e4_results.json):
+  - Terse rescue (512-MS, 8 failing instances): L3H02 alone 0.0297
+    (fails, as expected); L10-11 coalition 0.4683 (flip 0.625); L6-7
+    attn1 @ W2 0.8478 (flip 1.0000); combined circuit 0.8438 (flip
+    1.0000, 8/8 rescued) vs random head 0.0027. The circuit rescues
+    failures the base model cannot fix.
+  - Exact E0 failures on 1024-MS: combined circuit flips e0_p1_s42
+    (dx -0.3849 to +0.4371, tau 0.9939) and e0_p1_s123 (tau 1.0000);
+    p4/p5 flip with tau 0.9797/0.9864. The report honestly notes the
+    residual left-side blue tint on p4/p5, and the JSON adds that
+    color_binding_correct is false for the rescue interventions on
+    e0_p1_s42: the layout flips, the color breaks. That trade-off goes
+    in the write-up, not hidden.
+  - OOD spatial (unseen vase, suitcase, teddy bear, laptop, backpack,
+    cake; N=9): L10-11 tau 0.9901 (flip 1.0000, CI [0.981, 0.998]),
+    L6-7 attn1 0.9968. The spatial circuit generalizes 100% to OOD
+    objects.
+  - OOD color (N=9 instances, 7 valid): L10-11 tau_color 0.1128 (flip
+    0.0000), L11H01 0.0791, vs random head 0.0398. A clean NEGATIVE
+    result: color binding does not generalize to unseen objects. Note
+    the seed-variation control (0.2780) beats the circuit here: on OOD
+    color, a shifted seed transfers more color than patching does. That
+    is the finding to explain, not bury.
+  - I viewed the terse rescue grid: L6-7 and Combined columns restore
+    the donor layout on all six rows shown, but with side effects (a
+    blue blob in the car row, the cat turning white, ghost colors in
+    the cat/apple row). Consistent with sigma 0.80-0.89, not 1.0.
+- Task 2 verified. E3 color scan (e3_color_scan.json, 70 cells L0-27 x
+  W0-4): top cell L10-11 @ W1 tau_color 0.4090, second L10-11 @ W0
+  0.2053, everything outside L10-11 <= 0.1016. Sublayer: L6-7 attn1 @
+  W2 0.3621 confirmed in the JSON. Nothing outside L10-11 beats L11H01
+  (0.3820): beats flag false, cells list empty. Color-binding
+  cross-attention transfer is tightly localized to L10-11 @ W0-W1.
+- Task 3 verified. Both reporting fixes landed: the Day 6 report and
+  the milestone write-up now say 62 heads <= 0.043 plus L11H13 at
+  0.0511 (grep confirms). The paired P2P-vs-patching check
+  (p2p_vs_patching_paired.json, N=13 shared valid) shows patching and
+  P2P essentially tied: L10-11 patching 0.6845 vs P2P 0.6857 (both flip
+  0.6923); L2-3 patching 0.5540 vs P2P 0.5494. The N discrepancy is
+  explained in the JSON: the float32 capture processor shifted 1-2
+  borderline detections relative to bfloat16 SDPA.
+
+### Decisions (Muse)
+
+1. E5 is next (Task 1): the formal H5 repair test plus the steering
+   comparison. The terse rescue already shows repair works for spatial;
+   E5 makes it systematic and tests whether input-dependent patching
+   beats fixed steering on the same instances.
+2. The OOD color negative result gets its own probe (Task 2) instead of
+   being left as a one-line caveat: test whether it is object-color
+   priors doing the damage.
+3. The milestone write-up gets updated with E4, the scan, and the paired
+   P2P result (Task 3), including the two honest trade-offs: rescue
+   flips layout but breaks color on e0_p1_s42, and seed variation beats
+   patching on OOD color.
+
+### Task 1: E5 repair (H5 test + steering comparison)
+
+- Systematic repair of the remaining E0 failures with the combined
+  circuit (L3H02 + L10-11 coalition + L6-7 attn1): the multi-object
+  p4/p5 cases and the numeracy p5 cases, on 1024-MS and 512-MS, 3
+  seeds, with the random-intervention control at matched strength.
+  H5 passes only if targeted repair beats random intervention at
+  matched strength; report the H5 verdict plainly.
+- Steering comparison: fit Meral-style fixed steering vectors (a
+  constant shift, fitted to the donor, no reward) and apply them to the
+  same rescue instances. Report whether input-dependent patching beats
+  fixed steering, and by how much. If fitting steering vectors is out
+  of scope for one day, do the repair test first and report steering
+  as the next step, do not fake it.
+- Save results as experiments/e5/e5_results.json and a run log
+  experiments/e5/e5_run_log.md, with patched images under
+  experiments/e5/images/.
+Done when the E5 results JSON and run log exist and the report states
+the H5 verdict and the steering comparison outcome.
+
+### Task 2: OOD color failure probe
+
+- The E4 result says color binding does not generalize to unseen
+  objects (L10-11 tau_color 0.1128, seed variation 0.2780). Probe
+  whether object-color priors are the cause: run color binding on OOD
+  objects chosen for WEAK color priors (objects with no canonical
+  color), and separately test L11H01 with the donor drawn from the OOD
+  set itself. Report tau_color, flip rate, and the seed-variation
+  control for each variant, and state whether the failure is
+  prior-driven or circuit-bound.
+- Save results as experiments/e4/e4_ood_color_probe.json and a run log.
+Done when the probe JSON and run log exist and the report states the
+explanation for the OOD color failure.
+
+### Task 3: Milestone write-up update
+
+- Revise experiments/e1/milestone_writeup.md with the Day 7 numbers:
+  E4 terse rescue (combined 0.8438, 8/8; L6-7 attn1 0.8478) and OOD
+  spatial (0.9901) vs OOD color (0.1128, negative); the L0-27 color
+  scan (nothing outside L10-11 beats L11H01); the paired P2P result
+  (tied on N=13); and the two trade-offs (rescue breaks color on
+  e0_p1_s42; seed variation beats patching on OOD color). State the
+  OOD color valid count (7 of 9) plainly.
+- Add the forward note: E5 repair + steering comparison running, then
+  the E6 second-architecture decision.
+Done when the revised draft exists with every number cited to its
+source file.
+
+### Constraints
+
+- Read the contract at the top of this file first. It is the operating
+  contract.
+- No invented numbers. Every claim traces to a measured run or a cited
+  source.
+- Label the checkpoint on every result (1024-MS vs 512-MS).
+- No em dashes in anything public-facing. No credentials anywhere.
+- Do not describe CIRCUIT publicly as a personal project or mention advisor
+  non-involvement.
+
+### Report
+
+(Append below: status per task, what was done with evidence, blockers,
+open questions.)
