@@ -1,0 +1,81 @@
+{
+  "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+  "checkpoint_label": "512-MS",
+  "n_instances": 18,
+  "n_shared_valid": 13,
+  "shared_valid_ids": [
+    "spatial_lr_test_0001_s42",
+    "spatial_lr_test_0001_s456",
+    "spatial_lr_test_0011_s42",
+    "spatial_lr_test_0011_s456",
+    "spatial_lr_test_0013_s42",
+    "spatial_lr_test_0013_s123",
+    "spatial_lr_test_0013_s456",
+    "spatial_lr_test_0016_s42",
+    "spatial_lr_test_0016_s456",
+    "spatial_lr_test_0020_s123",
+    "spatial_lr_test_0020_s456",
+    "spatial_lr_test_0026_s42",
+    "spatial_lr_test_0026_s456"
+  ],
+  "why_previous_n_differed": "In baseline_comparison_full.json, baseline clean/corrupt images were generated with CrossAttentionCaptureProcessor (float32 matmul attention) rather than default bfloat16 SDPA, shifting 1-2 borderline test detections/dx values relative to e1_full_results.json (N=12 in L2-3, N=15 in L10-11 vs N=13 in e1_full_results). Here both methods share identical unmodified SDPA baseline masks (N=13).",
+  "comparisons": {
+    "L10-11": {
+      "activation_patching_attn2_out": {
+        "n_total": 18,
+        "n_valid": 13,
+        "tau_mean": 0.6844645055180894,
+        "tau_ci_low": 0.45027906153442854,
+        "tau_ci_high": 0.8938789102840885,
+        "flip_rate": 0.6923076923076923,
+        "sigma_mean": 0.9354669879644345,
+        "sigma_ci_low": 0.8499593552106466,
+        "sigma_ci_high": 0.9818095567898872,
+        "both_detected_rate": 0.9230769230769231,
+        "color_preserve_rate": 1.0
+      },
+      "prompt_to_prompt_attn_map": {
+        "n_total": 18,
+        "n_valid": 13,
+        "tau_mean": 0.6856643984467226,
+        "tau_ci_low": 0.45089964689962475,
+        "tau_ci_high": 0.8941617682863072,
+        "flip_rate": 0.6923076923076923,
+        "sigma_mean": 0.9788453838764093,
+        "sigma_ci_low": 0.9730523992998478,
+        "sigma_ci_high": 0.9841582159010263,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      }
+    },
+    "L2-3": {
+      "activation_patching_attn2_out": {
+        "n_total": 18,
+        "n_valid": 13,
+        "tau_mean": 0.5539925321121171,
+        "tau_ci_low": 0.3265086745262147,
+        "tau_ci_high": 0.778721803817745,
+        "flip_rate": 0.46153846153846156,
+        "sigma_mean": 0.9360885665966914,
+        "sigma_ci_low": 0.8608972302996196,
+        "sigma_ci_high": 0.9883310914994814,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.75
+      },
+      "prompt_to_prompt_attn_map": {
+        "n_total": 18,
+        "n_valid": 13,
+        "tau_mean": 0.5494087088742027,
+        "tau_ci_low": 0.3080959709282004,
+        "tau_ci_high": 0.7887845140619067,
+        "flip_rate": 0.5384615384615384,
+        "sigma_mean": 0.933193910580415,
+        "sigma_ci_low": 0.8583938071360954,
+        "sigma_ci_high": 0.9858911592417802,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.6666666666666666
+      }
+    }
+  },
+  "elapsed_sec": 88.59
+}

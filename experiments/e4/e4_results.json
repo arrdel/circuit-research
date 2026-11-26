@@ -1,0 +1,603 @@
+{
+  "host": "ai-lab2",
+  "gpus": [
+    "NVIDIA GeForce RTX 4090"
+  ],
+  "e4a_terse_rescue_512_ms": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+    "checkpoint_label": "512-MS",
+    "n_failing_terse_instances": 8,
+    "instances": [
+      {
+        "id": "terse_spatial_lr_dev_0002_s42",
+        "terse_prompt": "A green umbrella to the left of a purple clock on a plain white background",
+        "donor_prompt": "A green umbrella on the left and a purple clock on the right, clean studio photo",
+        "terse_dx": -0.19578345119953156,
+        "donor_dx": 0.4354443848133087
+      },
+      {
+        "id": "terse_spatial_lr_dev_0004_s123",
+        "terse_prompt": "A purple book to the left of a yellow banana on a plain white background",
+        "donor_prompt": "A purple book on the left and a yellow banana on the right, clean studio photo",
+        "terse_dx": -0.09987661242485046,
+        "donor_dx": 0.2723351716995239
+      },
+      {
+        "id": "terse_spatial_lr_dev_0005_s123",
+        "terse_prompt": "A blue car to the left of a red apple on a plain white background",
+        "donor_prompt": "A blue car on the left and a red apple on the right, clean studio photo",
+        "terse_dx": -0.18307960778474808,
+        "donor_dx": 0.3335602879524231
+      },
+      {
+        "id": "terse_spatial_lr_dev_0006_s123",
+        "terse_prompt": "A green chair to the left of a yellow cat on a plain white background",
+        "donor_prompt": "A green chair on the left and a yellow cat on the right, clean studio photo",
+        "terse_dx": -0.06856054067611694,
+        "donor_dx": 0.5015847757458687
+      },
+      {
+        "id": "terse_spatial_lr_dev_0007_s456",
+        "terse_prompt": "A yellow cat to the left of a purple apple on a plain white background",
+        "donor_prompt": "A yellow cat on the left and a purple apple on the right, clean studio photo",
+        "terse_dx": -0.43094370514154434,
+        "donor_dx": 0.34802214056253433
+      },
+      {
+        "id": "terse_spatial_lr_dev_0012_s123",
+        "terse_prompt": "A orange bicycle to the left of a purple bottle on a plain white background",
+        "donor_prompt": "A orange bicycle on the left and a purple bottle on the right, clean studio photo",
+        "terse_dx": -0.3221874088048935,
+        "donor_dx": 0.28475797176361084
+      },
+      {
+        "id": "terse_spatial_lr_dev_0014_s123",
+        "terse_prompt": "A blue bicycle to the left of a orange dog on a plain white background",
+        "donor_prompt": "A blue bicycle on the left and a orange dog on the right, clean studio photo",
+        "terse_dx": -0.1908276602625847,
+        "donor_dx": 0.2970980033278465
+      },
+      {
+        "id": "terse_spatial_lr_dev_0015_s42",
+        "terse_prompt": "A yellow umbrella to the left of a red apple on a plain white background",
+        "donor_prompt": "A yellow umbrella on the left and a red apple on the right, clean studio photo",
+        "terse_dx": -0.13919611275196075,
+        "donor_dx": 0.4011754170060158
+      }
+    ],
+    "by_intervention": {
+      "L3H02_W1": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.029678251698245877,
+        "tau_ci_low": 0.010958101354786516,
+        "tau_ci_high": 0.051841213230334644,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9947926638027031,
+        "sigma_ci_low": 0.9925370898408193,
+        "sigma_ci_high": 0.9967905156314373,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "L10_11_coalition_W1": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.4682513744613428,
+        "tau_ci_low": 0.26425637225201437,
+        "tau_ci_high": 0.6558904334834825,
+        "flip_rate": 0.625,
+        "sigma_mean": 0.8725216053426266,
+        "sigma_ci_low": 0.7163287326072653,
+        "sigma_ci_high": 0.9883972222606341,
+        "both_detected_rate": 0.875,
+        "color_preserve_rate": 0.8
+      },
+      "L10_11_full_W1": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.4493391261406155,
+        "tau_ci_low": 0.24206337993716587,
+        "tau_ci_high": 0.6517162158016967,
+        "flip_rate": 0.625,
+        "sigma_mean": 0.8759603736301262,
+        "sigma_ci_low": 0.7230106364935637,
+        "sigma_ci_high": 0.9891535691296061,
+        "both_detected_rate": 0.875,
+        "color_preserve_rate": 0.8
+      },
+      "L6_7_attn1_W2": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.8478369292679097,
+        "tau_ci_low": 0.6413622590998495,
+        "tau_ci_high": 0.9922732611539244,
+        "flip_rate": 1.0,
+        "sigma_mean": 0.7965624146163464,
+        "sigma_ci_low": 0.6735267874474328,
+        "sigma_ci_high": 0.9192033129123349,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.3333333333333333
+      },
+      "combined_circuit": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.8438147958507656,
+        "tau_ci_low": 0.643200994060751,
+        "tau_ci_high": 0.9871401502325005,
+        "flip_rate": 1.0,
+        "sigma_mean": 0.886565774679184,
+        "sigma_ci_low": 0.7597413902481397,
+        "sigma_ci_high": 0.9783129257460434,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.6666666666666666
+      },
+      "random_head": {
+        "n_total": 8,
+        "n_valid": 8,
+        "tau_mean": 0.0026616252372876955,
+        "tau_ci_low": 0.00041851334868774987,
+        "tau_ci_high": 0.005323955428545249,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9985730523864428,
+        "sigma_ci_low": 0.9981684955147406,
+        "sigma_ci_high": 0.9989968136263391,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      }
+    }
+  },
+  "e4a_terse_rescue_1024_ms_e0": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
+    "checkpoint_label": "1024-MS",
+    "cases": [
+      {
+        "case_id": "e0_p1_s42",
+        "terse_prompt": "Red cube left of blue sphere.",
+        "donor_prompt": "A red cube on the left and a blue sphere on the right, clean studio photo",
+        "seed": 42,
+        "terse_base": {
+          "dx": -0.3848685696721077,
+          "rel": "right",
+          "color_ok": true
+        },
+        "donor_base": {
+          "dx": 0.44215109944343567,
+          "rel": "left",
+          "color_ok": true
+        },
+        "interventions": {
+          "L3H02_W1": {
+            "dx": -0.41929565370082855,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0
+          },
+          "L10_11_full_W1": {
+            "dx": 0.4203472435474396,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9736356259587946
+          },
+          "L6_7_attn1_W2": {
+            "dx": 0.43372149020433426,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9898072445506447
+          },
+          "combined_circuit": {
+            "dx": 0.4370746985077858,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9938618135393578
+          },
+          "random_head": {
+            "dx": -0.38535521924495697,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0
+          }
+        }
+      },
+      {
+        "case_id": "e0_p1_s123",
+        "terse_prompt": "Red cube left of blue sphere.",
+        "donor_prompt": "A red cube on the left and a blue sphere on the right, clean studio photo",
+        "seed": 123,
+        "terse_base": {
+          "dx": -0.43704185634851456,
+          "rel": "right",
+          "color_ok": true
+        },
+        "donor_base": {
+          "dx": 0.44922542572021484,
+          "rel": "left",
+          "color_ok": true
+        },
+        "interventions": {
+          "L3H02_W1": {
+            "dx": -0.4287644401192665,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.009339638726058872
+          },
+          "L10_11_full_W1": {
+            "dx": 0.44798801094293594,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9986037905242418
+          },
+          "L6_7_attn1_W2": {
+            "dx": 0.46515610069036484,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 1.0
+          },
+          "combined_circuit": {
+            "dx": 0.4693758487701416,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 1.0
+          },
+          "random_head": {
+            "dx": -0.43689292669296265,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0001680414684882399
+          }
+        }
+      },
+      {
+        "case_id": "e0_p4_s42",
+        "terse_prompt": "Red cube left of blue sphere, green cylinder in front.",
+        "donor_prompt": "A red cube on the left and a blue sphere on the right, green cylinder in front, clean studio photo",
+        "seed": 42,
+        "terse_base": {
+          "dx": -0.23616454005241394,
+          "rel": "right",
+          "color_ok": true
+        },
+        "donor_base": {
+          "dx": 0.44823259115219116,
+          "rel": "left",
+          "color_ok": true
+        },
+        "interventions": {
+          "L3H02_W1": {
+            "dx": -0.29128260165452957,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0
+          },
+          "L10_11_full_W1": {
+            "dx": -0.37045567482709885,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0
+          },
+          "L6_7_attn1_W2": {
+            "dx": 0.07085592299699783,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.4485998684842908
+          },
+          "combined_circuit": {
+            "dx": 0.434342660009861,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9797048665036299
+          },
+          "random_head": {
+            "dx": -0.2360832244157791,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.00011881352642683244
+          }
+        }
+      },
+      {
+        "case_id": "e0_p5_s42",
+        "terse_prompt": "Two red cubes and one blue sphere.",
+        "donor_prompt": "Two red cubes on the left and one blue sphere on the right, clean studio photo",
+        "seed": 42,
+        "terse_base": {
+          "dx": -0.2959994301199913,
+          "rel": "right",
+          "color_ok": true
+        },
+        "donor_base": {
+          "dx": 0.4445189833641052,
+          "rel": "left",
+          "color_ok": true
+        },
+        "interventions": {
+          "L3H02_W1": {
+            "dx": -0.2951895073056221,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0010937240717061464
+          },
+          "L10_11_full_W1": {
+            "dx": -0.20000425726175308,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.1296323914574743
+          },
+          "L6_7_attn1_W2": {
+            "dx": 0.4328829348087311,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9842866182076051
+          },
+          "combined_circuit": {
+            "dx": 0.43444931507110596,
+            "relation_pred": "left",
+            "color_binding_correct": false,
+            "tau_toward_donor": 0.9864018664362145
+          },
+          "random_head": {
+            "dx": -0.2964210733771324,
+            "relation_pred": "right",
+            "color_binding_correct": true,
+            "tau_toward_donor": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "e4b_ood_spatial_512_ms": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+    "checkpoint_label": "512-MS",
+    "task": "spatial_lr",
+    "pairs": [
+      {
+        "pair_id": "spatial_lr_ood_0000",
+        "clean_prompt": "A orange teddy bear on the left and a red suitcase on the right, clean studio photo",
+        "corrupt_prompt": "A orange teddy bear on the right and a red suitcase on the left, clean studio photo"
+      },
+      {
+        "pair_id": "spatial_lr_ood_0001",
+        "clean_prompt": "A purple teddy bear on the left and a green cake on the right, clean studio photo",
+        "corrupt_prompt": "A purple teddy bear on the right and a green cake on the left, clean studio photo"
+      },
+      {
+        "pair_id": "spatial_lr_ood_0002",
+        "clean_prompt": "A red teddy bear on the left and a purple backpack on the right, clean studio photo",
+        "corrupt_prompt": "A red teddy bear on the right and a purple backpack on the left, clean studio photo"
+      }
+    ],
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_instances": 9,
+    "conditions": {
+      "L10-11_W1": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.9900933534884222,
+        "tau_ci_low": 0.980682238034766,
+        "tau_ci_high": 0.9977164650387904,
+        "flip_rate": 1.0,
+        "sigma_mean": 0.9159242367302931,
+        "sigma_ci_low": 0.8043456839190589,
+        "sigma_ci_high": 0.9916706254912747,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.75
+      },
+      "L2-3_W1": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.8196287015687961,
+        "tau_ci_low": 0.6002357735748544,
+        "tau_ci_high": 0.9836093740029548,
+        "flip_rate": 0.7777777777777778,
+        "sigma_mean": 0.915814454908724,
+        "sigma_ci_low": 0.8040802842488995,
+        "sigma_ci_high": 0.9915942706443645,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.7142857142857143
+      },
+      "L3H02_W1": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.6485408701642926,
+        "tau_ci_low": 0.33257559423915795,
+        "tau_ci_high": 0.8835196958173812,
+        "flip_rate": 0.6666666666666666,
+        "sigma_mean": 0.8785124365930204,
+        "sigma_ci_low": 0.7665704833688559,
+        "sigma_ci_high": 0.9883424669504165,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.5
+      },
+      "L6-7_attn1_W2": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.9968133021652579,
+        "tau_ci_low": 0.9942469392654427,
+        "tau_ci_high": 0.998950127277507,
+        "flip_rate": 1.0,
+        "sigma_mean": 0.8408338692453172,
+        "sigma_ci_low": 0.7285079201338468,
+        "sigma_ci_high": 0.9527608324256207,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.42857142857142855
+      },
+      "ctrl_random_head": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.0005411165095789718,
+        "tau_ci_low": 0.0001251063608887963,
+        "tau_ci_high": 0.0011010583631225741,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9985685480965508,
+        "sigma_ci_low": 0.9978487953543662,
+        "sigma_ci_high": 0.9991088901956876,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_wrong_timestep": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.004262529374908239,
+        "tau_ci_low": 6.64965585244266e-05,
+        "tau_ci_high": 0.012347560501470718,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9975783548973225,
+        "sigma_ci_low": 0.9968709433244335,
+        "sigma_ci_high": 0.9982561880791629,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_same_prompt_noop": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.0,
+        "tau_ci_low": 0.0,
+        "tau_ci_high": 0.0,
+        "flip_rate": 0.0,
+        "sigma_mean": 1.0,
+        "sigma_ci_low": 1.0,
+        "sigma_ci_high": 1.0,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 1.0
+      },
+      "ctrl_seed_variation": {
+        "n_total": 9,
+        "n_valid": 9,
+        "tau_mean": 0.8952546602626295,
+        "tau_ci_low": 0.7617770125396484,
+        "tau_ci_high": 0.9838594027899539,
+        "flip_rate": 0.8888888888888888,
+        "sigma_mean": 0.9158823909582916,
+        "sigma_ci_low": 0.8053345530673309,
+        "sigma_ci_high": 0.9909190567555252,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": 0.7777777777777778
+      }
+    }
+  },
+  "e4b_ood_color_512_ms": {
+    "checkpoint": "PixArt-alpha/PixArt-Sigma-XL-2-512-MS",
+    "checkpoint_label": "512-MS",
+    "task": "color_binding",
+    "pairs": [
+      {
+        "pair_id": "color_binding_ood_0001",
+        "clean_prompt": "A purple backpack on the left and a red teddy bear on the right, clean studio photo",
+        "corrupt_prompt": "A red backpack on the left and a purple teddy bear on the right, clean studio photo"
+      },
+      {
+        "pair_id": "color_binding_ood_0002",
+        "clean_prompt": "A red laptop on the left and a blue cake on the right, clean studio photo",
+        "corrupt_prompt": "A blue laptop on the left and a red cake on the right, clean studio photo"
+      },
+      {
+        "pair_id": "color_binding_ood_0003",
+        "clean_prompt": "A blue laptop on the left and a red backpack on the right, clean studio photo",
+        "corrupt_prompt": "A red laptop on the left and a blue backpack on the right, clean studio photo"
+      }
+    ],
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_instances": 9,
+    "conditions": {
+      "L10-11_W1": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.11277296111117341,
+        "tau_ci_low": 0.04422177167416817,
+        "tau_ci_high": 0.20085175021708465,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9889798817180452,
+        "sigma_ci_low": 0.9839781231113843,
+        "sigma_ci_high": 0.993473660520145,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "L2-3_W1": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.031496820695950514,
+        "tau_ci_low": 0.0031613104657662316,
+        "tau_ci_high": 0.06743205308870605,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9922660787900288,
+        "sigma_ci_low": 0.9866328097525098,
+        "sigma_ci_high": 0.9969761007598467,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "L11H01_W1": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.07912459267027157,
+        "tau_ci_low": 0.0022160629157638835,
+        "tau_ci_high": 0.17113082843085098,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9914076016062782,
+        "sigma_ci_low": 0.986881260502906,
+        "sigma_ci_high": 0.9945146113634111,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "ctrl_random_head": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.03975700097778443,
+        "tau_ci_low": 0.004105239131855232,
+        "tau_ci_high": 0.09008925661771176,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9989256943975177,
+        "sigma_ci_low": 0.9984976820292927,
+        "sigma_ci_high": 0.9992945850605057,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "ctrl_wrong_timestep": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.010688073371419375,
+        "tau_ci_low": 0.002254578243549153,
+        "tau_ci_high": 0.02094792730779954,
+        "flip_rate": 0.0,
+        "sigma_mean": 0.9985867341359456,
+        "sigma_ci_low": 0.9980420338965597,
+        "sigma_ci_high": 0.9990864137098903,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "ctrl_same_prompt_noop": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.0,
+        "tau_ci_low": 0.0,
+        "tau_ci_high": 0.0,
+        "flip_rate": 0.0,
+        "sigma_mean": 1.0,
+        "sigma_ci_low": 1.0,
+        "sigma_ci_high": 1.0,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      },
+      "ctrl_seed_variation": {
+        "n_total": 9,
+        "n_valid": 7,
+        "tau_mean": 0.277967488884352,
+        "tau_ci_low": 0.08760852740052097,
+        "tau_ci_high": 0.5354764634230432,
+        "flip_rate": 0.14285714285714285,
+        "sigma_mean": 0.9885764462607248,
+        "sigma_ci_low": 0.9847959136679059,
+        "sigma_ci_high": 0.9925484529563361,
+        "both_detected_rate": 1.0,
+        "color_preserve_rate": null
+      }
+    }
+  },
+  "elapsed_sec": 343.73
+}

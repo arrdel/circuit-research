@@ -3,9 +3,10 @@
 ## 1. Full Sweep Comparison (`test` split, 64 heads across L2, L3, L10, L11 @ W1[4-7])
 
 - Checkpoint: `PixArt-alpha/PixArt-Sigma-XL-2-512-MS` (`512-MS`)
-- Valid counterfactuals: `N=12` (from `18` instances, `6` test pairs x `3` seeds).
-- `L10-11 @ W1[4-7]`: activation patching `tau = 0.6903` vs Prompt-to-Prompt `A_clean` injection `tau = 0.6702` (flip rate `0.6667`).
-- `L2-3 @ W1[4-7]`: activation patching `tau = 0.5522` vs Prompt-to-Prompt `A_clean` injection `tau = 0.5956` (flip rate `0.5833`).
+- Valid counterfactuals in `baseline_comparison_full.json`: `N=12` overall/`L2-3` (`N=15` for `L10-11` P2P) from `18` instances (`6` test pairs x `3` seeds). This differed from `e1_full_results.json` (`N=13`) because capturing attention maps via `CrossAttentionCaptureProcessor` (`float32` matmul) shifted 1-2 borderline baseline detections relative to default `bfloat16` SDPA.
+- Same-instance paired re-report under shared unmodified SDPA baseline masks (`experiments/e1/p2p_vs_patching_paired.json`, `N=13` shared valid):
+  - `L10-11 @ W1[4-7]`: activation patching `tau = 0.6845` (`flip = 0.6923`, `sigma = 0.9355`) vs Prompt-to-Prompt `tau = 0.6857` (`flip = 0.6923`, `sigma = 0.9788`).
+  - `L2-3 @ W1[4-7]`: activation patching `tau = 0.5540` (`flip = 0.4615`, `sigma = 0.9361`) vs Prompt-to-Prompt `tau = 0.5494` (`flip = 0.5385`, `sigma = 0.9332`).
 - Note on Revelio baseline: implemented as a Diff-C-style cross-validated linear probe on spatially pooled cached per-head activations rather than training a full k-SAE.
 
 ### All 64 Heads (`L2, L3, L10, L11`)

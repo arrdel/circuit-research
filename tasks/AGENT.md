@@ -867,7 +867,7 @@ paragraph, and nothing is claimed beyond the papers as read.
   - Peak cells (`attn2_out` @ `W1[4-7]`):
     - `L10-11 @ W1[4-7]`: `tau_color = 0.3535` (`95% CI [0.168, 0.568]`), `flip_rate = 0.3333`, `sigma = 0.9816`, `spatial_preserve_rate = 1.0000`, `detection_rate = 1.0000`.
     - `L2-3 @ W1[4-7]`: `tau_color = 0.0275` (`95% CI [0.009, 0.050]`), `flip_rate = 0.0667`, `sigma = 0.9931`, `spatial_preserve_rate = 1.0000`, `detection_rate = 1.0000`.
-  - Per-head `(l, h, t)` breakdown (64 heads across `L2, L3, L10, L11` @ `W1[4-7]`): single head **`L11H01`** achieved `tau_color = 0.3820`, `flip_rate = 0.3333`, `sigma = 0.9844` (slightly exceeding the full `L10-11` layer group `0.3535`), while all other 63 heads remained `<= 0.043` (notably spatial master head `L3H02` had `tau_color = 0.009`, confirming head-level double dissociation between spatial and color-binding heads).
+  - Per-head `(l, h, t)` breakdown (64 heads across `L2, L3, L10, L11` @ `W1[4-7]`): single head **`L11H01`** achieved `tau_color = 0.3820`, `flip_rate = 0.3333`, `sigma = 0.9844` (slightly exceeding the full `L10-11` layer group `0.3535`), while 62 other heads remained `<= 0.043` and `L11H13` reached `tau_color = 0.0511` (`flip_rate = 0.0000`) (notably spatial master head `L3H02` had `tau_color = 0.009`, confirming head-level double dissociation between spatial and color-binding heads).
   - Four controls: `random_head` (`L3H10`: `tau_color = 0.0114`, `flip = 0.0667`, `sigma = 0.9957`), `wrong_timestep` (`W4[16-19]`: `tau_color = 0.0054`, `flip = 0.0000`, `sigma = 0.9988`), `same_prompt_noop` (`tau_color = 0.0000`, `sigma = 1.0000`), and `seed_variation` (`s+999`: `tau_color = 0.3658`, `flip = 0.3333`, `sigma = 0.9794`, `spatial_preserve_rate = 1.0000`).
   - Pilot confirmation: **Confirmed** (`L10-11 > L2-3` and beats `random_head` in the exact same direction as the Day 5 pilot).
 - Evidence: `experiments/e3/e3_full_sweep.py`, `experiments/e3/e3_full_results.json`, `experiments/e3/e3_full_run_log.md`, `experiments/e3/e3_full_grid.png`, `experiments/e3/images/e3_full_head_tau.png`, `experiments/e3/images/full_*.png`.
@@ -999,5 +999,35 @@ Done when both corrections are in the files and the report says so.
 
 ### Report
 
-(Append below: status per task, what was done with evidence, blockers,
-open questions.)
+#### Task 1: E4 generalization (terse rescue + held-out combinations)
+- Status: done.
+- What was done:
+  - Implemented and ran `experiments/e4/e4_generalization.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=2`, `NVIDIA GeForce RTX 4090`, Python `3.10.12`, Torch `2.6.0+cu124`, Diffusers `0.41.0`, Transformers `5.20.2`).
+  - **(a.1) Terse-template rescue (`512-MS`, `N=8` failing `to_the_side_of` instances):**
+    - `L3H02_W1`: `tau_rescue = 0.0297`, `flip_rate = 0.0000`, `sigma = 0.9948` (single early spatial head alone cannot override terse ambiguity).
+    - `L10_11_coalition_W1` (6 heads): `tau_rescue = 0.4683`, `flip_rate = 0.6250`, `sigma = 0.8725` (`L10_11_full_W1`: `0.4493`, `flip = 0.6250`, `sigma = 0.8760`).
+    - `L6_7_attn1_W2`: `tau_rescue = 0.8478`, `flip_rate = 1.0000`, `sigma = 0.7966`.
+    - `combined_circuit` (`L3H02 + L10-11_coalition + L6-7_attn1`): `tau_rescue = 0.8438`, `flip_rate = 1.0000` (`8/8` rescued), `sigma = 0.8866`, vs. `random_head` (`0.0027`, `flip = 0.0000`).
+  - **(a.2) Exact E0 failure rescue (`1024-MS`):**
+    - On `e0_p1_s42` (`Red cube left of blue sphere.`, terse base `dx = -0.3849`), `L10_11_full_W1` (`dx = +0.4203`, `tau = 0.9736`), `L6_7_attn1_W2` (`dx = +0.4337`, `tau = 0.9898`), and `combined_circuit` (`dx = +0.4371`, `tau = 0.9939`) flip the layout to `left` (same on `e0_p1_s123`: `combined_circuit` `dx = +0.4694`, `tau = 1.0000`), whereas `L3H02_W1` alone stays `right` (`tau = 0.0000` / `0.0093`, reshaping the left sphere into a blue cube).
+    - On `e0_p4_s42` (`Red cube left of blue sphere, green cylinder in front.`) and `e0_p5_s42` (`Two red cubes and one blue sphere.`), `combined_circuit` flips `dx` from `-0.2362` -> `+0.4343` (`tau = 0.9797`) and `-0.2960` -> `+0.4344` (`tau = 0.9864`), though visual inspection shows residual left-side blue tint inherited from the terse base latent (`random_head` `tau <= 0.0001`).
+  - **(b) Held-out `ood` combinations (`512-MS`, unseen `vase, suitcase, teddy bear, laptop, backpack, cake`):**
+    - **OOD Spatial (`N=9`, 3 pairs x 3 seeds):** `L10-11_W1` `tau = 0.9901` (`flip = 1.0000`, `sigma = 0.9159`), `L2-3_W1` `0.8196` (`flip = 0.7778`), `L3H02_W1` `0.6485` (`flip = 0.6667`), `L6-7_attn1_W2` `0.9968` (`flip = 1.0000`), vs. `ctrl_random_head` (`0.0005`), `ctrl_wrong_timestep` (`0.0043`), `ctrl_same_prompt_noop` (`0.0000`), and `ctrl_seed_variation` (`0.8953`, `flip = 0.8889`). **Spatial circuit generalizes 100% to OOD objects.**
+    - **OOD Color Binding (`N=9`, 3 pairs x 3 seeds):** `L10-11_W1` `tau_color = 0.1128` (`flip = 0.0000`, `sigma = 0.9890`), `L2-3_W1` `0.0315`, `L11H01_W1` `0.0791`, vs. `ctrl_random_head` (`0.0398`), `ctrl_wrong_timestep` (`0.0107`), `ctrl_same_prompt_noop` (`0.0000`), and `ctrl_seed_variation` (`0.2780`, `flip = 0.1429`). **Negative OOD generalization result for color binding:** visual inspection (`e4b_ood_color_binding_grid.png`) shows one object (e.g., teddy bear) shifts partially while the second (e.g., red backpack) resists due to strong object-color priors.
+- Evidence: `experiments/e4/e4_generalization.py`, `experiments/e4/e4_results.json`, `experiments/e4/e4_run_log.md`, `experiments/e4/e4a_terse_rescue_512_grid.png`, `experiments/e4/e4a_terse_rescue_1024_grid.png`, `experiments/e4/e4b_ood_spatial_lr_grid.png`, `experiments/e4/e4b_ood_color_binding_grid.png`, `experiments/e4/images/`.
+
+#### Task 2: E3 color scan outside L10-11
+- Status: done.
+- What was done:
+  - Ran a full `L0-27 x W0-4` (70 cells, `attn2_out`) color-binding scan on `ai-lab2` GPUs 0 and 1 (`CUDA_VISIBLE_DEVICES=0,1`, checkpoint `512-MS`, 4 `test` pairs x 3 seeds = `12` valid counterfactuals), plus sublayer checks (`attn1_out`, `ff_out`).
+  - Top `attn2_out` cell across all 70 cells: `L10-11 @ W1[4-7]` (`tau_color = 0.4090`, `flip_rate = 0.4167`, `sigma = 0.9854`), followed by `L10-11 @ W0[0-3]` (`0.2053`, `flip = 0.0833`). All cells outside `L10-11` remained `<= 0.1016` (`L12-13 @ W0 = 0.1016`, `L4-5 @ W0 = 0.0992`, `L12-13 @ W1 = 0.0986`).
+  - Sublayer checks: `L6-7 attn1_out @ W2[8-11]` reached `tau_color = 0.3621` (`flip = 0.1667`, `sigma = 0.9503`), while `ff_out` everywhere remained `<= 0.1521` and `L10-11 attn1_out @ W1` was `0.1162`.
+  - Conclusion: **Nothing outside `L10-11 @ W1[4-7]` beats `L11H01` (`0.3820`).** Color-binding cross-attention transfer is tightly localized to `L10-11 @ W0-W1` (specifically `L11H01`), with partial downstream consolidation in `L6-7 attn1_out @ W2[8-11]`.
+- Evidence: `experiments/e3/e3_color_scan.py`, `experiments/e3/e3_color_scan.json`, `experiments/e3/e3_color_scan_run_log.md`, `experiments/e3/images/e3_color_scan_tau.png`.
+
+#### Task 3: Reporting fixes (small)
+- Status: done.
+- What was done:
+  - **(a)** Corrected the E3 head count in both the Day 6 Report in `tasks/AGENT.md` and `experiments/e1/milestone_writeup.md` to state accurately that 62 other heads remain `<= 0.043` and `L11H13` reaches `tau_color = 0.0511` (`flip_rate = 0.0000`).
+  - **(b)** Ran `experiments/e1/p2p_vs_patching_paired.py` (`512-MS`, shared unmodified SDPA baseline masks, `N=13` shared valid) and updated `experiments/e1/milestone_writeup.md` and `interpretability/baseline_comparison.md`: at `L10-11 @ W1[4-7]`, patching `tau = 0.6845` vs. P2P `0.6857` (both `flip = 0.6923`); at `L2-3 @ W1[4-7]`, patching `0.5540` (`flip = 0.4615`) vs. P2P `0.5494` (`flip = 0.5385`). Documented why `baseline_comparison_full.json` previously had `N=12` (`L2-3`) / `N=15` (`L10-11` P2P) vs. `e1_full_results.json` (`N=13`): `CrossAttentionCaptureProcessor` (`float32` matmul) shifted 1-2 borderline baseline detections relative to default `bfloat16` SDPA.
+- Evidence: `experiments/e1/p2p_vs_patching_paired.py`, `experiments/e1/p2p_vs_patching_paired.json`, `experiments/e1/milestone_writeup.md`, `interpretability/baseline_comparison.md`, `tasks/AGENT.md`.
