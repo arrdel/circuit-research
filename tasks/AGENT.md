@@ -860,5 +860,24 @@ paragraph, and nothing is claimed beyond the papers as read.
 
 ### Report
 
-(Append below: status per task, what was done with evidence, blockers,
-open questions.)
+#### Task 1: E3 full sweep (E3 pilot gate PASSED on Day 5)
+- Status: done.
+- What was done:
+  - Implemented and ran `experiments/e3/e3_full_sweep.py` on `ai-lab2` (`CUDA_VISIBLE_DEVICES=0`, `NVIDIA GeForce RTX 4090`, Python `3.10.12`, Torch `2.6.0+cu124`, Diffusers `0.41.0`, Transformers `5.20.2`, checkpoint `PixArt-alpha/PixArt-Sigma-XL-2-512-MS`, `512-MS`) on 5 fresh object-disjoint `test`-split color-binding pairs (`color_binding_test_0001`, `0013`, `0016`, `0019`, `0034`) x 3 seeds (`[42, 123, 456]`) = 15 instances (`N=15` valid counterfactuals).
+  - Peak cells (`attn2_out` @ `W1[4-7]`):
+    - `L10-11 @ W1[4-7]`: `tau_color = 0.3535` (`95% CI [0.168, 0.568]`), `flip_rate = 0.3333`, `sigma = 0.9816`, `spatial_preserve_rate = 1.0000`, `detection_rate = 1.0000`.
+    - `L2-3 @ W1[4-7]`: `tau_color = 0.0275` (`95% CI [0.009, 0.050]`), `flip_rate = 0.0667`, `sigma = 0.9931`, `spatial_preserve_rate = 1.0000`, `detection_rate = 1.0000`.
+  - Per-head `(l, h, t)` breakdown (64 heads across `L2, L3, L10, L11` @ `W1[4-7]`): single head **`L11H01`** achieved `tau_color = 0.3820`, `flip_rate = 0.3333`, `sigma = 0.9844` (slightly exceeding the full `L10-11` layer group `0.3535`), while all other 63 heads remained `<= 0.043` (notably spatial master head `L3H02` had `tau_color = 0.009`, confirming head-level double dissociation between spatial and color-binding heads).
+  - Four controls: `random_head` (`L3H10`: `tau_color = 0.0114`, `flip = 0.0667`, `sigma = 0.9957`), `wrong_timestep` (`W4[16-19]`: `tau_color = 0.0054`, `flip = 0.0000`, `sigma = 0.9988`), `same_prompt_noop` (`tau_color = 0.0000`, `sigma = 1.0000`), and `seed_variation` (`s+999`: `tau_color = 0.3658`, `flip = 0.3333`, `sigma = 0.9794`, `spatial_preserve_rate = 1.0000`).
+  - Pilot confirmation: **Confirmed** (`L10-11 > L2-3` and beats `random_head` in the exact same direction as the Day 5 pilot).
+- Evidence: `experiments/e3/e3_full_sweep.py`, `experiments/e3/e3_full_results.json`, `experiments/e3/e3_full_run_log.md`, `experiments/e3/e3_full_grid.png`, `experiments/e3/images/e3_full_head_tau.png`, `experiments/e3/images/full_*.png`.
+
+#### Task 2: Finalize the first-milestone write-up
+- Status: done.
+- What was done: Revised `experiments/e1/milestone_writeup.md` with the Day 5 full-sweep 7-baseline comparison (`N=12` valid, 64 heads), Day 6 E3 full-sweep results (`N=15` valid, `L11H01` vs `L3H02` double dissociation), per-instance outcomes/artifacts (`test_0001` yellow mug, `test_0011` red apple), honest limitations, and the Week 4 **GO** decision note grounded in measured evidence.
+- Evidence: `experiments/e1/milestone_writeup.md`.
+
+#### Task 3: Read the activation-steering paper (research)
+- Status: done.
+- What was done: Verified and read Meral et al. (2026), "RL Post-Training in Diffusion Transformers Is Activation Steering" ([arXiv:2611.26627](https://arxiv.org/abs/2611.26627)), and Helbling et al. (ICML 2025), "ConceptAttention: Diffusion Transformers Learn Highly Interpretable Features" ([arXiv:2502.04320](https://arxiv.org/abs/2502.04320)). Added both as Papers 8 and 9 in `research/reading-notes-2026-11-24.md`, explicitly distinguishing input-independent constant steering (`2611.26627`) and Prompt-to-Prompt map injection (`2208.01626`) from CIRCUIT's input-dependent, causal, head- and timestep-localized patching (`L3H2`, `L10-11` coalition, `L11H1`, `attn2`-to-`attn1` handoff).
+- Evidence: `research/reading-notes-2026-11-24.md`, commit `d05bfae`.
